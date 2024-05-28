@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 
 const NavBar = () => {
   return (
-    <nav className="flex-1 navbar bg-base-100 w-full">
+    <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100">
       <div className="flex justify-center items-center">
         <img src={logo} alt="App logo" className="w-8 mr-1" />
         <a className="text-xl">amazing</a>
