@@ -1,21 +1,24 @@
 import { useState } from "react";
 
 import { empty } from "../utils";
-import { paginate } from "../utils/paginate";
+import { paginate, products } from "../utils/paginate";
 import { Pagination, ProductsGrid } from "../components";
 import { ProductType } from "../hooks/useProductTypes";
-import useProducts, { Product } from "../hooks/useProducts";
+import {
+  // useProducts,
+  Product,
+} from "../hooks/useProducts";
 
 const ProductsPage = () => {
   const [query] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(12);
   const [selectedType] = useState<ProductType>(empty.type);
-  const { products } = useProducts();
+  //   const { products } = useProducts();
 
   const filtered = selectedType?._id
     ? products.filter(({ shop, type }) =>
-        type ? type._id === selectedType?._id : shop.types[selectedType._id]
+        type ? type._id === selectedType?._id : shop?.types?.[selectedType._id]
       )
     : products;
 

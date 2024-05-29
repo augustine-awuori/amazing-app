@@ -10,7 +10,7 @@ import { User } from "./useUser.ts";
 import ProductsContext from "../contexts/ProductsContext.ts";
 import service from "../services/products.ts";
 import storage from "../db/image.ts";
-import useData from "./useData.ts";
+// import useData from "./useData.ts";
 
 export interface Product {
   _id: string;
@@ -25,9 +25,11 @@ export interface Product {
 }
 
 const useProducts = (shopId?: string) => {
-  const { data, error, ...rest } = useData<Product>(
-    getApiEndpoint() || endpoint
-  );
+  // const { data, error, ...rest } = useData<Product>(
+  //   getApiEndpoint() || endpoint
+  // );
+  const data: unknown[] = [];
+  const rest = { isLoading: false };
   const { products, setProducts } = useContext(ProductsContext);
   const [isLoading, setLoading] = useState(true);
 
@@ -41,13 +43,13 @@ const useProducts = (shopId?: string) => {
     if (cached.length && rest.isLoading) return setProducts(cached);
 
     setLoading(true);
-    setProducts(retrievedProducts());
+    // setProducts(retrievedProducts());
     setLoading(false);
   };
 
-  function retrievedProducts() {
-    return !error && shopId ? data : [];
-  }
+  // function retrievedProducts() {
+  //   return !error && shopId ? data : [];
+  // }
 
   async function cachedProducts() {
     setLoading(true);
@@ -125,7 +127,12 @@ const useProducts = (shopId?: string) => {
   };
 
   const getProducts = () => {
-    if (error || (data as DataError)?.error || rest.isLoading) return [];
+    if (
+      // error ||
+      (data as DataError)?.error ||
+      rest.isLoading
+    )
+      return [];
 
     return data;
   };

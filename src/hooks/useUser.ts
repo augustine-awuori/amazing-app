@@ -8,7 +8,7 @@ export interface OtherAccounts {
 export interface User {
   _id: string;
   aboutMe?: string;
-  avatar: string;
+  avatar?: string;
   email?: string;
   chatIds?: { [email: string]: string };
   isAdmin: boolean;
@@ -18,6 +18,8 @@ export interface User {
   pushTokens?: { [token: string]: string };
   timestamp: number;
   username: string;
+  hasShop?: boolean;
+  __v?: number;
 }
 
 export default {};

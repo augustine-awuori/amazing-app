@@ -15,7 +15,10 @@ export type NewShopTypes = {
 
 export interface ShopProduct extends Common, ShopBase {
   author: string;
-  types: NewShopTypes;
+  types: NewShopTypes | null;
+  views: number;
+  timestamp: number;
+  __v?: number;
 }
 
 export default {};
