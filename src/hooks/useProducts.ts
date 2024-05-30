@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
+import { ProductsContext } from "../contexts";
 import { ShopProduct } from "./useShop";
 import { User } from "./useUser";
 
@@ -25,3 +26,13 @@ export interface Product {
   timestamp: number;
   type: ProductType;
 }
+
+export default () => {
+  const { products, setProducts } = useContext(ProductsContext);
+
+  useEffect(() => {
+    setProducts([]);
+  }, []);
+
+  return { products };
+};
