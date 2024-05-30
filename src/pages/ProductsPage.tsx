@@ -1,20 +1,15 @@
 import { useState } from "react";
 
-import { empty } from "../utils";
-import { paginate, products } from "../utils/paginate";
+import { empty, paginate } from "../utils";
 import { Pagination, ProductsGrid } from "../components";
-import { ProductType } from "../hooks/useProductTypes";
-import {
-  // useProducts,
-  Product,
-} from "../hooks/useProducts";
+import useProduts, { Product, ProductType } from "../hooks/useProducts";
 
 const ProductsPage = () => {
-  const [query] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(12);
   const [selectedType] = useState<ProductType>(empty.type);
-  //   const { products } = useProducts();
+  const [query] = useState("");
+  const { products } = useProduts();
 
   const filtered = selectedType?._id
     ? products.filter(({ shop, type }) =>
@@ -31,7 +26,7 @@ const ProductsPage = () => {
   const paginated = paginate<Product>(queried, currentPage, pageSize);
 
   return (
-    <>
+    <article>
       <ProductsGrid products={paginated} />
       <Pagination
         currentPage={currentPage}
@@ -39,7 +34,7 @@ const ProductsPage = () => {
         onPageChange={setCurrentPage}
         pageSize={pageSize}
       />
-    </>
+    </article>
   );
 };
 

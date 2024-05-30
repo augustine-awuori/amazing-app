@@ -19,7 +19,4 @@ export interface User {
   timestamp: number;
   username: string;
   hasShop?: boolean;
-  __v?: number;
 }
-
-export default {};

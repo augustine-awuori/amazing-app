@@ -22,10 +22,12 @@ const Pagination = ({
       <div className="join">
         {pages.map((page) => (
           <input
+            key={page}
             aria-label={`${page}`}
             checked={page === currentPage}
             className="join-item btn btn-square"
             name="options"
+            onChange={(_e) => {}}
             onClick={() => onPageChange(page)}
             type="radio"
           />

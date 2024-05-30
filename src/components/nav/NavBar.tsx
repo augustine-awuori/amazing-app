@@ -1,19 +1,28 @@
+import { useNavigate } from "react-router-dom";
+
 import logo from "../../assets/logo.png";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
   return (
     <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10">
-      <div className="flex justify-center items-center">
+      <div
+        className="flex justify-center items-center cursor-pointer"
+        onClick={() => navigate("/")}
+      >
         <img src={logo} alt="App logo" className="w-8 mr-1" />
-        <a className="text-xl">amazing</a>
+        <a className="text-3xl">amazing</a>
       </div>
 
       <div className="flex-1 md:hidden" />
       <div className="hidden md:flex flex-1 justify-center space-x-14">
-        <p>Mart</p>
-        <p>Events</p>
-        <p>Chats</p>
+        <p onClick={() => navigate("/")} className="cursor-pointer">
+          Mart
+        </p>
+        <p className="cursor-pointer">Events</p>
+        <p className="cursor-pointer">Chats</p>
       </div>
 
       <div className="flex-none flex items-center space-x-4">

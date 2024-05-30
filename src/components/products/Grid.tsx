@@ -1,5 +1,5 @@
-import { Product } from "../hooks/useProducts";
-import ProductCard from "./ProductCard";
+import { Product } from "../../hooks/useProducts";
+import ProductCard from "./Card";
 
 interface Props {
   products: Product[];

@@ -1,7 +1,7 @@
 const BottomNav = () => {
   return (
     <div className="btm-nav md:hidden">
-      <button>
+      <button className="active">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"
@@ -18,7 +18,7 @@ const BottomNav = () => {
         </svg>
         <span className="btm-nav-label">Mart</span>
       </button>
-      <button className="active">
+      <button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5"

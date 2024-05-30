@@ -1,10 +1,17 @@
-import { Product } from "../hooks/useProducts";
-import { funcs } from "../utils";
-import ShoppingCartIcon from "./ShoppingCartIcon";
+import { useNavigate } from "react-router-dom";
 
-const ProductCard = ({ name, description, price, images }: Product) => {
+import { Product } from "../../hooks/useProducts";
+import { funcs } from "../../utils";
+import ShoppingCartIcon from "../ShoppingCartIcon";
+
+const ProductCard = ({ _id, name, description, price, images }: Product) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="w-full p-2 cursor-pointer">
+    <div
+      className="w-full p-2 cursor-pointer"
+      onClick={() => navigate(`/products/${_id}`)}
+    >
       <div className="card bg-base-100 shadow-xl">
         <figure>
           <img

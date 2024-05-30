@@ -1,31 +1,15 @@
-import client from "./client";
+import { Product } from "../hooks/useProducts";
+import apiClient, { processResponse } from "./client";
 
-export const endpoint = "/products";
+const endpoint = "/products";
 
-export interface NewProduct {
-  author: string;
-  description: string;
-  name: string;
-  price: string;
-  images: string[];
-  shop: string;
-  type: string;
-}
+export const getProducts = async (): Promise<Product[]> => {
+  const response = processResponse(await apiClient.get(endpoint));
 
-const create = (product: NewProduct) => client.post(endpoint, product);
+  return response.ok ? (response.data as Product[]) : [];
+};
 
-const getProductURL = (productId: string) => `${endpoint}/${productId}`;
+export const getProduct = async (productId: string) =>
+  await apiClient.get(`${endpoint}/single/${productId}`);
 
-const update = (info: object, productId: string) =>
-  client.patch(getProductURL(productId), info);
-
-const deleteProductBy = (productId: string) =>
-  client.delete(getProductURL(productId));
-
-const updateImage = (productId: string, image: string) =>
-  client.patch(`${endpoint}/image/${productId}`, { image });
-
-const getProduct = (productId: string) =>
-  client.get(`${endpoint}/single/${productId}`);
-
-export default { create, deleteProductBy, getProduct, update, updateImage };
+export default { getProducts, getProduct };

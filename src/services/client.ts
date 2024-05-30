@@ -1,17 +1,16 @@
-import { create } from "apisauce";
-
-import cache from "../utils/cache";
-
-export interface DataError {
-  error?: string;
-}
+import axios, { AxiosResponse } from "axios";
 
 export const backendURL = "campus-mart-site.onrender.com/api";
 
-const apiClient = create({ baseURL: `https://${backendURL}` });
+const apiClient = axios.create({ baseURL: `https://${backendURL}` });
 
-export async function getCacheData<T>(url: string) {
-  return ((await cache.get(url)) || []) as T[];
-}
+export const processResponse = ({ data, status }: AxiosResponse) => {
+  const response: { ok: boolean; data: unknown } = { ok: false, data: [] };
+
+  if (status >= 200 && status < 300) response.ok = true;
+  response.data = data;
+
+  return response;
+};
 
 export default apiClient;
