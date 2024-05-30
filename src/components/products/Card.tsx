@@ -21,10 +21,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">
-            {name}
-            <div className="badge badge-secondary">NEW</div>
-          </h2>
+          <h2 className="card-title">{name}</h2>
           <p className="line-clamp-2">{description}</p>
           <button className="btn btn-primary btn-block mt-2">
             <ShoppingCartIcon />
