@@ -11,7 +11,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
   const cart = useCart();
-  console.log("cart", cart.getCartGrandTotal());
+
   const productInCart = cart.hasProduct(_id);
 
   const handleMouseEnter = () => setHovered(true);

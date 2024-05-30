@@ -2,7 +2,7 @@ import { useState } from "react";
 import _ from "lodash";
 
 import { empty, paginate } from "../utils";
-import { Pagination, ProductHeader, ProductsGrid } from "../components";
+import { Grid, Pagination, ProductHeader, ProductsGrid } from "../components";
 import useProduts, { Product, ProductType } from "../hooks/useProducts";
 import CardSkeleton from "../components/products/CardSkeleton";
 
@@ -37,8 +37,10 @@ const ProductsPage = () => {
       {query && (
         <h1 className="text-center mt-3">Showing {queried.length} Products</h1>
       )}
-      {isLoading &&
-        _.range(1, 13).map((skeleton) => <CardSkeleton key={skeleton} />)}
+      <Grid>
+        {isLoading &&
+          _.range(1, 13).map((skeleton) => <CardSkeleton key={skeleton} />)}
+      </Grid>
       <ProductsGrid products={paginated} />
       <Pagination
         currentPage={currentPage}

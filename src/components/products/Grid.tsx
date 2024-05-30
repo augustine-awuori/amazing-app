@@ -1,4 +1,5 @@
 import { Product } from "../../hooks/useProducts";
+import Grid from "../Grid";
 import ProductCard from "./Card";
 
 interface Props {
@@ -8,13 +9,11 @@ interface Props {
 const ProductsGrid = ({ products }: Props) => {
   return (
     <section className="p-4">
-      <article className="flex justify-center">
-        <article className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-          {products.map((p) => (
-            <ProductCard key={p._id} {...p} />
-          ))}
-        </article>
-      </article>
+      <Grid>
+        {products.map((p) => (
+          <ProductCard key={p._id} {...p} />
+        ))}
+      </Grid>
     </section>
   );
 };

@@ -11,7 +11,7 @@ interface Props {
 const NavBar = ({ cartCount }: Props) => {
   const navigate = useNavigate();
   const cart = useCart();
-  console.log(cart.getCartGrandTotal());
+
   return (
     <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10">
       <div
