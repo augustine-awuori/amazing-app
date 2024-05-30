@@ -24,11 +24,9 @@ export default function useReload<T>(
     try {
       setLoading(true);
       const { data } = await apiFunc(id);
-      console.log("data", data);
       setLoading(false);
       setData(data as T);
     } catch (error) {
-      console.log("error", error);
       window.location.href = "/";
     } finally {
       setLoading(false);

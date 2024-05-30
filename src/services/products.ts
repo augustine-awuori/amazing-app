@@ -1,7 +1,7 @@
 import { Product } from "../hooks/useProducts";
 import apiClient, { processResponse } from "./client";
 
-const endpoint = "/products";
+export const endpoint = "/products";
 
 export const getProducts = async (): Promise<Product[]> => {
   const response = processResponse(await apiClient.get(endpoint));

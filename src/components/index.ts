@@ -1,4 +1,5 @@
 export { default as BottomNav } from "./nav/BottomNav";
+export { default as HorizontalProductList } from "./products/HorizontalProductList";
 export { default as NavBar } from "./nav/NavBar";
 export { default as Pagination } from "./Pagination";
 export { default as ProductCard } from "./products/Card";
