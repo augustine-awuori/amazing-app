@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { getProducts } from "../services/products";
 import { ProductsContext } from "../contexts";
@@ -30,12 +30,17 @@ export interface Product {
 
 export default () => {
   const { products, setProducts } = useContext(ProductsContext);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     prepareProducts();
   }, []);
 
-  const prepareProducts = async () => setProducts(await getProducts());
+  const prepareProducts = async () => {
+    setLoading(true);
+    setProducts(await getProducts());
+    setLoading(false);
+  };
 
-  return { products };
+  return { products, isLoading };
 };
