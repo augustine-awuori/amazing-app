@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { BsCartCheckFill } from "react-icons/bs";
 
 import { empty, funcs } from "../utils";
 import { getShopProducts } from "../services/shops";
@@ -7,14 +8,23 @@ import { Product } from "../hooks/useProducts";
 import { HorizontalProductList, ShoppingCartIcon, Slider } from "../components";
 import { useReload } from "../hooks";
 import service from "../services/products";
+import useCart from "../hooks/useCart";
 
 const ProductDetailsPage = () => {
   const [shopProducts, setShopProducts] = useState<Product[]>([]);
+  const cart = useCart();
   const { info: product, request } = useReload(
     null,
     empty.product,
     service.getProduct
   );
+
+  const productInCart = cart.hasProduct(product?._id || "");
+
+  const updateCart = () =>
+    productInCart
+      ? cart.remove(product?._id || "")
+      : cart.add(product?._id || "");
 
   useEffect(() => {
     prepareProducts();
@@ -40,9 +50,16 @@ const ProductDetailsPage = () => {
               {product.name}
             </p>
             <p>{product.description}</p>
-            <button className="btn btn-primary btn-block mt-2">
-              <ShoppingCartIcon />
-              Ksh {funcs.addComma(product.price)}
+            <button
+              className="btn btn-primary btn-block mt-2"
+              onClick={updateCart}
+            >
+              {!productInCart && <ShoppingCartIcon />}
+              {productInCart ? (
+                <BsCartCheckFill size={20} />
+              ) : (
+                `Ksh ${funcs.addComma(product.price)}`
+              )}
             </button>
             <p className="text-1xl mt-8 font-bold text-white-800">
               {product.shop?.name} Shop Information

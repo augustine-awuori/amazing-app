@@ -10,8 +10,8 @@ function addComma(number: number | undefined) {
   return figures.join("");
 }
 
-function getBoolean(value: unknown): boolean {
-  return !!value;
+function roundToTwoDecimalPlaces(num: number): number {
+  return parseFloat(num.toFixed(2));
 }
 
-export default { addComma, getBoolean };
+export default { addComma, roundToTwoDecimalPlaces };

@@ -2,10 +2,16 @@ import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
 import ShoppingCartIcon from "../ShoppingCartIcon";
+import { useCart } from "../../hooks";
 
-const NavBar = () => {
+interface Props {
+  cartCount: number;
+}
+
+const NavBar = ({ cartCount }: Props) => {
   const navigate = useNavigate();
-
+  const cart = useCart();
+  console.log(cart.getCartGrandTotal());
   return (
     <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10">
       <div
@@ -50,7 +56,7 @@ const NavBar = () => {
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <div className="indicator">
               <ShoppingCartIcon />
-              <span className="badge badge-sm indicator-item">8</span>
+              <span className="badge badge-sm indicator-item">{cartCount}</span>
             </div>
           </div>
           <div
@@ -58,8 +64,10 @@ const NavBar = () => {
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
             <div className="card-body">
-              <span className="font-bold text-lg">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="font-bold text-lg">{cartCount} Items</span>
+              <span className="text-info">
+                Subtotal: Ksh {cart.getCartGrandTotal()}
+              </span>
               <div className="card-actions">
                 <button className="btn btn-primary btn-block">View cart</button>
               </div>
