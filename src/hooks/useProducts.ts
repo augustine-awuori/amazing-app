@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 
+import { getProducts } from "../services/products";
 import { ProductsContext } from "../contexts";
 import { ShopProduct } from "./useShop";
 import { User } from "./useUser";
@@ -31,8 +32,10 @@ export default () => {
   const { products, setProducts } = useContext(ProductsContext);
 
   useEffect(() => {
-    setProducts([]);
+    prepareProducts();
   }, []);
+
+  const prepareProducts = async () => setProducts(await getProducts());
 
   return { products };
 };
