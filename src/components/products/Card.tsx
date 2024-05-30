@@ -23,7 +23,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
         <img
           src={images[0]}
           alt={name}
-          className="w-full h-48 object-cover rounded-lg"
+          className="w-full h-60 md:h-48 object-cover rounded-lg"
         />
         <article className="rounded-b-md absolute bottom-0 left-0 right-0 py-2 px-3 bg-black bg-opacity-50 text-white">
           {hovered && (
