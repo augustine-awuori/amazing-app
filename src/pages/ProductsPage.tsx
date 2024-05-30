@@ -1,15 +1,17 @@
 import { useState } from "react";
+import _ from "lodash";
 
 import { empty, paginate } from "../utils";
 import { Pagination, ProductHeader, ProductsGrid } from "../components";
 import useProduts, { Product, ProductType } from "../hooks/useProducts";
+import CardSkeleton from "../components/products/CardSkeleton";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(12);
   const [selectedType] = useState<ProductType>(empty.type);
   const [query, setQuery] = useState("");
-  const { products } = useProduts();
+  const { isLoading, products } = useProduts();
 
   const filtered = selectedType?._id
     ? products.filter(({ shop, type }) =>
@@ -35,6 +37,8 @@ const ProductsPage = () => {
       {query && (
         <h1 className="text-center mt-3">Showing {queried.length} Products</h1>
       )}
+      {isLoading &&
+        _.range(1, 13).map((skeleton) => <CardSkeleton key={skeleton} />)}
       <ProductsGrid products={paginated} />
       <Pagination
         currentPage={currentPage}
