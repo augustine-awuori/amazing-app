@@ -8,3 +8,8 @@ export const getProducts = async (): Promise<Product[]> => {
 
   return response.ok ? (response.data as Product[]) : [];
 };
+
+export const getProduct = async (productId: string) =>
+  await apiClient.get(`${endpoint}/single/${productId}`);
+
+export default { getProducts, getProduct };

@@ -5,3 +5,4 @@ export { default as ProductCard } from "./products/Card";
 export { default as ProductsGrid } from "./products/Grid";
 export { default as Routes } from "./Routes";
 export { default as ShoppingCartIcon } from "./ShoppingCartIcon";
+export { default as Slider } from "./Slider";
