@@ -62,12 +62,18 @@ const ProductDetailsPage = () => {
         </div>
       </div>
 
-      <p className="text-1xl font-bold text-white-800 mt-6 mb-4">
-        More products from the same shop
-      </p>
-      <section>
-        <HorizontalProductList products={shopProducts} />
-      </section>
+      {shopProducts.length > 1 && (
+        <>
+          <p className="text-1xl font-bold text-white-800 mt-6 mb-4">
+            More products from the same shop
+          </p>
+          <section>
+            <HorizontalProductList
+              products={shopProducts.filter(({ _id }) => product._id !== _id)}
+            />
+          </section>
+        </>
+      )}
     </section>
   );
 };
