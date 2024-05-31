@@ -1,12 +1,15 @@
 import { Product } from "../hooks/useProducts";
-import apiClient, { processResponse } from "./client";
+import apiClient from "./client";
 
 export const endpoint = "/products";
 
 export const getProducts = async (): Promise<Product[]> => {
-  const response = processResponse(await apiClient.get(endpoint));
-
-  return response.ok ? (response.data as Product[]) : [];
+  try {
+    const { data } = await apiClient.get(endpoint);
+    return data as Product[];
+  } catch (error) {
+    return [];
+  }
 };
 
 export const getProduct = async (productId: string) =>

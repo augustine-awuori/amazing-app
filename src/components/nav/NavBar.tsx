@@ -69,7 +69,12 @@ const NavBar = ({ cartCount }: Props) => {
                 Subtotal: Ksh {cart.getCartGrandTotal()}
               </span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
+                <button
+                  className="btn btn-primary btn-block"
+                  onClick={() => navigate("/cart")}
+                >
+                  View cart
+                </button>
               </div>
             </div>
           </div>
