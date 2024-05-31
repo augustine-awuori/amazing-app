@@ -19,7 +19,7 @@ const NavBar = ({ cartCount }: Props) => {
         onClick={() => navigate("/")}
       >
         <img src={logo} alt="App logo" className="w-8 mr-1" />
-        <a className="text-3xl">amazing</a>
+        <a className="text-3xl font-bold">amazing</a>
       </div>
 
       <div className="flex-1 md:hidden" />
