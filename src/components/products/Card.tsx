@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
 
@@ -9,6 +9,7 @@ import ShoppingCartIcon from "../ShoppingCartIcon";
 
 const ProductCard = ({ _id, name, description, price, images }: Product) => {
   const [hovered, setHovered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
   const cart = useCart();
 
@@ -19,6 +20,14 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
 
   const updateCart = () => (productInCart ? cart.remove(_id) : cart.add(_id));
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  }, [images.length]);
+
   return (
     <article
       className="w-full p-1 cursor-pointer relative overflow-hidden"
@@ -26,12 +35,24 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
       onMouseLeave={handleMouseLeave}
     >
       <article className="card bg-base-100 shadow-xl relative">
-        <img
-          src={images[0]}
-          alt={name}
-          className="w-full h-60 md:h-48 object-cover rounded-lg"
-          onClick={() => navigate(`/products/${_id}`)}
-        />
+        <div className="image-container">
+          {images.map((image, index) => (
+            <img
+              key={image}
+              src={image}
+              alt={name}
+              className={`w-full h-96 object-cover rounded-lg image ${
+                currentImageIndex === index ? "active" : ""
+              }`}
+              style={{
+                transform: `translateX(${
+                  currentImageIndex === index ? 0 : "100%"
+                })`, // Slide from right to left
+                transition: "transform 0.5s ease-in-out", // Smooth transition
+              }}
+            />
+          ))}
+        </div>
         <article className="rounded-b-md absolute bottom-0 left-0 right-0 py-2 px-3 bg-black bg-opacity-50 text-white">
           {hovered && (
             <article
@@ -52,6 +73,31 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
           </button>
         </article>
       </article>
+
+      <style>
+        {`
+          .image-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 75%; /* Adjust the padding-top value to change the height */
+            overflow: hidden; /* Hide overflow to prevent visible scrolling */
+          }
+
+          .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+          }
+
+          .image.active {
+            opacity: 1;
+          }
+        `}
+      </style>
     </article>
   );
 };
