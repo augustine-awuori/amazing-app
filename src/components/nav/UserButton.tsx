@@ -5,6 +5,11 @@ import logo from "../../assets/logo.png";
 const UserButton = () => {
   const { user } = useUser();
 
+  const logIn = () => {
+    userSignIn();
+    window.location.href = "/";
+  };
+
   const logOut = () => {
     userSignOut();
     window.location.href = "/";
@@ -41,7 +46,7 @@ const UserButton = () => {
             </li>
           </>
         ) : (
-          <li className="text-lg" onClick={userSignIn}>
+          <li className="text-lg" onClick={logIn}>
             <p>Google in</p>
           </li>
         )}
