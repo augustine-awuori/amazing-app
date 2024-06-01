@@ -53,14 +53,16 @@ const Slider = ({ images = [], initialIndex, onIndexChange }: Props) => {
             className="rounded-md object-contain"
             alt={`Slide ${index}`}
           />
-          <article className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-            <button className="btn btn-circle" onClick={goToPrevSlide}>
-              ❮
-            </button>
-            <button className="btn btn-circle" onClick={goToNextSlide}>
-              ❯
-            </button>
-          </article>
+          {images.length > 1 && (
+            <article className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+              <button className="btn btn-circle" onClick={goToPrevSlide}>
+                ❮
+              </button>
+              <button className="btn btn-circle" onClick={goToNextSlide}>
+                ❯
+              </button>
+            </article>
+          )}
         </article>
       ))}
     </article>

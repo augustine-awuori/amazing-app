@@ -61,19 +61,20 @@ const ProductDetailsPage = () => {
           </article>
           <article className="col-span-1">
             <section className="mr-3 flex mb-2">
-              {images.map((image, index) => (
-                <img
-                  key={image}
-                  src={image}
-                  alt={`Product Image ${index + 1}`}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-20 h-20 rounded-md mr-3 object-cover cursor-pointer ${
-                    index === currentImageIndex
-                      ? "border-blue-500 border-2"
-                      : ""
-                  }`}
-                />
-              ))}
+              {images.length > 1 &&
+                images.map((image, index) => (
+                  <img
+                    key={image}
+                    src={image}
+                    alt={`Product Image ${index + 1}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-20 h-20 rounded-md mr-3 object-cover cursor-pointer ${
+                      index === currentImageIndex
+                        ? "border-blue-500 border-2"
+                        : ""
+                    }`}
+                  />
+                ))}
             </section>
             <p className="text-2xl font-bold text-white-800 mb-2">{name}</p>
             <p>{description}</p>
