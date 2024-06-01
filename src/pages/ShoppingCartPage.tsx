@@ -1,7 +1,14 @@
+import { useEffect } from "react";
+
 import { useCart } from "../hooks";
+import { funcs } from "../utils";
 
 const ShoppingCartPage = () => {
   const cart = useCart();
+
+  useEffect(() => {
+    funcs.scrollToTop();
+  }, []);
 
   const deliveryCharges = 0;
 

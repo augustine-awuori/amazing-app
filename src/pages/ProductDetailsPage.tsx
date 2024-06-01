@@ -32,7 +32,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     prepareProducts();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    funcs.scrollToTop();
   }, [productId, product?._id, currentImageIndex, product?.shop._id]);
 
   const updateCart = () =>

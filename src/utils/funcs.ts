@@ -29,4 +29,8 @@ export function formatPhoneNumber(phoneNumber: string | undefined): string {
   return formattedPhoneNumber;
 }
 
-export default { addComma, formatPhoneNumber, getBoolean };
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+export default { addComma, formatPhoneNumber, getBoolean, scrollToTop };
