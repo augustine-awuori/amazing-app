@@ -33,15 +33,16 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     prepareProducts();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [productId, product?._id]);
+  }, [productId, product?._id, currentImageIndex]);
 
   const updateCart = () =>
     productInCart ? cart.remove(productId || "") : cart.add(productId || "");
 
   const prepareProducts = async () => {
-    request();
+    if (!product?._id) await request();
 
-    if (product?._id) setShopProducts(await getShopProducts(product.shop._id));
+    if (product?._id && productId !== product._id)
+      setShopProducts(await getShopProducts(product.shop._id));
   };
 
   if (!product) return <Navigate to="/" />;
