@@ -9,9 +9,9 @@ import {
   ProductsGrid,
   ProductTypesList,
 } from "../components";
+import { useProductTypes } from "../hooks";
 import useProduts, { Product, ProductType } from "../hooks/useProducts";
 import CardSkeleton from "../components/products/CardSkeleton";
-import { useProductTypes } from "../hooks";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,20 +35,35 @@ const ProductsPage = () => {
 
   const paginated = paginate<Product>(queried, currentPage, pageSize);
 
+  const handleQueryChange = (query: string) => {
+    setSelectedType(empty.type);
+    setQuery(query);
+  };
+
+  const handleTypeChange = (type: ProductType) => {
+    setQuery("");
+    setSelectedType(type);
+  };
+
   return (
     <article>
       <ProductHeader
         query={query}
-        onQuery={setQuery}
+        onQuery={handleQueryChange}
         onProductCreation={console.log}
       />
       <ProductTypesList
         badges={types}
-        onTypeSelect={setSelectedType}
+        onTypeSelect={handleTypeChange}
         selectedType={selectedType}
       />
       {query && (
         <h1 className="text-center mt-3">Showing {queried.length} Products</h1>
+      )}
+      {!filtered.length && (
+        <h1 className="text-center mt-3">
+          Found none of {selectedType.label} Products
+        </h1>
       )}
       <Grid>
         {isLoading &&
