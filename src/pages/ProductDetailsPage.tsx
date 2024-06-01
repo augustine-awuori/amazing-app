@@ -33,15 +33,15 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     prepareProducts();
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [productId, product?._id, currentImageIndex]);
+  }, [productId, product?._id, currentImageIndex, product?.shop._id]);
 
   const updateCart = () =>
     productInCart ? cart.remove(productId || "") : cart.add(productId || "");
 
   const prepareProducts = async () => {
-    if (!product?._id || productId !== product._id) await request();
+    if (!product?._id || productId !== product._id) request();
 
-    if (product?._id && productId !== product._id)
+    if (product?.shop._id)
       setShopProducts(await getShopProducts(product.shop._id));
   };
 
@@ -136,17 +136,15 @@ const ProductDetailsPage = () => {
       </article>
 
       {shopProducts.length > 1 && (
-        <>
-          <p className="text-1xl font-bold text-white-800 mt-6 mb-4">
-            Recommended (from the same seller)
-          </p>
-          <section>
-            <HorizontalProductList
-              products={shopProducts.filter(({ _id }) => product._id !== _id)}
-            />
-          </section>
-        </>
+        <p className="text-1xl font-bold text-white-800 mt-6 mb-4">
+          Recommended (from the same seller)
+        </p>
       )}
+      <section>
+        <HorizontalProductList
+          products={shopProducts.filter(({ _id }) => product._id !== _id)}
+        />
+      </section>
     </section>
   );
 };

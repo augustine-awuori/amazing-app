@@ -5,14 +5,13 @@ interface Props {
   products: Product[];
 }
 
-const HorizontalProductList = ({ products }: Props) => (
-  <section className="flex overflow-x-auto space-x-4 pr-4">
-    <article className="flex-shrink-0 flex">
+const HorizontalProductList = ({ products }: Props) => {
+  return (
+    <section className="flex overflow-x-auto space-x-4 pr-4">
       {products.map((product) => (
         <ProductCard key={product._id} {...product} />
       ))}
-    </article>
-    <style>{`
+      <style>{`
       section::-webkit-scrollbar {
         width: 10px;
       }
@@ -31,7 +30,8 @@ const HorizontalProductList = ({ products }: Props) => (
         background: #555;
       }
     `}</style>
-  </section>
-);
+    </section>
+  );
+};
 
 export default HorizontalProductList;
