@@ -20,6 +20,7 @@ import useCart from "../hooks/useCart";
 const ProductDetailsPage = () => {
   const { productId } = useParams();
   const [shopProducts, setShopProducts] = useState<Product[]>([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cart = useCart();
   const { info: product, request } = useReload(
     null,
@@ -45,18 +46,37 @@ const ProductDetailsPage = () => {
 
   if (!product) return <Navigate to="/" />;
 
+  const { author, description, name, images, shop } = product;
+
   return (
     <section className="p-4">
       <article className="container mx-auto">
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <article className="col-span-1">
-            <Slider images={product?.images} />
+            <Slider
+              images={images}
+              initialIndex={currentImageIndex}
+              onIndexChange={setCurrentImageIndex}
+            />
           </article>
           <article className="col-span-1">
-            <p className="text-2xl font-bold text-white-800 mb-2">
-              {product.name}
-            </p>
-            <p>{product.description}</p>
+            <section className="mr-3 flex mb-2">
+              {images.map((image, index) => (
+                <img
+                  key={image}
+                  src={image}
+                  alt={`Product Image ${index + 1}`}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-20 h-20 rounded-md mr-3 object-cover cursor-pointer ${
+                    index === currentImageIndex
+                      ? "border-blue-500 border-2"
+                      : ""
+                  }`}
+                />
+              ))}
+            </section>
+            <p className="text-2xl font-bold text-white-800 mb-2">{name}</p>
+            <p>{description}</p>
             <button
               className="btn btn-primary btn-block mt-2"
               onClick={updateCart}
@@ -69,19 +89,19 @@ const ProductDetailsPage = () => {
               )}
             </button>
             <p className="text-1xl mt-8 font-bold text-white-800">
-              {product.shop?.name} Shop Information
+              {shop?.name} Shop Information
             </p>
             <AddRightChevron>
               <article className="flex mt-4 cursor-pointer items-center">
                 <img
-                  src={product.shop?.image}
-                  alt={product.shop?.name}
+                  src={shop?.image}
+                  alt={shop?.name}
                   className="w-20 h-20 mr-2 rounded-md object-cover"
                 />
                 <article>
-                  <p>Location: {product.shop?.location}</p>
+                  <p>Location: {shop?.location}</p>
                   <p>Products: {shopProducts.length}</p>
-                  <p>Visits: {product.shop?.views}</p>
+                  <p>Visits: {shop?.views}</p>
                 </article>
               </article>
             </AddRightChevron>
@@ -92,19 +112,18 @@ const ProductDetailsPage = () => {
             <AddRightChevron>
               <article className="flex items-center">
                 <Image
-                  src={product.author.avatar}
-                  alt={product.author.name}
+                  src={author.avatar}
+                  alt={author.name}
                   className="w-20 h-20 mr-2"
                 />
                 <article className="flex-grow">
                   <article>
-                    <p>Name: {product.author.name}</p>
-                    <p>Email: {product.author?.email || "Not available"}</p>
+                    <p>Name: {author.name}</p>
+                    <p>Email: {author?.email || "Not available"}</p>
                     <p>
                       Phone:{" "}
-                      {formatPhoneNumber(
-                        product.author?.otherAccounts.whatsapp
-                      ) || "Not available"}
+                      {formatPhoneNumber(author?.otherAccounts.whatsapp) ||
+                        "Not available"}
                     </p>
                   </article>
                 </article>
