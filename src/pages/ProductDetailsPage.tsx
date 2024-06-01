@@ -80,6 +80,7 @@ const ProductDetailsPage = () => {
                 />
                 <article>
                   <p>Location: {product.shop?.location}</p>
+                  <p>Products: {shopProducts.length}</p>
                   <p>Visits: {product.shop?.views}</p>
                 </article>
               </article>
