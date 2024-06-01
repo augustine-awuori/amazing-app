@@ -39,7 +39,7 @@ const ProductDetailsPage = () => {
     productInCart ? cart.remove(productId || "") : cart.add(productId || "");
 
   const prepareProducts = async () => {
-    if (!product?._id) await request();
+    if (!product?._id || productId !== product._id) await request();
 
     if (product?._id && productId !== product._id)
       setShopProducts(await getShopProducts(product.shop._id));
