@@ -7,7 +7,18 @@ import { funcs } from "../../utils";
 import { useCart } from "../../hooks";
 import ShoppingCartIcon from "../ShoppingCartIcon";
 
-const ProductCard = ({ _id, name, description, price, images }: Product) => {
+interface Props extends Product {
+  onClick?: () => void;
+}
+
+const ProductCard = ({
+  _id,
+  name,
+  description,
+  price,
+  images,
+  onClick,
+}: Props) => {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
   const cart = useCart();
@@ -18,6 +29,11 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
   const handleMouseLeave = () => setHovered(false);
 
   const updateCart = () => (productInCart ? cart.remove(_id) : cart.add(_id));
+
+  const handleProductClick = () => {
+    navigate(`/products/${_id}`);
+    onClick?.();
+  };
 
   return (
     <article
@@ -35,7 +51,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
         <article className="rounded-b-md absolute bottom-0 left-0 right-0 py-2 px-3 bg-black bg-opacity-50 text-white">
           {hovered && (
             <article
-              onClick={() => navigate(`/products/${_id}`)}
+              onClick={handleProductClick}
               style={{ transition: "opacity 0.3s ease-in-out" }}
             >
               <h2 className="card-title text-lg">{name}</h2>

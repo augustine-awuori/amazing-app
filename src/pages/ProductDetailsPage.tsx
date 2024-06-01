@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
 
 import { empty, funcs } from "../utils";
@@ -11,6 +11,7 @@ import service from "../services/products";
 import useCart from "../hooks/useCart";
 
 const ProductDetailsPage = () => {
+  const { productId } = useParams();
   const [shopProducts, setShopProducts] = useState<Product[]>([]);
   const cart = useCart();
   const { info: product, request } = useReload(
@@ -19,22 +20,22 @@ const ProductDetailsPage = () => {
     service.getProduct
   );
 
-  const productInCart = cart.hasProduct(product?._id || "");
+  const productInCart = cart.hasProduct(productId || "");
 
   const updateCart = () =>
-    productInCart
-      ? cart.remove(product?._id || "")
-      : cart.add(product?._id || "");
+    productInCart ? cart.remove(productId || "") : cart.add(productId || "");
 
   useEffect(() => {
     prepareProducts();
-  }, [product?._id]);
+  }, [productId, product?._id]);
 
   const prepareProducts = async () => {
-    if (!product?._id) return request();
+    request();
 
-    setShopProducts(await getShopProducts(product.shop._id));
+    if (product?._id) setShopProducts(await getShopProducts(product.shop._id));
   };
+
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   if (!product) return <Navigate to="/" />;
 
@@ -72,7 +73,7 @@ const ProductDetailsPage = () => {
               />
               <div>
                 <p>Location: {product.shop?.location}</p>
-                <p>Views: {product.shop?.views}</p>
+                <p>Visits: {product.shop?.views}</p>
               </div>
             </div>
           </div>
@@ -86,6 +87,7 @@ const ProductDetailsPage = () => {
           </p>
           <section>
             <HorizontalProductList
+              onProductClick={scrollToTop}
               products={shopProducts.filter(({ _id }) => product._id !== _id)}
             />
           </section>
