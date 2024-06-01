@@ -41,14 +41,15 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
               key={image}
               src={image}
               alt={name}
+              onClick={() => navigate(`/products/${_id}`)}
               className={`w-full h-96 object-cover rounded-lg image ${
                 currentImageIndex === index ? "active" : ""
               }`}
               style={{
                 transform: `translateX(${
                   currentImageIndex === index ? 0 : "100%"
-                })`, // Slide from right to left
-                transition: "transform 0.5s ease-in-out", // Smooth transition
+                })`,
+                transition: "transform 0.5s ease-in-out",
               }}
             />
           ))}
