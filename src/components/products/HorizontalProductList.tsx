@@ -3,14 +3,13 @@ import ProductCard from "./Card";
 
 interface Props {
   products: Product[];
-  onProductClick: () => void;
 }
 
-const HorizontalProductList = ({ onProductClick, products }: Props) => (
+const HorizontalProductList = ({ products }: Props) => (
   <section className="flex overflow-x-auto space-x-4 pr-4">
     <article className="flex-shrink-0 flex">
       {products.map((product) => (
-        <ProductCard key={product._id} {...product} onClick={onProductClick} />
+        <ProductCard key={product._id} {...product} />
       ))}
     </article>
     <style>{`

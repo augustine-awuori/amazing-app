@@ -27,6 +27,7 @@ const ProductDetailsPage = () => {
 
   useEffect(() => {
     prepareProducts();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [productId, product?._id]);
 
   const prepareProducts = async () => {
@@ -34,8 +35,6 @@ const ProductDetailsPage = () => {
 
     if (product?._id) setShopProducts(await getShopProducts(product.shop._id));
   };
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   if (!product) return <Navigate to="/" />;
 
@@ -87,7 +86,6 @@ const ProductDetailsPage = () => {
           </p>
           <section>
             <HorizontalProductList
-              onProductClick={scrollToTop}
               products={shopProducts.filter(({ _id }) => product._id !== _id)}
             />
           </section>
