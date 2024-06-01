@@ -9,6 +9,7 @@ export { default as ProductCard } from "./products/Card";
 export { default as ProductCardSkeleton } from "./products/CardSkeleton";
 export { default as ProductHeader } from "./products/Header";
 export { default as ProductsGrid } from "./products/Grid";
+export { default as ProductTypesList } from "./products/TypesList";
 export { default as Routes } from "./Routes";
 export { default as ShoppingCartIcon } from "./ShoppingCartIcon";
 export { default as Slider } from "./Slider";
