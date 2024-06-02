@@ -33,7 +33,7 @@ export default () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    prepareProducts();
+    if (!products.length) prepareProducts();
   }, []);
 
   const prepareProducts = async () => {
