@@ -60,7 +60,7 @@ const ProductsPage = () => {
       {query && (
         <h1 className="text-center mt-3">Showing {queried.length} Products</h1>
       )}
-      {!filtered.length && (
+      {!filtered.length && !isLoading && (
         <h1 className="text-center mt-3">
           Found none of {selectedType.label} Products
         </h1>

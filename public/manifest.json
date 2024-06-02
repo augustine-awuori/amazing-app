@@ -1,11 +1,11 @@
 {
   "short_name": "Amazing",
-  "name": "Amazing Businesses",
+  "name": "Shopping Made Easier",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
       "src": "logo.png",
@@ -15,7 +15,7 @@
     {
       "src": "logo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512 500x500"
     }
   ],
   "start_url": ".",
