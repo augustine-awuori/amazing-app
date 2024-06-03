@@ -1,8 +1,17 @@
 import { useContext, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
+import {
+  AxiosHeaderValue,
+  AxiosResponseHeaders,
+  RawAxiosResponseHeaders,
+} from "axios";
 
+import { authTokenKey, processResponse } from "../services/client";
 import { UserContext } from "../contexts";
+import auth, { googleAuth } from "../services/auth";
+import logger from "../utils/logger";
+import usersApi from "../services/users";
 
 export interface OtherAccounts {
   instagram?: string;
@@ -27,10 +36,6 @@ export interface User {
   hasShop?: boolean;
 }
 
-import { googleAuth } from "../services/auth";
-import { processResponse } from "../services/client";
-import usersApi from "../services/users";
-
 export const userSignOut = () => signOut(googleAuth);
 
 export const userSignIn = () =>
@@ -44,17 +49,49 @@ const useUser = () => {
     retrieveUser();
   }, [googleUser?.uid]);
 
+  const loginWithJwt = (
+    headers:
+      | AxiosResponseHeaders
+      | Partial<
+          RawAxiosResponseHeaders & {
+            Server: AxiosHeaderValue;
+            "Content-Type": AxiosHeaderValue;
+            "Content-Length": AxiosHeaderValue;
+            "Cache-Control": AxiosHeaderValue;
+            "Content-Encoding": AxiosHeaderValue;
+          }
+        >
+  ) => {
+    const jwt = headers?.[authTokenKey];
+
+    if (jwt) auth.loginWithJwt(jwt);
+  };
+
   async function retrieveUser() {
-    if (googleUser) {
-      const { ok, data } = processResponse(
-        await usersApi.register({
+    try {
+      const cachedUser = auth.getCurrentUserFromCache();
+
+      if (cachedUser && !cachedUser?.email && googleUser?.email) {
+        const res = await usersApi.updateUserInfo({
+          email: googleUser.email,
+          avatar: googleUser?.photoURL,
+        });
+
+        if (processResponse(res).ok) loginWithJwt(res.headers);
+      }
+
+      if (googleUser && !user?.email) {
+        const res = await usersApi.register({
           email: googleUser.email || "",
           name: googleUser.displayName || "",
           avatar: googleUser.photoURL || "",
-        })
-      );
+        });
 
-      if (ok) setUser(data as User);
+        if (processResponse(res).ok) setUser(res.data as User);
+        loginWithJwt(res.headers);
+      }
+    } catch (error) {
+      logger.log(error);
     }
   }
 

@@ -6,8 +6,12 @@ import {
   signOut as googleSignOut,
   User,
 } from "firebase/auth";
+import { jwtDecode } from "jwt-decode";
 
 // import usersService from "./users";
+import { User as AppUser } from "../hooks/useUser";
+
+const tokenKey = "token";
 
 export interface GoogleUser extends User {}
 
@@ -35,9 +39,34 @@ export async function saveUserWhenIsNot(user: GoogleUser | null | undefined) {
   //   });
 }
 
+const getJwt = () => localStorage.getItem(tokenKey);
+
+const getCurrentUserFromCache = () => {
+  try {
+    const jwt = getJwt();
+    if (jwt) {
+      const user: AppUser | null = jwtDecode(jwt);
+      return user;
+    }
+  } catch (error) {
+    return null;
+  }
+};
+
+const logout = () => localStorage.removeItem(tokenKey);
+
+const loginWithJwt = (jwt: string) => localStorage.setItem(tokenKey, jwt);
+
 export const signInWithGoogle = () =>
   signInWithRedirect(googleAuth, new GoogleAuthProvider());
 
 export const signOut = async () => await googleSignOut(googleAuth);
 
-export default { signOut, signInWithGoogle };
+export default {
+  getCurrentUserFromCache,
+  getJwt,
+  loginWithJwt,
+  logout,
+  signInWithGoogle,
+  signOut,
+};
