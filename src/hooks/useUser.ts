@@ -70,6 +70,7 @@ const useUser = () => {
   async function retrieveUser() {
     try {
       const cachedUser = auth.getCurrentUserFromCache();
+      if (!cachedUser && user?.email) await usersApi.restoreToken(user.email);
 
       if (cachedUser && !cachedUser?.email && googleUser?.email) {
         const res = await usersApi.updateUserInfo({
