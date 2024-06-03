@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -6,6 +7,7 @@ import { useUser } from "../../hooks";
 import { userSignIn, userSignOut } from "../../hooks/useUser";
 
 const UserButton = () => {
+  const navigate = useNavigate();
   const { googleUser, user } = useUser();
 
   const logIn = async () => {
@@ -19,7 +21,7 @@ const UserButton = () => {
   };
 
   const navigateToProfile = () => {
-    if (googleUser && user?._id) console.log("Navigating to profile");
+    if (googleUser && user?._id) navigate(`/profile/${user._id}`);
     else toast.info("Loading your profile");
   };
 

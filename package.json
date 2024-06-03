@@ -13,6 +13,7 @@
     "@testing-library/react": "^15.0.7",
     "autoprefixer": "^10.4.19",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.11",
     "firebase": "^10.12.2",
     "lodash": "^4.17.21",
     "postcss": "^8.4.38",
