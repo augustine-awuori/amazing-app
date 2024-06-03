@@ -58,7 +58,7 @@ const useUser = () => {
     }
   }
 
-  return { user };
+  return { user, googleUser };
 };
 
 export default useUser;
