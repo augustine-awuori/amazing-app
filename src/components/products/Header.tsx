@@ -52,13 +52,14 @@ const Header = ({ onQuery, query }: Props) => {
   );
 
   return (
-    <header className="max-w-100 mx-auto flex items-center space-x-4 px-5">
+    <header className="max-w-100 mx-auto flex items-center space-x-4 pl-1 pr-3">
       <Modal
         content={ModalContent}
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         title="Select Shop"
         primaryBtnLabel="Proceed"
+        onPrimaryBtnClick={() => navigate(`/shops/${selectedShopId}`)}
         secondaryBtnLabel="Cancel"
       />
       <div className="relative flex-grow">

@@ -8,7 +8,7 @@ const useProductTypes = () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    init();
+    if (!types.length) init();
   }, []);
 
   async function init() {
