@@ -1,3 +1,9 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { Input, Modal, ShopSelectors } from "..";
+
 interface Props {
   query: string;
   onQuery: (query: string) => void;
@@ -5,15 +11,53 @@ interface Props {
 }
 
 const Header = ({ onQuery, query }: Props) => {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedShopId, setSelectedShopId] = useState("");
+  const navigate = useNavigate();
+
+  const handleShopSelection = () => {
+    if (selectedShopId) {
+      navigate(selectedShopId);
+      return setShowModal(false);
+    }
+
+    toast.info("Please select a shop or create a new one");
+  };
+
+  const ModalContent = (
+    <>
+      <p
+        className="text-center cursor-pointer mb-2 font-bold"
+        onClick={() => {
+          setShowModal(false);
+          navigate("/shops/new");
+        }}
+      >
+        Create a new shop instead?
+      </p>
+      <ShopSelectors
+        onDoneShopSelect={handleShopSelection}
+        onShopSelect={setSelectedShopId}
+        selectedShop={selectedShopId}
+      />
+    </>
+  );
+
   return (
-    <section className="max-w-100 mx-auto flex items-center space-x-4 px-5">
+    <header className="max-w-100 mx-auto flex items-center space-x-4 px-5">
+      <Modal
+        content={ModalContent}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="Select Shop"
+        primaryBtnLabel="Proceed"
+        secondaryBtnLabel="Cancel"
+      />
       <div className="relative flex-grow">
-        <input
-          type="text"
+        <Input
           placeholder="Search products..."
           value={query}
-          onChange={(e) => onQuery(e.target.value)}
-          className="m-0 w-full px-4 py-3 pr-10 border border-blue-500 rounded-md focus:outline-none focus:border-blue-500"
+          onChange={onQuery}
         />
         {query && (
           <button
@@ -24,9 +68,19 @@ const Header = ({ onQuery, query }: Props) => {
           </button>
         )}
       </div>
-      <button className="btn btn-primary hidden md:inline">New Product</button>
-      <button className="btn btn-primary md:hidden">&#43;</button>
-    </section>
+      <button
+        onClick={() => setShowModal(true)}
+        className="btn btn-primary hidden md:inline"
+      >
+        New Product
+      </button>
+      <button
+        onClick={() => setShowModal(true)}
+        className="btn btn-primary md:hidden"
+      >
+        &#43;
+      </button>
+    </header>
   );
 };
 

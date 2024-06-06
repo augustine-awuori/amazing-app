@@ -6,6 +6,10 @@ export const backendURL = "campus-mart-site.onrender.com/api";
 
 export const authTokenKey = "x-auth-token";
 
+export interface DataError {
+  error?: string;
+}
+
 const apiClient = axios.create({ baseURL: `https://${backendURL}` });
 apiClient.interceptors.request.use((config) => {
   const authToken = auth.getJwt();
@@ -18,10 +22,17 @@ apiClient.interceptors.request.use((config) => {
 });
 
 export const processResponse = ({ data, status }: AxiosResponse) => {
-  const response: { ok: boolean; data: unknown } = { ok: false, data: [] };
+  const response: { ok: boolean; data: unknown; problem: string } = {
+    ok: false,
+    data: [],
+    problem: "",
+  };
 
-  if (status >= 200 && status < 300) response.ok = true;
-  response.data = data;
+  if (status >= 200 && status < 300) {
+    response.ok = true;
+    response.data = data;
+  } else
+    response.problem = (response.data as DataError).error || "Unknown Error";
 
   return response;
 };

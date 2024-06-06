@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Badge } from "..";
 import "./typesList.css";
 
 export type ProductType = {
@@ -22,19 +23,11 @@ const HorizontallyScrollableBadges: React.FC<Props> = ({
     <section className="flex mt-3 relative overflow-x-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-primary">
       <div className="whitespace-nowrap">
         {badges.map((badge) => (
-          <article
-            key={badge._id}
-            onClick={() => onTypeSelect(badge)}
-            className={`inline-block mx-2 cursor-pointer`}
-          >
-            <span
-              className={`inline-block ${
-                selectedType?._id === badge._id ? "bg-primary" : "bg-gray-200"
-              } rounded-full px-3 py-1 text-sm font-semibold text-gray-700`}
-            >
-              {badge.label}
-            </span>
-          </article>
+          <Badge
+            {...badge}
+            onClick={onTypeSelect}
+            selectedType={selectedType}
+          />
         ))}
       </div>
     </section>

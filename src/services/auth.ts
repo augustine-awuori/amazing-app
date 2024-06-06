@@ -25,7 +25,7 @@ const firebaseConfig = {
   measurementId: "G-C2MJ2XQDCQ",
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const googleAuth = getAuth(app);
 
 export async function saveUserWhenIsNot(user: GoogleUser | null | undefined) {
@@ -63,6 +63,7 @@ export const signInWithGoogle = () =>
 export const signOut = async () => await googleSignOut(googleAuth);
 
 export default {
+  app,
   getCurrentUserFromCache,
   getJwt,
   loginWithJwt,

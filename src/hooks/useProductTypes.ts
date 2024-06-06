@@ -5,16 +5,19 @@ import service from "../services/productTypes";
 
 const useProductTypes = () => {
   const [types, setTypes] = useState<ProductType[]>([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     init();
   }, []);
 
   async function init() {
+    setLoading(true);
     setTypes([{ _id: "", label: "All" }, ...(await service.getProductTypes())]);
+    setLoading(false);
   }
 
-  return { types };
+  return { isLoading, types };
 };
 
 export default useProductTypes;

@@ -10,7 +10,7 @@ function addComma(number: number | undefined) {
   return figures.join("");
 }
 
-function getBoolean(value: unknown): boolean {
+export function getBoolean(value: unknown): boolean {
   return !!value;
 }
 
@@ -33,4 +33,14 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-export default { addComma, formatPhoneNumber, getBoolean, scrollToTop };
+export function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+export default {
+  addComma,
+  capitalizeFirstLetter,
+  formatPhoneNumber,
+  getBoolean,
+  scrollToTop,
+};
