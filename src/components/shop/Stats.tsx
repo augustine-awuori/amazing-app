@@ -1,3 +1,4 @@
+import { BsBag } from "react-icons/bs";
 import { User } from "../../hooks/useUser";
 
 interface Props {
@@ -13,21 +14,11 @@ const Stats = ({ productsCount, seller, shopImage, visits }: Props) => {
   return (
     <section className="stats shadow">
       <article className="stat">
-        <div className="stat-figure text-primary hidden sm:block">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
+        <div className="stat-figure text-primary">
+          <BsBag
             className="inline-block w-8 h-8 stroke-current"
             aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            ></path>
-          </svg>
+          />
         </div>
         <h2 className="stat-title">Products</h2>
         <p className="stat-value text-primary">{productsCount}</p>
