@@ -25,6 +25,7 @@ const HorizontallyScrollableBadges: React.FC<Props> = ({
         {badges.map((badge) => (
           <Badge
             {...badge}
+            key={badge._id}
             onClick={onTypeSelect}
             selectedType={selectedType}
           />

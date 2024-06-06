@@ -18,4 +18,5 @@ export { default as ShopTypesSelector } from "./shop/TypesSelector";
 export { default as ShopSelector } from "./shop/Selector";
 export { default as ShopSelectors } from "./shop/Selectors";
 export { default as ShoppingCartIcon } from "./ShoppingCartIcon";
+export { default as ShopStats } from "./shop/Stats";
 export { default as Slider } from "./Slider";

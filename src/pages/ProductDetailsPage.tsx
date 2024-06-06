@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
 
 import { empty, funcs } from "../utils";
@@ -22,6 +22,7 @@ const ProductDetailsPage = () => {
   const [shopProducts, setShopProducts] = useState<Product[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cart = useCart();
+  const navigate = useNavigate();
   const { info: product, request } = useReload(
     null,
     empty.product,
@@ -93,12 +94,17 @@ const ProductDetailsPage = () => {
             <p className="text-1xl mt-8 font-bold text-white-800">
               {shop?.name} Shop Information
             </p>
-            <AddRightChevron>
-              <article className="flex mt-4 cursor-pointer items-center">
+            <AddRightChevron
+              onClick={() => navigate(`/shops/${product.shop._id}`)}
+            >
+              <article
+                className="flex mt-4 cursor-pointer items-center"
+                onClick={() => navigate(`/shops/${product.shop._id}`)}
+              >
                 <img
                   src={shop?.image}
                   alt={shop?.name}
-                  className="w-20 h-20 mr-2 rounded-md object-cover"
+                  className="w-20 h-20 mr-2 mask mask-hexagon-2  object-cover"
                 />
                 <article>
                   <p>Location: {shop?.location}</p>

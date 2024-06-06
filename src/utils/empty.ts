@@ -53,5 +53,6 @@ const type: ProductType = {
 
 export default {
   product: { ...product, paramsId: "productId" },
+  shop: { ...shop, paramsId: "shopId" },
   type,
 };

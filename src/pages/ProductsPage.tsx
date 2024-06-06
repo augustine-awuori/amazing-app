@@ -67,7 +67,9 @@ const ProductsPage = () => {
       )}
       <Grid>
         {isLoading &&
-          _.range(1, 13).map((skeleton) => <CardSkeleton key={skeleton} />)}
+          _.range(0, pageSize).map((skeleton) => (
+            <CardSkeleton key={skeleton} />
+          ))}
       </Grid>
       <ProductsGrid products={paginated} />
       <Pagination
