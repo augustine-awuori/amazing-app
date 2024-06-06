@@ -1,13 +1,13 @@
 import { useFormikContext } from "formik";
 
-import { ErrorMessage, FormInput } from ".";
 import { capitalizeFirstLetter, getBoolean } from "../../utils/funcs";
+import { ErrorMessage, FormInput } from ".";
 
 interface FieldValue {
   [key: string]: string;
 }
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   width?: string;
   placeholder?: string;

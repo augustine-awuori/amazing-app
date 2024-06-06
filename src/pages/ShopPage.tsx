@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IoMdPin } from "react-icons/io";
 
-import { empty, funcs, paginate } from "../utils";
+import { empty, paginate } from "../utils";
 import {
   Input,
   Pagination,
   ProductsGrid,
   ProductTypesList,
+  ShopPageHeader,
   ShopStats,
 } from "../components";
 import useProducts, { Product, ProductType } from "../hooks/useProducts";
@@ -33,7 +33,7 @@ const ShopPage = () => {
     request,
   } = useReload<Shop>(null, empty.shop, service.getShop);
 
-  const { name, location, image, author, types, views } = shop;
+  const { image, author, types, views } = shop;
 
   useEffect(() => {
     initData();
@@ -91,23 +91,7 @@ const ShopPage = () => {
   return (
     <section>
       <section className="flex flex-col items-center px-8 pb-6">
-        <div className="flex items-center justify-center my-4 w-full">
-          <img
-            src={image}
-            alt={`${name} Shop`}
-            className="mask mask-hexagon-2 w-32 h-32"
-          />
-          <div className="ml-4">
-            <h1 className="text-xl font-bold">
-              {funcs.capitalizeFirstLetter(name)} Shop
-            </h1>
-            <p className="text-sm flex items-center">
-              <IoMdPin className="mr-1" /> {location}
-            </p>
-            <p className="mt-3">Seller: {author.name}</p>
-          </div>
-        </div>
-
+        <ShopPageHeader shop={shop} />
         <ShopStats
           productsCount={products.length}
           shopImage={image}

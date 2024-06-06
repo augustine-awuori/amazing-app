@@ -27,15 +27,17 @@ const ShopTypesSelector = ({ onTypeSelect, selectedTypes }: Props) => {
     <>
       <p>Select Shop Types (Multiple)</p>
       <Container>
-        {Object.values(selectedTypes).map(({ _id, label }) => (
-          <p key={_id} className="mr-2 mb-1 text-primary font-bold">
-            {label}
-          </p>
-        ))}
+        {Object.values(selectedTypes)
+          .filter((t) => t._id)
+          .map(({ _id, label }) => (
+            <p key={_id} className="mr-2 mb-1 text-primary font-bold">
+              {label}
+            </p>
+          ))}
       </Container>
       <Container>
         {types
-          .filter((s) => s._id)
+          .filter((t) => t._id)
           .map((type, index) => (
             <section key={index} className="mr-2">
               <Badge

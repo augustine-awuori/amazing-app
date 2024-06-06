@@ -8,7 +8,7 @@ import {
   Form,
   FormField,
   SubmitButton,
-  TextAreaField,
+  FormTextAreaField,
 } from "../components/form";
 import { prepShopTypes } from "../hooks/useShops";
 import { ProductType } from "../components/products/TypesList";
@@ -85,15 +85,17 @@ const ShopEditPage = () => {
       title="New Shop"
       validationSchema={schema}
     >
-      <ImageInputList imagesLimit={MAX_IMAGE_INPUT} />
-      <ErrorMessage error={error} visible />
-      <ShopTypesSelector
-        onTypeSelect={handleTypeSelect}
-        selectedTypes={selectedShopTypes}
-      />
-      <FormField name="name" />
-      <TextAreaField name="location" />
-      <SubmitButton title={isLoading ? "Creating Shop..." : "Create Shop"} />
+      <section className="m-y-auto py-5 px-3 rounded-lg shadow-lg">
+        <ImageInputList imagesLimit={MAX_IMAGE_INPUT} />
+        <ErrorMessage error={error} visible />
+        <ShopTypesSelector
+          onTypeSelect={handleTypeSelect}
+          selectedTypes={selectedShopTypes}
+        />
+        <FormField name="name" />
+        <FormTextAreaField name="location" />
+        <SubmitButton title={isLoading ? "Creating Shop..." : "Create Shop"} />
+      </section>
     </Form>
   );
 };

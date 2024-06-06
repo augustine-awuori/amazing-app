@@ -19,7 +19,7 @@ const Form = <FormValues extends FormikValues>({
   ...otherProps
 }: Props<FormValues>) => (
   <form
-    className="max-w-500 m-y-auto p-5 bg-white rounded-lg shadow-lg"
+    className="max-w-500 m-y-auto"
     style={{ maxWidth: "500px", margin: "auto" }}
   >
     {title && <h1 className="text-center font-bold text-lg">{title}</h1>}
