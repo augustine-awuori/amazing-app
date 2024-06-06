@@ -20,7 +20,7 @@ const HorizontallyScrollableBadges: React.FC<Props> = ({
   selectedType,
 }) => {
   return (
-    <section className="flex mt-3 relative overflow-x-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-primary">
+    <section className="flex mt-3 relative overflow-x-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-primary pl-3">
       <div className="whitespace-nowrap">
         {badges.map((badge) => (
           <Badge

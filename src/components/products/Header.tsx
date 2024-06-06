@@ -59,6 +59,7 @@ const Header = ({ onQuery, query }: Props) => {
         onClose={() => setShowModal(false)}
         title="Select Shop"
         primaryBtnLabel="Proceed"
+        onPrimaryBtnClick={() => navigate(`/shops/${selectedShopId}`)}
         secondaryBtnLabel="Cancel"
       />
       <div className="relative flex-grow">
