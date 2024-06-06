@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Input, Modal, ShopSelectors } from "..";
+import { useUser } from "../../hooks";
 
 interface Props {
   query: string;
@@ -14,6 +15,13 @@ const Header = ({ onQuery, query }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedShopId, setSelectedShopId] = useState("");
   const navigate = useNavigate();
+  const { user } = useUser();
+
+  const handleProductCreation = () => {
+    if (!user) return toast.info("You're not logged in");
+
+    setShowModal(true);
+  };
 
   const handleShopSelection = () => {
     if (selectedShopId) {
@@ -69,13 +77,13 @@ const Header = ({ onQuery, query }: Props) => {
         )}
       </div>
       <button
-        onClick={() => setShowModal(true)}
+        onClick={handleProductCreation}
         className="btn btn-primary hidden md:inline"
       >
         New Product
       </button>
       <button
-        onClick={() => setShowModal(true)}
+        onClick={handleProductCreation}
         className="btn btn-primary md:hidden"
       >
         &#43;
