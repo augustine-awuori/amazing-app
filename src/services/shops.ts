@@ -20,6 +20,12 @@ export const getShopProducts = async (shopId: string): Promise<Product[]> => {
   }
 };
 
+const update = async (shop: object, shopId: string) => {
+  try {
+    return processResponse(await client.patch(`${endpoint}/${shopId}`, shop));
+  } catch (error) {}
+};
+
 const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
 
 const getShops = async (): Promise<Shop[]> => {
@@ -34,4 +40,4 @@ const getShops = async (): Promise<Shop[]> => {
 const incViews = (shopId: string) =>
   client.patch(`${endpoint}/views/${shopId}`);
 
-export default { create, incViews, getShop, getShopProducts, getShops };
+export default { create, incViews, getShop, getShopProducts, getShops, update };

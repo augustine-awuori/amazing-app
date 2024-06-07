@@ -7,6 +7,7 @@ import { funcs } from "../../utils";
 import { Modal, ProductForm } from "..";
 import { Shop } from "../../hooks/useShop";
 import { useUser } from "../../hooks";
+import UpdateForm from "./UpdateForm";
 
 interface Props {
   shop: Shop;
@@ -14,6 +15,7 @@ interface Props {
 
 const PageHeader = ({ shop }: Props) => {
   const [showProductModal, setProductModal] = useState(false);
+  const [showShopModal, setShopModal] = useState(false);
   const { user } = useUser();
 
   const currentUserIsTheSeller = user?._id === shop.author._id;
@@ -32,6 +34,12 @@ const PageHeader = ({ shop }: Props) => {
         isOpen={showProductModal}
         onClose={() => setProductModal(false)}
         title="New Product"
+      />
+      <Modal
+        content={<UpdateForm {...shop} onDone={() => setShopModal(false)} />}
+        isOpen={showShopModal}
+        onClose={() => setShopModal(false)}
+        title="Update Shop Details"
       />
       <section className="flex items-center justify-center w-full mb-3">
         <img
@@ -58,7 +66,10 @@ const PageHeader = ({ shop }: Props) => {
             <BsPlus className="mr-2" />
             Add Product
           </button>
-          <button className="btn btn-secondary my-2">
+          <button
+            className="btn btn-secondary my-2"
+            onClick={() => setShopModal(true)}
+          >
             <BsPencil className="mr-2" />
             Edit Shop
           </button>

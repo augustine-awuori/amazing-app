@@ -19,12 +19,12 @@ import { useImages, useShops } from "../hooks";
 import ImageInputList from "../components/common/ImageInputList";
 import storage from "../db/image";
 
-const schema = Yup.object().shape({
+export const shopSchema = Yup.object().shape({
   name: Yup.string().min(3).max(50).required(),
   location: Yup.string().min(3).max(255).required(),
 });
 
-type Info = Yup.InferType<typeof schema>;
+export type NewShopInfo = Yup.InferType<typeof shopSchema>;
 
 const MAX_IMAGE_INPUT = 1;
 
@@ -46,7 +46,7 @@ const ShopEditPage = () => {
     }
   };
 
-  const createShop = async (info: Info) => {
+  const createShop = async (info: NewShopInfo) => {
     setLoading(true);
     toast.loading("Saving shop image...");
     const image = await storage.saveImage(images[0]);
@@ -64,7 +64,7 @@ const ShopEditPage = () => {
     return res;
   };
 
-  const handleSubmit = async (info: Info) => {
+  const handleSubmit = async (info: NewShopInfo) => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select an image");
     if (!Object.keys(selectedShopTypes).length)
@@ -83,7 +83,7 @@ const ShopEditPage = () => {
       initialValues={{ name: "", location: "" }}
       onSubmit={handleSubmit}
       title="New Shop"
-      validationSchema={schema}
+      validationSchema={shopSchema}
     >
       <section className="m-y-auto py-5 px-3 rounded-lg shadow-lg">
         <ImageInputList imagesLimit={MAX_IMAGE_INPUT} />

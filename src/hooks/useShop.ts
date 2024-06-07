@@ -1,7 +1,7 @@
 import { User } from "./useUser";
 
 type Common = {
-  location?: string;
+  location: string;
   name: string;
 };
 
