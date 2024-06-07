@@ -33,14 +33,20 @@ export default () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    //TODO: Periodically check for new products
-    if (!products.length) prepareProducts();
+    prepareProducts();
   }, []);
 
   const prepareProducts = async () => {
-    setLoading(true);
-    setProducts(await getProducts());
-    setLoading(false);
+    const data = await getProducts();
+
+    if (!products.length) {
+      setLoading(true);
+      setProducts(data);
+      setLoading(false);
+      return;
+    }
+
+    if (data.length !== products.length) setProducts(data);
   };
 
   return { products, isLoading };
