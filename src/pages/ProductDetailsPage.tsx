@@ -48,6 +48,8 @@ const ProductDetailsPage = () => {
 
   if (!product) return <Navigate to="/" />;
 
+  const navigateToShop = () => navigate(`/shops/${product.shop._id}`);
+
   const { author, description, name, images, shop } = product;
 
   return (
@@ -99,7 +101,7 @@ const ProductDetailsPage = () => {
             >
               <article
                 className="flex mt-4 cursor-pointer items-center"
-                onClick={() => navigate(`/shops/${product.shop._id}`)}
+                onClick={navigateToShop}
               >
                 <img
                   src={shop?.image}
@@ -142,13 +144,21 @@ const ProductDetailsPage = () => {
       </article>
 
       {shopProducts.length > 1 && (
-        <p className="text-1xl font-bold text-white-800 mt-6 mb-4">
-          Recommended (from the same seller)
-        </p>
+        <div className="flex items-center mt-6 mb-4">
+          <p className="text-1xl font-bold text-white-800 ">Recommended</p>
+          <p
+            className="ml-3 cursor-pointer text-secondary"
+            onClick={navigateToShop}
+          >
+            Visit Shop for More
+          </p>
+        </div>
       )}
       <section>
         <HorizontalProductList
-          products={shopProducts.filter(({ _id }) => product._id !== _id)}
+          products={shopProducts
+            .slice(0, 2)
+            .filter(({ _id }) => product._id !== _id)}
         />
       </section>
     </section>
