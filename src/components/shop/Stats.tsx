@@ -14,7 +14,7 @@ const Stats = ({ productsCount, seller, shopImage, visits }: Props) => {
   return (
     <section className="stats shadow">
       <article className="stat">
-        <div className="stat-figure text-primary">
+        <div className="stat-figure text-primary  hidden sm:block">
           <BsBag
             className="inline-block w-8 h-8 stroke-current"
             aria-hidden="true"

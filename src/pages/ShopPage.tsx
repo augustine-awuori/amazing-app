@@ -41,6 +41,7 @@ const ShopPage = () => {
   }, [allTypes.length, products.length, types]);
 
   const initData = () => {
+    // TODO: Check after a while to fetch potentially new products
     if (!shop._id && !isLoading) request();
 
     const result: ProductType[] = [{ _id: "", label: "All Types" }];

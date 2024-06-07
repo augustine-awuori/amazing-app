@@ -33,6 +33,7 @@ export default () => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    //TODO: Periodically check for new products
     if (!products.length) prepareProducts();
   }, []);
 
