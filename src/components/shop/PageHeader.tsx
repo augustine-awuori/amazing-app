@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { IoMdPin } from "react-icons/io";
 import { BsPencil, BsPlus } from "react-icons/bs";
@@ -5,7 +6,6 @@ import { BsPencil, BsPlus } from "react-icons/bs";
 import { funcs } from "../../utils";
 import { Modal, ProductForm } from "..";
 import { Shop } from "../../hooks/useShop";
-import { useState } from "react";
 import { useUser } from "../../hooks";
 
 interface Props {
@@ -28,12 +28,12 @@ const PageHeader = ({ shop }: Props) => {
   return (
     <section>
       <Modal
-        content={<ProductForm onDone={console.log} />}
+        content={<ProductForm onDone={() => setProductModal(false)} />}
         isOpen={showProductModal}
         onClose={() => setProductModal(false)}
         title="New Product"
       />
-      <section className="flex items-center justify-center w-full">
+      <section className="flex items-center justify-center w-full mb-3">
         <img
           src={image}
           alt={`${name} Shop`}
@@ -46,11 +46,11 @@ const PageHeader = ({ shop }: Props) => {
           <p className="text-sm flex items-center">
             <IoMdPin className="mr-1" /> {location}
           </p>
-          <p className="mt-3">Seller: {author.name}</p>
+          <p className="mt-2">Seller: {author.name}</p>
         </div>
       </section>
       {currentUserIsTheSeller && (
-        <>
+        <section className="mb-2">
           <button
             className="btn btn-primary my-2 mr-4"
             onClick={handleProductCreation}
@@ -62,7 +62,7 @@ const PageHeader = ({ shop }: Props) => {
             <BsPencil className="mr-2" />
             Edit Shop
           </button>
-        </>
+        </section>
       )}
     </section>
   );
