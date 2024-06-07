@@ -91,8 +91,8 @@ const ShopPage = () => {
 
   return (
     <section>
+      <ShopPageHeader shop={shop} />
       <section className="flex flex-col items-center px-8 pb-6">
-        <ShopPageHeader shop={shop} />
         <ShopStats
           productsCount={products.length}
           shopImage={image}

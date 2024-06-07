@@ -28,7 +28,7 @@ const PageHeader = ({ shop }: Props) => {
   const { author, image, name, location } = shop;
 
   return (
-    <section>
+    <section className="mb-6">
       <Modal
         content={<ProductForm onDone={() => setProductModal(false)} />}
         isOpen={showProductModal}
@@ -41,33 +41,40 @@ const PageHeader = ({ shop }: Props) => {
         onClose={() => setShopModal(false)}
         title="Update Shop Details"
       />
-      <section className="flex items-center justify-center w-full mb-3">
+      <section className="relative w-full">
         <img
-          src={image}
-          alt={`${name} Shop`}
-          className="mask mask-hexagon-2 w-32 h-32 object-cover"
+          src="https://source.unsplash.com/random/1200x300"
+          alt="Shop Cover"
+          className="w-full h-48 object-cover filter blur-sm rounded-lg"
         />
-        <div className="ml-4">
-          <h1 className="text-xl font-bold">
-            {funcs.capitalizeFirstLetter(name)} Shop
-          </h1>
-          <p className="text-sm flex items-center">
-            <IoMdPin className="mr-1" /> {location}
-          </p>
-          <p className="mt-2">Seller: {author.name}</p>
-        </div>
+        <section className="absolute top-0 left-0 right-0 flex items-center justify-center w-full h-full bg-opacity-50 bg-black">
+          <img
+            src={image}
+            alt={`${name} Shop`}
+            className="mask mask-hexagon-2 w-32 h-32 object-cover"
+          />
+          <div className="ml-4 text-white">
+            <h1 className="text-xl font-bold">
+              {funcs.capitalizeFirstLetter(name)} Shop
+            </h1>
+            <p className="text-sm flex items-center">
+              <IoMdPin className="mr-1" /> {location}
+            </p>
+            <p className="mt-2">Seller: {author.name}</p>
+          </div>
+        </section>
       </section>
       {currentUserIsTheSeller && (
-        <section className="mb-2">
+        <section className="flex justify-center mt-4 mb-2">
           <button
-            className="btn btn-primary my-2 mr-4"
+            className="btn btn-primary mx-2"
             onClick={handleProductCreation}
           >
             <BsPlus className="mr-2" />
             Add Product
           </button>
           <button
-            className="btn btn-secondary my-2"
+            className="btn btn-secondary mx-2"
             onClick={() => setShopModal(true)}
           >
             <BsPencil className="mr-2" />
