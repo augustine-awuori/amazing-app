@@ -37,10 +37,10 @@ export default () => {
   }, []);
 
   const prepareProducts = async () => {
+    if (!products.length) setLoading(true);
     const data = await getProducts();
 
     if (!products.length) {
-      setLoading(true);
       setProducts(data);
       setLoading(false);
       return;
