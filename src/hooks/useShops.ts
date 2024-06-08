@@ -60,8 +60,8 @@ const useShops = () => {
       shops.map((s) => (s._id === shopId ? { ...s, views: s.views + 1 } : s))
     );
 
-    const res = processResponse(await service.incViews(shopId));
-    if (!res.ok) decShopViews(shopId, previous);
+    const res = await service.incViews(shopId);
+    if (!res?.ok) decShopViews(shopId, previous);
   };
 
   return { create, incShopViews, isLoading, shops };

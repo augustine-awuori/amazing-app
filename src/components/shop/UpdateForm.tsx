@@ -9,8 +9,8 @@ import {
   FormTextAreaField,
   SubmitButton,
 } from "../form";
-import { NewShopInfo, shopSchema } from "../../pages/ShopEditPage";
-import { Shop } from "../../hooks/useShop";
+import { shopSchema } from "../../pages/ShopEditPage";
+import { NewShopTypes, Shop, UpdatableShopInfo } from "../../hooks/useShop";
 import { ProductType } from "../products/TypesList";
 import { useProductTypes } from "../../hooks";
 import service from "../../services/shops";
@@ -26,27 +26,42 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
   const { types: allTypes } = useProductTypes();
   const { shopId } = useParams();
   const [loading, setLoading] = useState(false);
+  const [selectedShopTypesId, setSelectedShopTypesId] = useState<NewShopTypes>(
+    {}
+  );
 
   useEffect(() => {
     prepareTypes();
-  }, []);
+  }, [allTypes]);
 
   const prepareTypes = () => {
     let output: ShopTypes = {};
+    let outputIds: NewShopTypes = {};
 
     allTypes.forEach((type) => {
-      if (types[type._id]) output = { ...output, [type._id]: type };
+      if (types[type._id]) {
+        output = { ...output, [type._id]: type };
+        outputIds[type._id] = type._id;
+      }
     });
 
+    setSelectedShopTypesId(outputIds);
     setSelectedShopTypes(output);
   };
 
-  const handleSubmit = async (info: NewShopInfo) => {
+  const handleSubmit = async (info: UpdatableShopInfo) => {
+    if (!Object.keys(selectedShopTypesId).length)
+      return setError("Select at least one shop type");
+
     setLoading(true);
     toast.loading("Updating shop details...Please wait");
-    const res = await service.update(info, _id);
+    const res = await service.update(
+      { ...info, types: selectedShopTypesId },
+      _id
+    );
     toast.dismiss();
     setLoading(false);
+
     if (!res?.ok) return setError(res?.problem || "Shop Update failed");
 
     onDone();
@@ -55,18 +70,29 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
   };
 
   const handleTypeSelect = (type: ProductType) => {
-    if (!selectedShopTypes[type._id])
+    if (!selectedShopTypes[type._id]) {
       setSelectedShopTypes({ ...selectedShopTypes, [type._id]: type });
-    else {
+      setSelectedShopTypesId({
+        ...selectedShopTypesId,
+        [type._id]: type._id,
+      });
+    } else {
       const newTypes = { ...selectedShopTypes };
       delete newTypes[type._id];
+      const newTypesId = { ...selectedShopTypesId };
+      delete newTypesId[type._id];
       setSelectedShopTypes(newTypes);
+      setSelectedShopTypesId(newTypesId);
     }
   };
 
   return (
     <Form
-      initialValues={{ name, location }}
+      initialValues={{
+        name,
+        location,
+        types: selectedShopTypesId,
+      }}
       onSubmit={handleSubmit}
       validationSchema={shopSchema}
     >
