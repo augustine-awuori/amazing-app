@@ -32,7 +32,7 @@ const Selector = ({ onClick, selected, shop }: Props) => {
           className="rounded-full w-9 h-9 mr-2 object-cover"
         />
         <section>
-          <p className="text-white">{shop.name}</p>
+          <p>{shop.name}</p>
           <p className="text-sm">{shop.location}</p>
         </section>
       </div>
