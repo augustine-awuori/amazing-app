@@ -15,7 +15,7 @@
     {
       "src": "logo.png",
       "type": "image/png",
-      "sizes": "512x512 500x500"
+      "sizes": "500x500"
     }
   ],
   "start_url": ".",
