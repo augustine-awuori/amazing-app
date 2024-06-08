@@ -21,8 +21,20 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+export interface Response {
+  ok: boolean;
+  data: unknown;
+  problem: string;
+}
+
+export const emptyResponse: Response = {
+  ok: false,
+  data: [],
+  problem: "",
+};
+
 export const processResponse = ({ data, status }: AxiosResponse) => {
-  const response: { ok: boolean; data: unknown; problem: string } = {
+  const response: Response = {
     ok: false,
     data: [],
     problem: "",

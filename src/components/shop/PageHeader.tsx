@@ -43,7 +43,7 @@ const PageHeader = ({ shop }: Props) => {
       />
       <section className="relative w-full">
         <img
-          src="https://source.unsplash.com/random/1200x300"
+          src="https://picsum.photos/1200/300"
           alt="Shop Cover"
           className="w-full h-48 object-cover filter blur-sm rounded-lg"
         />

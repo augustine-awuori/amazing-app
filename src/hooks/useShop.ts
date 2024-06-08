@@ -27,8 +27,10 @@ export interface Shop extends Common, ShopBase {
   views: number;
 }
 
-export interface NewShop extends Common {
+export interface NewShop extends UpdatableShopInfo {
   image: string;
+}
+
+export interface UpdatableShopInfo extends Common {
   types: NewShopTypes;
-  name: string;
 }
