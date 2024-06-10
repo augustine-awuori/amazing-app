@@ -37,10 +37,26 @@ export function capitalizeFirstLetter(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+const addMessageToUrl = (url: string, text = "") =>
+  text ? `${url} . ${text}` : url;
+
+const navTo = (url: string, message?: string) =>
+  window.open(addMessageToUrl(url, message), "_blank", "noopener,noreferrer");
+
+function removeLeadingSlash(sentence: string) {
+  if (sentence.length === 0) return sentence;
+
+  if (sentence.charAt(0) === "/") return sentence.slice(1);
+
+  return sentence;
+}
+
 export default {
   addComma,
   capitalizeFirstLetter,
   formatPhoneNumber,
   getBoolean,
+  navTo,
+  removeLeadingSlash,
   scrollToTop,
 };

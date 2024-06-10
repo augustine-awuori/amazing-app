@@ -120,7 +120,10 @@ const ProductDetailsPage = () => {
               Seller Information
             </p>
             <AddRightChevron>
-              <article className="flex items-center">
+              <article
+                className="flex items-center"
+                onClick={() => navigate(`/profile/${author._id}`)}
+              >
                 <Image
                   src={author.avatar}
                   alt={author.name}
@@ -132,7 +135,7 @@ const ProductDetailsPage = () => {
                     <p>Email: {author?.email || "Not available"}</p>
                     <p>
                       Phone:{" "}
-                      {formatPhoneNumber(author?.otherAccounts.whatsapp) ||
+                      {formatPhoneNumber(author?.otherAccounts?.whatsapp) ||
                         "Not available"}
                     </p>
                   </article>

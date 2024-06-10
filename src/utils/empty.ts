@@ -1,23 +1,24 @@
 import { Product, ProductType } from "../hooks/useProducts";
+import { randomImage } from "../components/shop/PageHeader";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
 
 const author: User = {
   _id: "",
   aboutMe: "",
-  avatar: "",
+  avatar: randomImage,
+  email: "",
   isAdmin: false,
   isVerified: false,
   name: "",
   otherAccounts: { whatsapp: "+254745889801" },
   timestamp: 452045,
-  username: "",
 };
 
 const shop: Shop = {
   _id: "",
   author,
-  image: "",
+  image: randomImage,
   isVerified: false,
   name: "",
   location: "",
@@ -36,7 +37,7 @@ const product: Product = {
   author,
   description: "",
   images: [],
-  name: "",
+  name: randomImage,
   price: 100,
   shop: shopProduct,
   timestamp: 0,
@@ -54,5 +55,6 @@ const type: ProductType = {
 export default {
   product: { ...product, paramsId: "productId" },
   shop: { ...shop, paramsId: "shopId" },
+  user: { ...author, paramsId: "userId" },
   type,
 };

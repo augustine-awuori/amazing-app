@@ -13,4 +13,6 @@ const restoreToken = async (email: string) => {
   if (processResponse(res).ok) auth.loginWithJwt(res.data);
 };
 
-export default { register, updateUserInfo, restoreToken };
+const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
+
+export default { register, getUser, updateUserInfo, restoreToken };
