@@ -3,8 +3,8 @@ import axios, { AxiosResponse } from "axios";
 import auth from "./auth";
 
 export const backendURL = "campus-mart-site.onrender.com/api";
-
 export const authTokenKey = "x-auth-token";
+export const appBaseUrl = "https://soamazing.shop/";
 
 export interface DataError {
   error?: string;

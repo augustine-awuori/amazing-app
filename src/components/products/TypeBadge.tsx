@@ -17,7 +17,7 @@ const TypeBadge = ({ isSeleted, onClick, selectedType, ...badge }: Props) => {
         className={`inline-block ${
           active ? "bg-primary" : "bg-gray-200"
         } rounded-full px-3 py-1 text-sm font-semibold ${
-          active ? "text-white" : "text- gray-700"
+          active ? "text-white" : "text-gray-700"
         }`}
       >
         {badge.label}

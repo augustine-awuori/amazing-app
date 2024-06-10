@@ -30,7 +30,7 @@ const ShopSelectors = ({
   if (isLoading)
     return (
       <section className="flex items-center justify-center">
-        <span className="loading loading-dots loading-md"></span>
+        <span className="loading loading-dots loading-md" />
         <p className="ml-3 text-center text-white">Fetching shops...</p>
       </section>
     );
