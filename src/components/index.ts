@@ -22,3 +22,4 @@ export { default as ShopSelectors } from "./shop/Selectors";
 export { default as ShoppingCartIcon } from "./ShoppingCartIcon";
 export { default as ShopStats } from "./shop/Stats";
 export { default as Slider } from "./Slider";
+export { default as TextArea } from "./TextArea";

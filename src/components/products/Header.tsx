@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Input, Modal, ShopSelectors } from "..";
 import { useUser } from "../../hooks";
+import ShopSelectors from "../shop/Selectors";
+import Modal from "../Modal";
+import Input from "../Input";
 
 interface Props {
   query: string;
@@ -18,7 +20,10 @@ const Header = ({ onQuery, query }: Props) => {
   const { user } = useUser();
 
   const handleProductCreation = () => {
-    if (!user) return toast.info("You're not logged in");
+    if (!user) {
+      toast.info("You're not logged in");
+      return;
+    }
 
     setShowModal(true);
   };
@@ -26,7 +31,8 @@ const Header = ({ onQuery, query }: Props) => {
   const handleShopSelection = () => {
     if (selectedShopId) {
       navigate(selectedShopId);
-      return setShowModal(false);
+      setShowModal(false);
+      return;
     }
 
     toast.info("Please select a shop or create a new one");

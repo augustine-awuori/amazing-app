@@ -2,6 +2,7 @@ import { useFormikContext } from "formik";
 
 import { capitalizeFirstLetter } from "../../utils/funcs";
 import ErrorMessage from "./ErrorMessage";
+import TextArea from "../TextArea";
 
 interface FieldValue {
   [key: string]: string;
@@ -23,12 +24,11 @@ const TextAreaField = ({ name, placeholder }: Props) => {
       <label className="block font-semibold mb-1" htmlFor={name}>
         {capitalizedName}
       </label>
-      <textarea
+      <TextArea
         id={name}
         onBlur={() => setFieldTouched(name)}
-        className="textarea textarea-accent block w-full p-2 border rounded-md"
-        placeholder={placeholder || capitalizedName}
         onChange={(e) => setFieldValue(name, e.target.value)}
+        placeholder={placeholder || capitalizedName}
         value={values[name]}
       />
       <ErrorMessage error={errors[name]} visible={!!touched[name]} />

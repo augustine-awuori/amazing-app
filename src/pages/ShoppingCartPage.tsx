@@ -1,9 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-import { useCart } from "../hooks";
 import { funcs } from "../utils";
+import { Modal, TextArea } from "../components";
+import { useCart, useOrders, useUser } from "../hooks";
+
+const MAX_AUTO_ORDER_TRIALS = 3;
 
 const ShoppingCartPage = () => {
+  const [takingMessage, setTakingMessage] = useState(false);
+  const [promptCartClearance, setCartClearance] = useState(false);
+  const [orderPlacementTrials, setOrderPlacementTrial] = useState(0);
+  const [message, setMessage] = useState("");
+  const { user } = useUser();
+  const helper = useOrders();
   const cart = useCart();
 
   useEffect(() => {
@@ -12,8 +22,54 @@ const ShoppingCartPage = () => {
 
   const deliveryCharges = 0;
 
+  const handleCartClearance = () => {
+    setCartClearance(false);
+    cart.clear();
+  };
+
+  const takeOrderMessage = () => {
+    if (!user)
+      return toast.info(
+        "You need to login. Seller need to know who's ordering"
+      );
+
+    if (!takingMessage) setTakingMessage(true);
+  };
+
+  const makeOrder = async () => {
+    setTakingMessage(false);
+    setOrderPlacementTrial((trial) => trial + 1);
+
+    const success = await helper.makeShopsOrders(message);
+    if (!success && orderPlacementTrials < MAX_AUTO_ORDER_TRIALS)
+      await makeOrder();
+  };
+
   return (
-    <div className="min-h-screen p-4 pt-0 sm:p-8">
+    <section className="min-h-screen p-4 pt-0 sm:p-8">
+      <Modal
+        content="Are you sure you want to empty your cart? This action is irreversible"
+        isOpen={promptCartClearance}
+        onClose={() => setCartClearance(false)}
+        title="Empty Cart Confirmation"
+        primaryBtnLabel="Empty Cart"
+        secondaryBtnLabel="Dismiss"
+        onPrimaryBtnClick={handleCartClearance}
+      />
+      <Modal
+        content={
+          <TextArea
+            placeholder="Attach message to your order (optional)"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        }
+        isOpen={takingMessage}
+        onClose={() => setTakingMessage(false)}
+        title="Attach Message"
+        primaryBtnLabel="Proceed"
+        onPrimaryBtnClick={makeOrder}
+      />
       <div className="container mx-auto">
         <h1 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">My Cart</h1>
 
@@ -23,7 +79,12 @@ const ShoppingCartPage = () => {
               <span className="text-lg sm:text-xl font-bold">
                 Total Items ({cart.count})
               </span>
-              <button className="text-red-500">Empty Cart</button>
+              <button
+                className="text-red-500"
+                onClick={() => setCartClearance(true)}
+              >
+                Empty Cart
+              </button>
             </div>
 
             {cart.products.map((product) => (
@@ -40,7 +101,7 @@ const ShoppingCartPage = () => {
                   <div className="ml-0 sm:ml-4">
                     <h2 className="card-title">{product.name}</h2>
 
-                    <p>Ksh {product.price}</p>
+                    <p>Ksh {funcs.addComma(product.price)}</p>
                   </div>
                   <div className="ml-0 sm:ml-auto flex items-center">
                     <button
@@ -68,12 +129,11 @@ const ShoppingCartPage = () => {
             <div className="card bg-base-100 shadow-xl p-4">
               <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
               <div className="mb-4">
-                <p>Deliver to:</p>
-                <p>
-                  Nivaas D, No 15, Srinivasa Nagar, Manathattai, Kulithalai,
-                  Karur
+                <p className="text-primary">
+                  After you place the order, the seller will be notified and
+                  will reach out to you with details on how the product(s) will
+                  be delivered
                 </p>
-                <button className="text-blue-500 mt-2">Edit</button>
               </div>
               <div className="mb-4">
                 <p>
@@ -99,14 +159,23 @@ const ShoppingCartPage = () => {
                 </span>
               </div>
               <div className="flex justify-between">
-                <button className="btn btn-outline">Cancel</button>
-                <button className="btn btn-primary">Confirm</button>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => {
+                    if (cart.count) setCartClearance(true);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button className="btn btn-primary" onClick={takeOrderMessage}>
+                  Place Order
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

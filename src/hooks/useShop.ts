@@ -1,3 +1,4 @@
+import { Product } from "./useProducts";
 import { User } from "./useUser";
 
 type Common = {
@@ -34,3 +35,5 @@ export interface NewShop extends UpdatableShopInfo {
 export interface UpdatableShopInfo extends Common {
   types: NewShopTypes;
 }
+
+export type OrderShopProducts = { [shopId: string]: Product[] };

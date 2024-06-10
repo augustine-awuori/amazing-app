@@ -13,6 +13,8 @@ interface Props {
   shop: Shop;
 }
 
+export const randomImage = "https://picsum.photos/1200/300";
+
 const PageHeader = ({ shop }: Props) => {
   const [showProductModal, setProductModal] = useState(false);
   const [showShopModal, setShopModal] = useState(false);
@@ -43,7 +45,7 @@ const PageHeader = ({ shop }: Props) => {
       />
       <section className="relative w-full">
         <img
-          src="https://picsum.photos/1200/300"
+          src={randomImage}
           alt="Shop Cover"
           className="w-full h-48 object-cover filter blur-sm rounded-lg"
         />

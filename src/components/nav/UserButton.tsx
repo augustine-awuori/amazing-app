@@ -3,6 +3,7 @@ import { AiOutlineLogin } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+import { randomImage } from "../shop/PageHeader";
 import { useUser } from "../../hooks";
 import { userSignIn, userSignOut } from "../../hooks/useUser";
 
@@ -30,7 +31,7 @@ const UserButton = () => {
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img
           alt={googleUser?.displayName || "avatar"}
-          src={googleUser.photoURL}
+          src={googleUser.photoURL || randomImage}
           className="rounded-full w-full h-full"
         />
       </div>
