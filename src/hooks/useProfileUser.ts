@@ -9,7 +9,7 @@ import usersApi from "../services/users";
 
 export default function useProfileUser() {
   const { userId } = useParams();
-  const { profileUser, setProfileUser } = useContext(ProfileUserContext);
+  const { setProfileUser } = useContext(ProfileUserContext);
   const { info, isLoading, request } = useReload<User>(
     null,
     empty.user,
@@ -26,7 +26,7 @@ export default function useProfileUser() {
   }
 
   return {
-    profileUser: profileUser || info || empty.user,
+    profileUser: info,
     setProfileUser,
     isLoading,
   };
