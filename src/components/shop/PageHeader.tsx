@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IoMdPin } from "react-icons/io";
-import { BsPencil, BsPlus } from "react-icons/bs";
+import { BsEye, BsPencil, BsPlus } from "react-icons/bs";
 
 import { funcs } from "../../utils";
 import { Modal, ProductForm } from "..";
@@ -19,6 +20,7 @@ const PageHeader = ({ shop }: Props) => {
   const [showProductModal, setProductModal] = useState(false);
   const [showShopModal, setShopModal] = useState(false);
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const currentUserIsTheSeller = user?._id === shop.author._id;
 
@@ -81,6 +83,13 @@ const PageHeader = ({ shop }: Props) => {
           >
             <BsPencil className="mr-2" />
             Edit Shop
+          </button>
+          <button
+            className="btn btn-primary mx-2"
+            onClick={() => navigate(`orders`)}
+          >
+            <BsEye className="mr-2" />
+            View Orders
           </button>
         </section>
       )}

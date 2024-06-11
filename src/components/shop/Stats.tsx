@@ -21,7 +21,7 @@ const Stats = ({ productsCount, seller, shopImage, visits }: Props) => {
           />
         </div>
         <h2 className="stat-title">Products</h2>
-        <p className="stat-value text-primary">{productsCount}</p>
+        <p className="stat-value text-primary text-center">{productsCount}</p>
         <p className="stat-desc hidden sm:block">Coming Soon</p>
       </article>
 
@@ -43,7 +43,7 @@ const Stats = ({ productsCount, seller, shopImage, visits }: Props) => {
           </svg>
         </div>
         <h2 className="stat-title">Shop Visits</h2>
-        <p className="stat-value text-secondary">{visits}</p>
+        <p className="stat-value text-secondary text-center">{visits}</p>
         <p className="stat-desc hidden sm:block">21% more than last month</p>
       </article>
 

@@ -19,7 +19,12 @@ const useStatus = () => {
     if (!error) setStatus(data);
   }, [data?.length]);
 
-  return { status: [{ _id: "", label: "All" }, ...status], error, isLoading };
+  return {
+    status: [{ _id: "", label: "All" }, ...status],
+    error,
+    isLoading,
+    data,
+  };
 };
 
 export default useStatus;

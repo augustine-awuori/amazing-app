@@ -10,12 +10,12 @@ import {
   ShopPageHeader,
   ShopStats,
 } from "../components";
-import useProducts, { Product, ProductType } from "../hooks/useProducts";
+import { emptyShop as emptyShop, emptyType } from "../utils/empty";
 import { Shop } from "../hooks/useShop";
 import { useProductTypes, useReload, useShops } from "../hooks";
 import productsService from "../services/products";
 import service from "../services/shops";
-import { emptyShop as emptyShop, emptyType } from "../utils/empty";
+import useProducts, { Product, ProductType } from "../hooks/useProducts";
 
 const ShopPage = () => {
   const [selectedType, setSelectedType] = useState<ProductType>({

@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { OrderContext } from "../contexts";
 import { Shop } from "./useShop";
 import { Status } from "./useStatus";
 import { User } from "./useUser";
@@ -24,3 +27,5 @@ export interface Order {
   status: Status;
   timestamp: number;
 }
+
+export default () => useContext(OrderContext);

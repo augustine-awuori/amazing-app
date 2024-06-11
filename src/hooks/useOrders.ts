@@ -100,8 +100,8 @@ const useOrders = () => {
 
   const makeShopsOrders = async (message: string) => {
     toast.loading("Placing orders to every shop...");
-    // for (const [, products] of Object.entries(getShopsProducts()))
-    //   await makeShopOrder(products, message);
+    for (const [, products] of Object.entries(getShopsProducts()))
+      await makeShopOrder(products, message);
     toast.dismiss();
 
     if (success) {
@@ -112,7 +112,21 @@ const useOrders = () => {
     return success;
   };
 
-  return { makeShopsOrders };
+  const updateOrder = async (orderId: string, update: object) => {
+    toast.loading("Updating order status...");
+    const res = await service.updateOrder(orderId, update);
+    toast.dismiss();
+
+    processResponse(res).ok
+      ? toast.success("Order status updated successfully!")
+      : toast.error(
+          (res.data as DataError).error || "Order status update failed"
+        );
+
+    return res;
+  };
+
+  return { makeShopsOrders, updateOrder };
 };
 
 export default useOrders;
