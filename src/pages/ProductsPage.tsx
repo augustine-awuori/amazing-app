@@ -1,7 +1,7 @@
 import { useState } from "react";
 import _ from "lodash";
 
-import { empty, paginate } from "../utils";
+import { paginate } from "../utils";
 import {
   Grid,
   Pagination,
@@ -16,7 +16,10 @@ import CardSkeleton from "../components/products/CardSkeleton";
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(12);
-  const [selectedType, setSelectedType] = useState<ProductType>(empty.type);
+  const [selectedType, setSelectedType] = useState<ProductType>({
+    _id: "",
+    label: "",
+  });
   const [query, setQuery] = useState("");
   const { isLoading, products } = useProduts();
   const { types } = useProductTypes();
@@ -36,7 +39,7 @@ const ProductsPage = () => {
   const paginated = paginate<Product>(queried, currentPage, pageSize);
 
   const handleQueryChange = (query: string) => {
-    setSelectedType(empty.type);
+    setSelectedType({ _id: "", label: "" });
     setQuery(query);
   };
 

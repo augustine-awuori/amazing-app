@@ -100,8 +100,8 @@ const useOrders = () => {
 
   const makeShopsOrders = async (message: string) => {
     toast.loading("Placing orders to every shop...");
-    for (const [, products] of Object.entries(getShopsProducts()))
-      await makeShopOrder(products, message);
+    // for (const [, products] of Object.entries(getShopsProducts()))
+    //   await makeShopOrder(products, message);
     toast.dismiss();
 
     if (success) {

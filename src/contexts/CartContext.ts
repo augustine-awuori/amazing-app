@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
 export interface CartProducts {
   count: number;
@@ -7,7 +7,7 @@ export interface CartProducts {
 
 export interface Cart {
   cartProducts: CartProducts;
-  setCartProducts: (cart: CartProducts) => void;
+  setCartProducts: React.Dispatch<React.SetStateAction<CartProducts>>;
 }
 
 const CartContext = createContext<Cart>({

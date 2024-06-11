@@ -108,7 +108,7 @@ const ProfilePage: React.FC = () => {
         <h1 className="text-center text-xl mb-3">Shops ({userShops.length})</h1>
         <Grid>
           {userShops.map((shop) => (
-            <ShopProfile {...shop} />
+            <ShopProfile {...shop} key={shop._id} />
           ))}
         </Grid>
       </section>

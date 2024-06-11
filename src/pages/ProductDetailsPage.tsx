@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
 
-import { empty, funcs } from "../utils";
+import { funcs } from "../utils";
 import { formatPhoneNumber } from "../utils/funcs";
 import { getShopProducts } from "../services/shops";
 import { Product } from "../hooks/useProducts";
@@ -16,6 +16,7 @@ import {
 import { useReload } from "../hooks";
 import service from "../services/products";
 import useCart from "../hooks/useCart";
+import { emptyProduct } from "../utils/empty";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
@@ -23,9 +24,9 @@ const ProductDetailsPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cart = useCart();
   const navigate = useNavigate();
-  const { info: product, request } = useReload(
+  const { info: product, request } = useReload<Product>(
     null,
-    empty.product,
+    { ...emptyProduct, paramsId: "productId" },
     service.getProduct
   );
 
@@ -50,7 +51,7 @@ const ProductDetailsPage = () => {
 
   const navigateToShop = () => navigate(`/shops/${product.shop._id}`);
 
-  const { author, description, name, images, shop } = product;
+  const { author, description, name, images, shop } = product || emptyProduct;
 
   return (
     <section className="p-4">

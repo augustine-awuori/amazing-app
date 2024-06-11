@@ -2,14 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineLogin } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 
 import { randomImage } from "../shop/PageHeader";
 import { useUser } from "../../hooks";
-import { userSignIn, userSignOut } from "../../hooks/useUser";
+import { googleAuth } from "../../services/auth";
+
+const userSignOut = () => signOut(googleAuth);
+
+const userSignIn = () =>
+  signInWithRedirect(googleAuth, new GoogleAuthProvider());
 
 const UserButton = () => {
-  const navigate = useNavigate();
   const { googleUser, user } = useUser();
+  const navigate = useNavigate();
 
   const logIn = async () => {
     await userSignIn();
@@ -22,7 +28,7 @@ const UserButton = () => {
   };
 
   const navigateToProfile = () => {
-    if (googleUser && user?._id) navigate(`/profile/${user._id}`);
+    if (googleUser && user?._id) navigate(`/profile/${user?._id}`);
     else toast.info("Loading your profile");
   };
 
@@ -31,7 +37,7 @@ const UserButton = () => {
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img
           alt={googleUser?.displayName || "avatar"}
-          src={googleUser.photoURL || randomImage}
+          src={googleUser?.photoURL || randomImage}
           className="rounded-full w-full h-full"
         />
       </div>

@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 import {
   AxiosHeaderValue,
   AxiosResponseHeaders,
@@ -9,7 +8,7 @@ import {
 
 import { authTokenKey, processResponse } from "../services/client";
 import { UserContext } from "../contexts";
-import auth, { googleAuth } from "../services/auth";
+import auth, { googleAuth, GoogleUser } from "../services/auth";
 import logger from "../utils/logger";
 import usersApi from "../services/users";
 
@@ -34,14 +33,12 @@ export interface User {
   timestamp: number;
 }
 
-export const userSignOut = () => signOut(googleAuth);
-
-export const userSignIn = () =>
-  signInWithRedirect(googleAuth, new GoogleAuthProvider());
-
-const useUser = () => {
-  const [googleUser] = useAuthState(googleAuth);
+const useUser = (): {
+  user: User | undefined;
+  googleUser: null | GoogleUser | undefined;
+} => {
   const { setUser, user } = useContext(UserContext);
+  const [googleUser] = useAuthState(googleAuth);
 
   useEffect(() => {
     retrieveUser();

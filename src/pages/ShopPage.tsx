@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { empty, paginate } from "../utils";
+import { paginate } from "../utils";
 import {
   Input,
   Pagination,
@@ -15,9 +15,13 @@ import { Shop } from "../hooks/useShop";
 import { useProductTypes, useReload, useShops } from "../hooks";
 import productsService from "../services/products";
 import service from "../services/shops";
+import { emptyShop as emptyShop, emptyType } from "../utils/empty";
 
 const ShopPage = () => {
-  const [selectedType, setSelectedType] = useState<ProductType>(empty.type);
+  const [selectedType, setSelectedType] = useState<ProductType>({
+    _id: "",
+    label: "",
+  });
   const { types: allTypes } = useProductTypes();
   const [shopTypes, setShopTypes] = useState<ProductType[]>([]);
   const { products: allProducts } = useProducts();
@@ -31,7 +35,11 @@ const ShopPage = () => {
     info: shop,
     isLoading,
     request,
-  } = useReload<Shop>(null, empty.shop, service.getShop);
+  } = useReload<Shop>(
+    null,
+    { ...emptyShop, paramsId: "shopId" },
+    service.getShop
+  );
 
   const { image, author, types, views } = shop;
 
@@ -80,7 +88,7 @@ const ShopPage = () => {
   const paginated = paginate<Product>(queried, currentPage, pageSize);
 
   const handleQueryChange = (query: string) => {
-    setSelectedType(empty.type);
+    setSelectedType(emptyType);
     setQuery(query);
   };
 

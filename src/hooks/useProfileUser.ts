@@ -1,18 +1,18 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { empty } from "../utils";
 import { User } from "./useUser";
 import ProfileUserContext from "../contexts/ProfileUserContext";
 import useReload from "./useReload";
 import usersApi from "../services/users";
+import { emptyAuthor } from "../utils/empty";
 
 export default function useProfileUser() {
   const { userId } = useParams();
   const { setProfileUser } = useContext(ProfileUserContext);
   const { info, isLoading, request } = useReload<User>(
     null,
-    empty.user,
+    { ...emptyAuthor, paramsId: "userId" },
     usersApi.getUser
   );
 

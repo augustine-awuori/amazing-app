@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import { empty } from "../../utils";
 import {
   ErrorMessage,
   Form,
@@ -18,6 +17,7 @@ import ImageInputList from "../common/ImageInputList";
 import service from "../../services/products";
 import ShopTypesSelector from "../shop/TypesSelector";
 import storage from "../../db/image";
+import { emptyType } from "../../utils/empty";
 
 const schema = Yup.object().shape({
   name: Yup.string().min(1).max(50).required(),
@@ -37,7 +37,7 @@ const ProductForm = ({ onDone }: Props) => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { images, imagesCount, removeAllImages } = useImages(MAX_IMAGE_INPUT);
-  const [selectedType, setSelectedType] = useState<ProductType>(empty.type);
+  const [selectedType, setSelectedType] = useState<ProductType>(emptyType);
   const { user } = useUser();
   const { shopId } = useParams();
 

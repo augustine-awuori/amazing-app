@@ -3,7 +3,7 @@ import { randomImage } from "../components/shop/PageHeader";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
 
-const author: User = {
+export const emptyAuthor: User = {
   _id: "",
   aboutMe: "",
   avatar: randomImage,
@@ -15,9 +15,9 @@ const author: User = {
   timestamp: 452045,
 };
 
-const shop: Shop = {
+export const emptyShop: Shop = {
   _id: "",
-  author,
+  author: emptyAuthor,
   image: randomImage,
   isVerified: false,
   name: "",
@@ -26,35 +26,28 @@ const shop: Shop = {
   views: 0,
 };
 
-const shopProduct: ShopProduct = {
-  ...shop,
+export const emptyShopProduct: ShopProduct = {
+  ...emptyShop,
   author: "",
   types: {},
 };
 
-const product: Product = {
+export const emptyProduct: Product = {
   _id: "",
-  author,
+  author: emptyAuthor,
   description: "",
   images: [],
   name: randomImage,
   price: 100,
-  shop: shopProduct,
+  shop: emptyShopProduct,
   timestamp: 0,
   type: { _id: "", label: "" },
 };
 
-const type: ProductType = {
+export const emptyType: ProductType = {
   _id: "",
   label: "All Types",
   icon: undefined,
   rightIcon: undefined,
   route: "",
-};
-
-export default {
-  product: { ...product, paramsId: "productId" },
-  shop: { ...shop, paramsId: "shopId" },
-  user: { ...author, paramsId: "userId" },
-  type,
 };
