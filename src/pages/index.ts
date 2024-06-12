@@ -1,3 +1,4 @@
+export { default as NotFoundPage } from "./NotFoundPage";
 export { default as ProductDetailsPage } from "./ProductDetailsPage";
 export { default as ProductsPage } from "./ProductsPage";
 export { default as ProfileOrderPage } from "./ProfileOrderPage";

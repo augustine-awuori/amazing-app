@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import {
+  NotFoundPage,
   ProductDetailsPage,
   ProductsPage,
   ProfileOrderPage,
@@ -60,6 +61,7 @@ const AppRoutes = () => {
               />
               <Route path="/shops/new" element={<ShopEditPage />} />
               <Route index element={<ProductsPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </OrderContext.Provider>
         </ProfileUserContext.Provider>
