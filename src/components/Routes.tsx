@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import {
   ProductDetailsPage,
   ProductsPage,
+  ProfileOrderPage,
+  ProfileOrdersPage,
   ProfilePage,
   ShopEditPage,
   ShopOrderPage,
@@ -35,6 +37,14 @@ const AppRoutes = () => {
             <Routes>
               <Route path="/cart" element={<ShoppingCartPage />} />
               <Route path="/profile/:userId" element={<ProfilePage />} />
+              <Route
+                path="/profile/:userId/orders"
+                element={<ProfileOrdersPage />}
+              />
+              <Route
+                path="/profile/:userId/orders/:orderId"
+                element={<ProfileOrderPage />}
+              />
               <Route
                 path="/products/:productId"
                 element={<ProductDetailsPage />}

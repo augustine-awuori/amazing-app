@@ -5,8 +5,6 @@ export const endpoint = "/orders";
 
 const makeOrder = (order: NewOrder) => client.post(endpoint, order);
 
-const getMyOrders = (userId: string) => client.get(`/my/${userId}`);
-
 const getOrder = async (orderId: string) => {
   try {
     const res = processResponse(
@@ -16,9 +14,9 @@ const getOrder = async (orderId: string) => {
   } catch (error) {}
 };
 
-const getShopOrders = async (shopId: string): Promise<Order[]> => {
+const getShopOrUserOrders = async (id: string): Promise<Order[]> => {
   try {
-    const res = processResponse(await client.get(`${endpoint}/${shopId}`));
+    const res = processResponse(await client.get(`${endpoint}/${id}`));
     return res.ok ? (res.data as Order[]) : [];
   } catch (error) {
     return [];
@@ -28,4 +26,9 @@ const getShopOrders = async (shopId: string): Promise<Order[]> => {
 const updateOrder = (orderId: string, update: object) =>
   client.patch(`${endpoint}/${orderId}`, update);
 
-export default { getMyOrders, getOrder, getShopOrders, makeOrder, updateOrder };
+export default {
+  getOrder,
+  getShopOrUserOrders,
+  makeOrder,
+  updateOrder,
+};

@@ -1,5 +1,7 @@
 export { default as ProductDetailsPage } from "./ProductDetailsPage";
 export { default as ProductsPage } from "./ProductsPage";
+export { default as ProfileOrderPage } from "./ProfileOrderPage";
+export { default as ProfileOrdersPage } from "./ProfileOrdersPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as ShopEditPage } from "./ShopEditPage";
 export { default as ShopOrderPage } from "./ShopOrderPage";

@@ -35,7 +35,13 @@ const Table = ({ orderProducts }: Props) => {
         <thead>
           <tr>
             {titleHeads.map((title, index) => (
-              <th key={index}>{title}</th>
+              // Conditionally render the first cell only on screens larger than small
+              <th
+                key={index}
+                className={index === 0 ? "hidden sm:table-cell" : ""}
+              >
+                {title}
+              </th>
             ))}
           </tr>
         </thead>
@@ -45,7 +51,7 @@ const Table = ({ orderProducts }: Props) => {
 
             return (
               <tr key={_id}>
-                <th>
+                <th className="hidden sm:table-cell">
                   <label>
                     <input type="checkbox" className="checkbox" />
                   </label>
