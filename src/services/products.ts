@@ -1,5 +1,5 @@
 import { Product } from "../hooks/useProducts";
-import apiClient, { processResponse } from "./client";
+import apiClient, { emptyResponse, processResponse } from "./client";
 
 export const endpoint = "/products";
 
@@ -31,4 +31,14 @@ export const getProducts = async (): Promise<Product[]> => {
 export const getProduct = async (productId: string) =>
   await apiClient.get(`${endpoint}/single/${productId}`);
 
-export default { create, getProducts, getProduct };
+const getProductURL = (productId: string) => `${endpoint}/${productId}`;
+
+const deleteProductBy = async (productId: string) => {
+  try {
+    return processResponse(await apiClient.delete(getProductURL(productId)));
+  } catch (error) {
+    return emptyResponse;
+  }
+};
+
+export default { create, deleteProductBy, getProducts, getProduct };

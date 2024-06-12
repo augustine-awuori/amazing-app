@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { getProducts } from "../services/products";
 import { ProductsContext } from "../contexts";
 import { ShopProduct } from "./useShop";
 import { User } from "./useUser";
+import service from "../services/products";
+import storage from "../db/image";
 
 interface Item {
   _id: string;
@@ -49,5 +52,33 @@ export default () => {
     if (data.length !== products.length) setProducts(data);
   };
 
-  return { products, isLoading };
+  const deleteProductById = async (productId: string) => {
+    const initial = [...products];
+    let found: Product | undefined;
+
+    toast.loading("Deleting product...");
+    setProducts(
+      initial.filter((p) => {
+        if (p._id === productId) found = p;
+
+        return p._id !== productId;
+      })
+    );
+
+    const { ok, problem } = await service.deleteProductBy(productId);
+    toast.dismiss();
+
+    let error = problem || "Product deletion terminated unsuccessfully!";
+    if (!ok) {
+      setProducts(initial);
+      toast.error(error);
+    } else {
+      storage.deleteImages(found?.images || []);
+      toast("Product deleted succesfully!");
+    }
+
+    return { ok, error };
+  };
+
+  return { deleteProductById, products, isLoading };
 };

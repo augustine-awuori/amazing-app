@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
-import { funcs } from "../utils";
+import { emptyProduct } from "../utils/empty";
 import { formatPhoneNumber } from "../utils/funcs";
+import { funcs } from "../utils";
 import { getShopProducts } from "../services/shops";
-import { Product } from "../hooks/useProducts";
+import useProducts, { Product } from "../hooks/useProducts";
 import {
   AddRightChevron,
   HorizontalProductList,
-  Image,
+  Modal,
   ShoppingCartIcon,
   Slider,
 } from "../components";
-import { useReload } from "../hooks";
+import { useReload, useUser } from "../hooks";
 import service from "../services/products";
 import useCart from "../hooks/useCart";
-import { emptyProduct } from "../utils/empty";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
@@ -24,6 +25,9 @@ const ProductDetailsPage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cart = useCart();
   const navigate = useNavigate();
+  const { user } = useUser();
+  const helper = useProducts();
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
   const { info: product, request } = useReload<Product>(
     null,
     { ...emptyProduct, paramsId: "productId" },
@@ -47,14 +51,33 @@ const ProductDetailsPage = () => {
       setShopProducts(await getShopProducts(product.shop._id));
   };
 
+  const deleteProduct = async () => {
+    if (!productId) return;
+
+    const { ok } = await helper.deleteProductById(productId);
+    if (ok) navigate("/");
+  };
+
   if (!product) return <Navigate to="/" />;
 
   const navigateToShop = () => navigate(`/shops/${product.shop._id}`);
 
   const { author, description, name, images, shop } = product || emptyProduct;
 
+  const currentUserIsTheSeller = user?._id === shop.author;
+
   return (
     <section className="p-4">
+      <Modal
+        content="Are you sure you want to delete this product permanently?"
+        isOpen={confirmDeletion}
+        onClose={() => setConfirmDeletion(false)}
+        title="Product Deletion"
+        primaryBtnLabel="Yes, Delete"
+        secondaryBtnLabel="No, Cancel"
+        onPrimaryBtnClick={deleteProduct}
+      />
+
       <article className="container mx-auto">
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <article className="col-span-1">
@@ -83,17 +106,36 @@ const ProductDetailsPage = () => {
             </section>
             <p className="text-2xl font-bold text-white-800 mb-2">{name}</p>
             <p>{description}</p>
-            <button
-              className="btn btn-primary btn-block mt-2"
-              onClick={updateCart}
-            >
-              {!productInCart && <ShoppingCartIcon />}
-              {productInCart ? (
-                <BsCartCheckFill size={20} />
-              ) : (
-                `Ksh ${funcs.addComma(product.price)}`
-              )}
-            </button>
+            {currentUserIsTheSeller ? (
+              <article className="flex justify-between items-center w-full mt-3">
+                <button
+                  className="btn btn-secondary flex items-center"
+                  style={{ width: "calc(50% - 5px)" }}
+                >
+                  <FaEdit className="mr-2" /> Edit Product
+                </button>
+                <div style={{ width: "10px" }} />
+                <button
+                  className="btn btn-error flex items-center"
+                  style={{ width: "calc(50% - 5px)" }}
+                  onClick={() => setConfirmDeletion(true)}
+                >
+                  <FaTrash className="mr-2" /> Delete Product
+                </button>
+              </article>
+            ) : (
+              <button
+                className="btn btn-primary btn-block mt-2"
+                onClick={updateCart}
+              >
+                {!productInCart && <ShoppingCartIcon />}
+                {productInCart ? (
+                  <BsCartCheckFill size={20} />
+                ) : (
+                  `Ksh ${funcs.addComma(product.price)}`
+                )}
+              </button>
+            )}
             <p className="text-1xl mt-8 font-bold text-white-800">
               {shop?.name} Shop Information
             </p>
@@ -107,7 +149,7 @@ const ProductDetailsPage = () => {
                 <img
                   src={shop?.image}
                   alt={shop?.name}
-                  className="w-20 h-20 mr-2 mask mask-hexagon-2  object-cover"
+                  className="w-20 h-20 mr-2 mask mask-hexagon-2 object-cover"
                 />
                 <article>
                   <p>Location: {shop?.location}</p>
@@ -125,11 +167,13 @@ const ProductDetailsPage = () => {
                 className="flex items-center"
                 onClick={() => navigate(`/profile/${author._id}`)}
               >
-                <Image
-                  src={author.avatar}
-                  alt={author.name}
-                  className="w-20 h-20 mr-2"
-                />
+                <figure>
+                  <img
+                    src={author.avatar}
+                    alt={author.name}
+                    className="w-20 h-20 mr-2 mask mask-squircle"
+                  />
+                </figure>
                 <article className="flex-grow">
                   <article>
                     <p>Name: {author.name}</p>
