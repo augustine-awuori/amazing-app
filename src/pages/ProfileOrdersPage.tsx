@@ -32,7 +32,11 @@ const ProfileOrdersPage = () => {
         My Orders{" "}
         {loading && <span className="loading loading-dots loading-md" />}
       </h1>
-
+      {!paginated.length && !loading && (
+        <h2 className="text-xl mt-4 text-center">
+          You don't have any orders yet
+        </h2>
+      )}
       {paginated.map((order) => (
         <OrderCard key={order._id} {...order} />
       ))}
