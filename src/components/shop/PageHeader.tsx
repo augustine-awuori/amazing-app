@@ -69,7 +69,7 @@ const PageHeader = ({ shop }: Props) => {
         </section>
       </section>
       {currentUserIsTheSeller && (
-        <section className="flex justify-center mt-4 mb-2">
+        <section className="flex justify-center mt-4 mb-2 overflow-y-scroll">
           <button
             className="btn btn-primary mx-2"
             onClick={handleProductCreation}
