@@ -11,8 +11,12 @@ const Tabs = () => {
         <p onClick={() => navigate("/")} className="cursor-pointer">
           Mart
         </p>
-        <p className="cursor-pointer">Events</p>
-        <p className="cursor-pointer">Chats</p>
+        <p className="cursor-pointer" onClick={() => navigate("/events")}>
+          Events
+        </p>
+        <p className="cursor-pointer" onClick={() => navigate("/chats")}>
+          Chats
+        </p>
       </div>
     </>
   );

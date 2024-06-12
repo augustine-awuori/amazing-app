@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import {
+  ChatsPage,
+  EventsPage,
   NotFoundPage,
   ProductDetailsPage,
   ProductsPage,
@@ -37,6 +39,8 @@ const AppRoutes = () => {
         <ProfileUserContext.Provider value={{ profileUser, setProfileUser }}>
           <OrderContext.Provider value={{ order, setOrder }}>
             <Routes>
+              <Route path="/chats" element={<ChatsPage />} />
+              <Route path="/events" element={<EventsPage />} />
               <Route path="/mart/cart" element={<ShoppingCartPage />} />
               <Route path="/mart/profile/:userId" element={<ProfilePage />} />
               <Route
