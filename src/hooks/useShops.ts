@@ -7,6 +7,7 @@ import { ShopsContext } from "../contexts";
 import { ShopTypes } from "../components/shop/TypesSelector";
 import service from "../services/shops";
 import storage from "../db/image";
+import useProducts from "./useProducts";
 
 export const prepShopTypes = (
   selectedShopTypes: ShopTypes | NewShopTypes
@@ -23,6 +24,7 @@ export const prepShopTypes = (
 const useShops = () => {
   const { setShops, shops } = useContext(ShopsContext);
   const [isLoading, setLoading] = useState(true);
+  const { products } = useProducts();
 
   useEffect(() => {
     if (!shops.length) initShops();
@@ -66,18 +68,32 @@ const useShops = () => {
 
   const deleteShop = async (shopId: string) => {
     toast.loading("Deleting shop from the server...");
+
     const res = await service.deleteShop(shopId);
 
-    if (res?.ok) {
-      toast.success("Shop deleted successfully from the server!");
-      toast.loading("Deleting shop images from the server...");
-      shops.forEach(async (shop) => {
-        if (shop._id === shopId) await storage.deleteImage(shop.image);
-      });
-    } else toast.error(res?.problem);
-    toast.dismiss();
+    if (!res?.ok) {
+      toast.error(res?.problem);
+      toast.dismiss();
+      return false;
+    }
 
-    return res?.ok;
+    toast.success("Shop deleted successfully from the server!");
+
+    const shopToDelete = shops.find((shop) => shop._id === shopId);
+
+    if (shopToDelete) {
+      toast.loading("Deleting shop images from the server...");
+      await storage.deleteImage(shopToDelete.image);
+
+      const productDeletions = products
+        .filter(({ shop }) => shop._id === shopId)
+        .map(({ images }) => storage.deleteImages(images));
+
+      await Promise.all(productDeletions);
+    }
+
+    toast.dismiss();
+    return true;
   };
 
   return { create, deleteShop, incShopViews, isLoading, shops };
