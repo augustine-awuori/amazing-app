@@ -14,6 +14,7 @@ export { default as ProductForm } from "./products/Form";
 export { default as ProductHeader } from "./products/Header";
 export { default as ProductsGrid } from "./products/Grid";
 export { default as ProductTypesList } from "./products/TypesList";
+export { default as ProductUpdateForm } from "./products/UpdateForm";
 export { default as Routes } from "./Routes";
 export { default as ShopPageHeader } from "./shop/PageHeader";
 export { default as ShopTypesSelector } from "./shop/TypesSelector";

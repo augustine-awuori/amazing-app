@@ -10,7 +10,7 @@ const SubmitButton = ({ title, ...otherProps }: Props) => {
 
   return (
     <button
-      className="btn btn-primary w-full mb-2 "
+      className="btn btn-primary w-full"
       onClick={(e) => {
         e.preventDefault();
         handleSubmit();

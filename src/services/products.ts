@@ -7,7 +7,7 @@ export interface NewProduct {
   author: string;
   description?: string | undefined;
   name: string;
-  price: string;
+  price: number;
   images: string[];
   shop: string;
   type: string;
@@ -41,4 +41,14 @@ const deleteProductBy = async (productId: string) => {
   }
 };
 
-export default { create, deleteProductBy, getProducts, getProduct };
+const update = async (info: object, productId: string) => {
+  try {
+    return processResponse(
+      await apiClient.patch(getProductURL(productId), info)
+    );
+  } catch (error) {
+    return emptyResponse;
+  }
+};
+
+export default { create, deleteProductBy, getProducts, getProduct, update };

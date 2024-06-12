@@ -66,7 +66,7 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
 
     onDone();
     toast.success("Shop updated successfully");
-    window.location.href = `/shops/${shopId}`;
+    window.location.href = window.location.href;
   };
 
   const handleTypeSelect = (type: ProductType) => {

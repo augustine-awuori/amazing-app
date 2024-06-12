@@ -19,13 +19,13 @@ import ShopTypesSelector from "../shop/TypesSelector";
 import storage from "../../db/image";
 import { emptyType } from "../../utils/empty";
 
-const schema = Yup.object().shape({
+export const productSchema = Yup.object().shape({
   name: Yup.string().min(1).max(50).required(),
-  price: Yup.string().min(1).max(1000000).required(),
+  price: Yup.number().min(1).max(1000000).required(),
   description: Yup.string(),
 });
 
-type Info = Yup.InferType<typeof schema>;
+export type ProductInfo = Yup.InferType<typeof productSchema>;
 
 const MAX_IMAGE_INPUT = 3;
 
@@ -42,7 +42,7 @@ const ProductForm = ({ onDone }: Props) => {
   const { shopId } = useParams();
 
   const makeProductFrom = async (
-    info: Info
+    info: ProductInfo
   ): Promise<NewProduct | undefined> => {
     toast.loading("Saving product images");
     const imagesUrl = await storage.saveImages(images);
@@ -62,7 +62,7 @@ const ProductForm = ({ onDone }: Props) => {
       };
   };
 
-  const handleSubmit = async (info: Info) => {
+  const handleSubmit = async (info: ProductInfo) => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select at least an image");
     if (!selectedType._id) return setError("Please select the product type");
@@ -87,9 +87,9 @@ const ProductForm = ({ onDone }: Props) => {
 
   return (
     <Form
-      initialValues={{ name: "", price: "", description: "" }}
+      initialValues={{ name: "", price: 0, description: "" }}
       onSubmit={handleSubmit}
-      validationSchema={schema}
+      validationSchema={productSchema}
     >
       <ImageInputList imagesLimit={MAX_IMAGE_INPUT} />
       <ErrorMessage error={error} visible />
