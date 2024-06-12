@@ -64,7 +64,8 @@ const ProductDetailsPage = () => {
 
   const navigateToShop = () => navigate(`/shops/${product.shop._id}`);
 
-  const { author, description, name, images, shop } = product || emptyProduct;
+  const { author, description, name, images, shop, type } =
+    product || emptyProduct;
 
   const currentUserIsTheSeller = user?._id === shop.author;
 
@@ -117,7 +118,12 @@ const ProductDetailsPage = () => {
                   />
                 ))}
             </section>
-            <p className="text-2xl font-bold text-white-800 mb-2">{name}</p>
+            <section className="flex items-center">
+              <p className="text-2xl font-bold text-white-800 mb-2">{name}</p>
+              <button className="btn btn-ghost btn-xs btn-outline btn-accent ml-2">
+                {type.label}
+              </button>
+            </section>
             <p>{description}</p>
             {currentUserIsTheSeller ? (
               <article className="flex justify-between items-center w-full mt-3">
