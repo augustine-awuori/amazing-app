@@ -1,6 +1,7 @@
 export { default as CartContext } from "./CartContext";
 export { default as ImagesContext } from "./ImagesContext";
 export { default as OrderContext } from "./OrderContext";
+export { default as PostersContext } from "./PostersContext";
 export { default as ProductsContext } from "./ProductsContext";
 export { default as ProfileUserContext } from "./ProfileUserContext";
 export { default as ShopsContext } from "./ShopsContext";

@@ -2,6 +2,7 @@ export { default as useCart } from "./useCart";
 export { default as useData } from "./useData";
 export { default as useImages } from "./useImages";
 export { default as useOrders } from "./useOrders";
+export { default as usePosters } from "./usePosters";
 export { default as useProducts } from "./useProducts";
 export { default as useProductTypes } from "./useProductTypes";
 export { default as useProfileUser } from "./useProfileUser";
