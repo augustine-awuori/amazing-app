@@ -10,7 +10,7 @@ import { useStatus } from "../hooks";
 import OrderCard from "../components/orders/Card";
 import service from "../services/orders";
 
-const cancelledStatus: Status = { _id: "canceled", label: "Cancelled" };
+export const cancelledStatus: Status = { _id: "canceled", label: "Cancelled" };
 
 const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);

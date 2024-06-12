@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { cancelledStatus } from "./ShopOrdersPage";
 import { emptyStatus } from "../utils/empty";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils";
@@ -9,8 +10,6 @@ import { Status } from "../hooks/useStatus";
 import { useStatus } from "../hooks";
 import OrderCard from "../components/orders/Card";
 import service from "../services/orders";
-
-const cancelledStatus: Status = { _id: "canceled", label: "Cancelled" };
 
 const ProfileOrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
