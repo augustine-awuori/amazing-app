@@ -7,7 +7,7 @@ const endpoint = "/status";
 
 export interface Status {
   _id: string;
-  color: string;
+  color?: string;
   label: string;
 }
 
@@ -20,7 +20,7 @@ const useStatus = () => {
   }, [data?.length]);
 
   return {
-    status: [{ _id: "", label: "All" }, ...status],
+    status: [{ _id: "", label: "All" }, ...data],
     error,
     isLoading,
     data,
