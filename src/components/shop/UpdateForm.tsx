@@ -16,6 +16,7 @@ import { useProductTypes } from "../../hooks";
 import useShops from "../../hooks/useShops";
 import service from "../../services/shops";
 import ShopTypesSelector, { ShopTypes } from "./TypesSelector";
+import Modal from "../Modal";
 
 interface Props extends Shop {
   onDone: () => void;
@@ -27,6 +28,7 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
   const { types: allTypes } = useProductTypes();
   const { shopId } = useParams();
   const [loading, setLoading] = useState(false);
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
   const helper = useShops();
   const navigate = useNavigate();
   const [selectedShopTypesId, setSelectedShopTypesId] = useState<NewShopTypes>(
@@ -95,6 +97,16 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
 
   return (
     <section>
+      <Modal
+        content="Are you certain you want to permanently delete this shop? This action will remove all associated products and cannot be undone"
+        isOpen={confirmDeletion}
+        onClose={() => setConfirmDeletion(false)}
+        title="Shop Deletion Confirmation"
+        primaryBtnLabel="Confirm, Delete Shop"
+        secondaryBtnLabel="Cancel"
+        onPrimaryBtnClick={deleteShop}
+      />
+
       <Form
         initialValues={{
           name,
@@ -114,7 +126,10 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
         <SubmitButton title={loading ? "Updating" : "Update"} />
       </Form>
       <div className="divider">OR</div>
-      <button className="btn btn-error w-full" onClick={deleteShop}>
+      <button
+        className="btn btn-error w-full"
+        onClick={() => setConfirmDeletion(true)}
+      >
         Delete Shop
       </button>
     </section>
