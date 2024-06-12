@@ -62,7 +62,7 @@ const ProductDetailsPage = () => {
 
   if (!product) return <Navigate to="/" />;
 
-  const navigateToShop = () => navigate(`/shops/${product.shop._id}`);
+  const navigateToShop = () => navigate(`/mart/shops/${product.shop._id}`);
 
   const { author, description, name, images, shop, type } =
     product || emptyProduct;
@@ -160,7 +160,7 @@ const ProductDetailsPage = () => {
               {shop?.name} Shop Information
             </p>
             <AddRightChevron
-              onClick={() => navigate(`/shops/${product.shop._id}`)}
+              onClick={() => navigate(`/mart/shops/${product.shop._id}`)}
             >
               <article
                 className="flex mt-4 cursor-pointer items-center"
@@ -185,7 +185,7 @@ const ProductDetailsPage = () => {
             <AddRightChevron>
               <article
                 className="flex items-center"
-                onClick={() => navigate(`/profile/${author._id}`)}
+                onClick={() => navigate(`/mart/profile/${author._id}`)}
               >
                 <figure>
                   <img

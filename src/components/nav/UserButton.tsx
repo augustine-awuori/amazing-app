@@ -28,7 +28,7 @@ const UserButton = () => {
   };
 
   const navigateToProfile = () => {
-    if (googleUser && user?._id) navigate(`/profile/${user?._id}`);
+    if (googleUser && user?._id) navigate(`/mart/profile/${user?._id}`);
     else toast.info("Loading your profile");
   };
 

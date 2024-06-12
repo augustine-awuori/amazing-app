@@ -13,7 +13,7 @@ const Profile = ({ _id, image, name, location }: Shop) => {
   return (
     <article
       className="card w-full glass cursor-pointer"
-      onClick={() => navigate(`/shops/${_id}`)}
+      onClick={() => navigate(`/mart/shops/${_id}`)}
     >
       <figure className="relative h-48 w-full">
         <img

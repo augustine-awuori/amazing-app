@@ -17,6 +17,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
 
   const handleMouseEnter = () => setHovered(true);
   const handleMouseLeave = () => setHovered(false);
+  const navigateToDetails = () => navigate(`/mart/products/${_id}`);
 
   const updateCart = () => (productInCart ? cart.remove(_id) : cart.add(_id));
 
@@ -41,7 +42,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
               key={image}
               src={image}
               alt={name}
-              onClick={() => navigate(`/products/${_id}`)}
+              onClick={navigateToDetails}
               className={`w-full h-96 object-cover rounded-lg image ${
                 currentImageIndex === index ? "active" : ""
               }`}
@@ -57,7 +58,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
         <article className="rounded-b-md absolute bottom-0 left-0 right-0 py-2 px-3 bg-black bg-opacity-50 text-white">
           {hovered && (
             <article
-              onClick={() => navigate(`/products/${_id}`)}
+              onClick={navigateToDetails}
               style={{ transition: "opacity 0.3s ease-in-out" }}
             >
               <h2 className="card-title text-lg">{name}</h2>

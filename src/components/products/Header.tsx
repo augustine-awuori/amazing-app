@@ -30,7 +30,7 @@ const Header = ({ onQuery, query }: Props) => {
 
   const handleShopSelection = () => {
     if (selectedShopId) {
-      navigate(selectedShopId);
+      navigate(`shops/${selectedShopId}`);
       setShowModal(false);
       return;
     }
@@ -44,7 +44,7 @@ const Header = ({ onQuery, query }: Props) => {
         className="text-center cursor-pointer mb-2 font-bold"
         onClick={() => {
           setShowModal(false);
-          navigate("/shops/new");
+          navigate("shops/new");
         }}
       >
         Create a new shop instead?
@@ -65,7 +65,7 @@ const Header = ({ onQuery, query }: Props) => {
         onClose={() => setShowModal(false)}
         title="Select Shop"
         primaryBtnLabel="Proceed"
-        onPrimaryBtnClick={() => navigate(`/shops/${selectedShopId}`)}
+        onPrimaryBtnClick={() => navigate(`shops/${selectedShopId}`)}
         secondaryBtnLabel="Cancel"
       />
       <div className="relative flex-grow">

@@ -29,7 +29,7 @@ const Cart = () => {
           <div className="card-actions">
             <button
               className="btn btn-primary btn-block"
-              onClick={() => navigate("/cart")}
+              onClick={() => navigate("/mart/cart")}
             >
               View cart
             </button>

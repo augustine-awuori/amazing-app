@@ -75,7 +75,7 @@ const ShopEditPage = () => {
 
     toast.success("Shop created successfully");
     removeAllImages();
-    navigate(`/shops/${(data as Shop)._id}`);
+    navigate(`/mart/shops/${(data as Shop)._id}`);
   };
 
   return (

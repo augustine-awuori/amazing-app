@@ -23,6 +23,7 @@ import {
 import { Shop } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
 import { Order } from "../hooks/useOrder";
+import RedirectRoot from "../navigation/RedirectRoot";
 
 const AppRoutes = () => {
   const [shops, setShops] = useState<Shop[]>([]);
@@ -36,31 +37,32 @@ const AppRoutes = () => {
         <ProfileUserContext.Provider value={{ profileUser, setProfileUser }}>
           <OrderContext.Provider value={{ order, setOrder }}>
             <Routes>
-              <Route path="/cart" element={<ShoppingCartPage />} />
-              <Route path="/profile/:userId" element={<ProfilePage />} />
+              <Route path="/mart/cart" element={<ShoppingCartPage />} />
+              <Route path="/mart/profile/:userId" element={<ProfilePage />} />
               <Route
-                path="/profile/:userId/orders"
+                path="/mart/profile/:userId/orders"
                 element={<ProfileOrdersPage />}
               />
               <Route
-                path="/profile/:userId/orders/:orderId"
+                path="/mart/profile/:userId/orders/:orderId"
                 element={<ProfileOrderPage />}
               />
               <Route
-                path="/products/:productId"
+                path="/mart/products/:productId"
                 element={<ProductDetailsPage />}
               />
-              <Route path="/shops/:shopId" element={<ShopPage />} />
+              <Route path="/mart/shops/:shopId" element={<ShopPage />} />
               <Route
-                path="/shops/:shopId/orders"
+                path="/mart/shops/:shopId/orders"
                 element={<ShopOrdersPage />}
               />
               <Route
-                path="/shops/:shopId/orders/:orderId"
+                path="/mart/shops/:shopId/orders/:orderId"
                 element={<ShopOrderPage />}
               />
-              <Route path="/shops/new" element={<ShopEditPage />} />
-              <Route index element={<ProductsPage />} />
+              <Route path="/mart/shops/new" element={<ShopEditPage />} />
+              <Route path="/mart" element={<ProductsPage />} />
+              <Route index element={<RedirectRoot />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </OrderContext.Provider>
