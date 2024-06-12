@@ -7,16 +7,17 @@ import { emptyProduct } from "../utils/empty";
 import { formatPhoneNumber } from "../utils/funcs";
 import { funcs } from "../utils";
 import { getShopProducts } from "../services/shops";
-import useProducts, { Product } from "../hooks/useProducts";
 import {
   AddRightChevron,
   HorizontalProductList,
   Modal,
+  ProductUpdateForm,
   ShoppingCartIcon,
   Slider,
 } from "../components";
 import { useReload, useUser } from "../hooks";
 import service from "../services/products";
+import useProducts, { Product } from "../hooks/useProducts";
 import useCart from "../hooks/useCart";
 
 const ProductDetailsPage = () => {
@@ -28,6 +29,7 @@ const ProductDetailsPage = () => {
   const { user } = useUser();
   const helper = useProducts();
   const [confirmDeletion, setConfirmDeletion] = useState(false);
+  const [isEditingProduct, setIsEditingProduct] = useState(false);
   const { info: product, request } = useReload<Product>(
     null,
     { ...emptyProduct, paramsId: "productId" },
@@ -77,6 +79,17 @@ const ProductDetailsPage = () => {
         secondaryBtnLabel="No, Cancel"
         onPrimaryBtnClick={deleteProduct}
       />
+      <Modal
+        content={
+          <ProductUpdateForm
+            {...product}
+            onDone={() => setIsEditingProduct(false)}
+          />
+        }
+        isOpen={isEditingProduct}
+        onClose={() => setIsEditingProduct(false)}
+        title="Product Editing"
+      />
 
       <article className="container mx-auto">
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -111,6 +124,7 @@ const ProductDetailsPage = () => {
                 <button
                   className="btn btn-secondary flex items-center"
                   style={{ width: "calc(50% - 5px)" }}
+                  onClick={() => setIsEditingProduct(true)}
                 >
                   <FaEdit className="mr-2" /> Edit Product
                 </button>
