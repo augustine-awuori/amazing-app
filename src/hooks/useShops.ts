@@ -6,7 +6,7 @@ import { NewShop, NewShopTypes, Shop } from "./useShop";
 import { ShopsContext } from "../contexts";
 import { ShopTypes } from "../components/shop/TypesSelector";
 import service from "../services/shops";
-import { processResponse } from "../services/client";
+import storage from "../db/image";
 
 export const prepShopTypes = (
   selectedShopTypes: ShopTypes | NewShopTypes
@@ -64,7 +64,23 @@ const useShops = () => {
     if (!res?.ok) decShopViews(shopId, previous);
   };
 
-  return { create, incShopViews, isLoading, shops };
+  const deleteShop = async (shopId: string) => {
+    toast.loading("Deleting shop from the server...");
+    const res = await service.deleteShop(shopId);
+
+    if (res?.ok) {
+      toast.success("Shop deleted successfully from the server!");
+      toast.loading("Deleting shop images from the server...");
+      shops.forEach(async (shop) => {
+        if (shop._id === shopId) await storage.deleteImage(shop.image);
+      });
+    } else toast.error(res?.problem);
+    toast.dismiss();
+
+    return res?.ok;
+  };
+
+  return { create, deleteShop, incShopViews, isLoading, shops };
 };
 
 export default useShops;

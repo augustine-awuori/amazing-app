@@ -50,4 +50,18 @@ const incViews = async (shopId: string) => {
   } catch (error) {}
 };
 
-export default { create, incViews, getShop, getShopProducts, getShops, update };
+const deleteShop = async (shopId: string) => {
+  try {
+    return processResponse(await client.delete(`${endpoint}/${shopId}`));
+  } catch (error) {}
+};
+
+export default {
+  create,
+  deleteShop,
+  incViews,
+  getShop,
+  getShopProducts,
+  getShops,
+  update,
+};

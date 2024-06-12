@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import {
@@ -13,6 +13,7 @@ import { shopSchema } from "../../pages/ShopEditPage";
 import { NewShopTypes, Shop, UpdatableShopInfo } from "../../hooks/useShop";
 import { ProductType } from "../products/TypesList";
 import { useProductTypes } from "../../hooks";
+import useShops from "../../hooks/useShops";
 import service from "../../services/shops";
 import ShopTypesSelector, { ShopTypes } from "./TypesSelector";
 
@@ -26,6 +27,8 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
   const { types: allTypes } = useProductTypes();
   const { shopId } = useParams();
   const [loading, setLoading] = useState(false);
+  const helper = useShops();
+  const navigate = useNavigate();
   const [selectedShopTypesId, setSelectedShopTypesId] = useState<NewShopTypes>(
     {}
   );
@@ -86,25 +89,35 @@ const UpdateForm = ({ onDone, location, name, types, _id }: Props) => {
     }
   };
 
+  const deleteShop = async () => {
+    if (shopId && (await helper.deleteShop(shopId))) navigate("/");
+  };
+
   return (
-    <Form
-      initialValues={{
-        name,
-        location,
-        types: selectedShopTypesId,
-      }}
-      onSubmit={handleSubmit}
-      validationSchema={shopSchema}
-    >
-      <ErrorMessage error={error} visible />
-      <ShopTypesSelector
-        onTypeSelect={handleTypeSelect}
-        selectedTypes={selectedShopTypes}
-      />
-      <FormField name="name" />
-      <FormTextAreaField name="location" />
-      <SubmitButton title={loading ? "Updating" : "Update"} />
-    </Form>
+    <section>
+      <Form
+        initialValues={{
+          name,
+          location,
+          types: selectedShopTypesId,
+        }}
+        onSubmit={handleSubmit}
+        validationSchema={shopSchema}
+      >
+        <ErrorMessage error={error} visible />
+        <ShopTypesSelector
+          onTypeSelect={handleTypeSelect}
+          selectedTypes={selectedShopTypes}
+        />
+        <FormField name="name" />
+        <FormTextAreaField name="location" />
+        <SubmitButton title={loading ? "Updating" : "Update"} />
+      </Form>
+      <div className="divider">OR</div>
+      <button className="btn btn-error w-full" onClick={deleteShop}>
+        Delete Shop
+      </button>
+    </section>
   );
 };
 
