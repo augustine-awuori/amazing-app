@@ -117,13 +117,15 @@ const useOrders = () => {
     const res = await service.updateOrder(orderId, update);
     toast.dismiss();
 
-    processResponse(res).ok
+    const processedResponse = processResponse(res);
+
+    processedResponse.ok
       ? toast.success("Order status updated successfully!")
       : toast.error(
           (res.data as DataError).error || "Order status update failed"
         );
 
-    return res;
+    return processedResponse;
   };
 
   return { makeShopsOrders, updateOrder };

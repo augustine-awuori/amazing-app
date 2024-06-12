@@ -11,7 +11,7 @@ const OrderCard = (order: Order) => {
   const { setOrder } = useOrder();
   const navigate = useNavigate();
 
-  const { _id, buyer, products, message, status, timestamp } = order;
+  const { _id, buyer, canceled, products, message, status, timestamp } = order;
 
   useEffect(() => {
     const realProducts: Product[] = [];
@@ -44,7 +44,7 @@ const OrderCard = (order: Order) => {
         <div className="card-body">
           <h2 className="card-title">{buyer.name}</h2>
           {message && <p className="text-sm">"{message}"</p>}
-          <p>Status: {status.label}</p>
+          <p>Status: {canceled ? "CANCELED" : status.label}</p>
           <p>Timestamp: {new Date(timestamp).toLocaleString()}</p>
         </div>
       </div>

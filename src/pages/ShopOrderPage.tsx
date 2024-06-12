@@ -56,9 +56,7 @@ const ShopOrderPage = () => {
 
     setSelectedStatus(status);
     if (!orderId) return;
-    const { ok } = processResponse(
-      await helper.updateOrder(orderId, { status: status._id })
-    );
+    const { ok } = await helper.updateOrder(orderId, { status: status._id });
     if (!ok) return setSelectedStatus(prevStatus);
   };
 
@@ -73,12 +71,20 @@ const ShopOrderPage = () => {
   return (
     <section className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Order Details</h1>
-      <p>Info Tip: Tap on Status to change the order status</p>
-      <ProductTypesList
-        badges={data || []}
-        onTypeSelect={(type) => handleStatusSelect(type as Status)}
-        selectedType={selectedStatus}
-      />
+      {order.canceled ? (
+        <p className="text-red-600 font-bold text-xl">
+          This order has been canceled by the buyer
+        </p>
+      ) : (
+        <>
+          <p>Info Tip: Tap on Status to change the order status</p>
+          <ProductTypesList
+            badges={data || []}
+            onTypeSelect={(type) => handleStatusSelect(type as Status)}
+            selectedType={selectedStatus}
+          />
+        </>
+      )}
       <div className="card bg-base-100 shadow-md p-4 mt-2">
         <div className="flex mb-4">
           <img
