@@ -32,8 +32,10 @@ const UserButton = () => {
     else toast.info("Loading your profile");
   };
 
-  const Avatar = () =>
-    googleUser?.photoURL ? (
+  const Avatar = () => {
+    if (!user) return <span className="loading loading-ring loading-lg" />;
+
+    return googleUser?.photoURL ? (
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img
           alt={googleUser?.displayName || "avatar"}
@@ -44,6 +46,7 @@ const UserButton = () => {
     ) : (
       <FaUser />
     );
+  };
 
   return (
     <div className="dropdown dropdown-end">
