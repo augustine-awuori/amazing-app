@@ -12,6 +12,7 @@ import auth, { googleAuth, GoogleUser } from "../services/auth";
 import logger from "../utils/logger";
 import usersApi from "../services/users";
 import { createAndGetChatToken } from "../services/chatToken";
+import { toast } from "react-toastify";
 
 export interface OtherAccounts {
   instagram?: string;
@@ -45,7 +46,7 @@ const useUser = (): {
   useEffect(() => {
     retrieveUser();
     checkChatToken();
-  }, [googleUser?.uid]);
+  }, [googleUser?.uid, user?._id]);
 
   const loginWithJwt = (
     headers:
@@ -66,31 +67,17 @@ const useUser = (): {
   };
 
   async function retrieveUser() {
-    try {
-      const cachedUser = auth.getCurrentUserFromCache();
-      if (!cachedUser && user?.email) await usersApi.restoreToken(user.email);
+    if (googleUser && !user?.email) {
+      const res = await usersApi.register({
+        email: googleUser.email || "",
+        name: googleUser.displayName || "",
+        avatar: googleUser.photoURL || "",
+      });
 
-      if (cachedUser && !cachedUser?.email && googleUser?.email) {
-        const res = await usersApi.updateUserInfo({
-          email: googleUser.email,
-          avatar: googleUser?.photoURL,
-        });
-
-        if (processResponse(res).ok) loginWithJwt(res.headers);
-      }
-
-      if (googleUser && !user?.email) {
-        const res = await usersApi.register({
-          email: googleUser.email || "",
-          name: googleUser.displayName || "",
-          avatar: googleUser.photoURL || "",
-        });
-
-        if (processResponse(res).ok) setUser(res.data as User);
+      if (processResponse(res).ok) {
+        setUser(res.data as User);
         loginWithJwt(res.headers);
-      }
-    } catch (error) {
-      logger.log(error);
+      } else toast.error("Failed to login");
     }
   }
 
