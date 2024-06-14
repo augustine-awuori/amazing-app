@@ -1,0 +1,84 @@
+/* ChatsPage.css */
+.chat-container {
+  display: flex;
+  height: 100vh;
+}
+
+.str-chat__list {
+  width: 320px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.str-chat__main-panel {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 320px);
+}
+
+.str-chat__header-livestream,
+.str-chat__header-title {
+  display: flex;
+  align-items: center;
+}
+
+.str-chat__header-livestream {
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.str-chat__message-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background-color: #f9f9f9;
+}
+
+.str-chat__input-flat {
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.str-chat__message--me {
+  background-color: #dcf8c6;
+}
+
+.str-chat__message {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.str-chat__avatar {
+  margin-right: 15px;
+}
+
+.str-chat__list .str-chat__channel-preview-messenger--active {
+  background-color: #e6f7ff;
+}
+
+.str-chat__list .str-chat__channel-preview-messenger--active .str-chat__avatar {
+  border-color: #1890ff;
+}
+
+.str-chat__channel-preview-messenger {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.str-chat__channel-preview-messenger:hover {
+  background-color: #f1f1f1;
+}
+
+.str-chat__channel-preview-messenger .str-chat__title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.str-chat__channel-preview-messenger .str-chat__last-message {
+  color: #999;
+}

@@ -11,6 +11,7 @@ import { UserContext } from "../contexts";
 import auth, { googleAuth, GoogleUser } from "../services/auth";
 import logger from "../utils/logger";
 import usersApi from "../services/users";
+import { createAndGetChatToken } from "../services/chatToken";
 
 export interface OtherAccounts {
   instagram?: string;
@@ -23,6 +24,7 @@ export interface User {
   _id: string;
   aboutMe?: string;
   avatar?: string;
+  chatToken?: string;
   email: string;
   chatIds?: { [email: string]: string };
   isAdmin: boolean;
@@ -42,6 +44,7 @@ const useUser = (): {
 
   useEffect(() => {
     retrieveUser();
+    checkChatToken();
   }, [googleUser?.uid]);
 
   const loginWithJwt = (
@@ -89,6 +92,13 @@ const useUser = (): {
     } catch (error) {
       logger.log(error);
     }
+  }
+
+  async function checkChatToken() {
+    if (!user || user.chatToken) return;
+
+    const res = await createAndGetChatToken();
+    if (res?.ok) setUser({ ...user, chatToken: res.data as string });
   }
 
   return { user, googleUser };
