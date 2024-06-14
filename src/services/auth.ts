@@ -64,7 +64,7 @@ export const signOut = async () => await googleSignOut(googleAuth);
 
 export default {
   app,
-  getCurrentUserFromCache,
+  getCurrentUserFromStorage: getCurrentUserFromCache,
   getJwt,
   loginWithJwt,
   logout,
