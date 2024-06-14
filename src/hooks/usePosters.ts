@@ -13,7 +13,7 @@ const usePosters = () => {
   const { setPosters, posters: retrieved } = useContext(PostersContext);
 
   useEffect(() => {
-    setPosters(posters?.length ? posters : []);
+    if (!retrieved.length) setPosters(posters?.length ? posters : []);
   }, [posters?.length, retrieved.length]);
 
   return { posters, ...rest };
