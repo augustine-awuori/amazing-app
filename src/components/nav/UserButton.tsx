@@ -6,7 +6,7 @@ import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 
 import { randomImage } from "../shop/PageHeader";
 import { useUser } from "../../hooks";
-import { googleAuth } from "../../services/auth";
+import auth, { googleAuth } from "../../services/auth";
 
 const userSignOut = () => signOut(googleAuth);
 
@@ -24,6 +24,7 @@ const UserButton = () => {
 
   const logOut = async () => {
     await userSignOut();
+    auth.logout();
     window.location.href = "/";
   };
 
