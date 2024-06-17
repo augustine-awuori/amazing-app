@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
@@ -16,13 +17,16 @@ export type LoginInfo = Yup.InferType<typeof schema>;
 
 const EmergencyLoginForm = () => {
   const { setUser } = useUser();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (info: LoginInfo) => {
+    setLoading(true);
     const res = await service.register({
       ...info,
       avatar: "",
       isAccountVerified: false,
     });
+    setLoading(false);
 
     const { data, ok } = processResponse(res);
     if (ok) {
@@ -40,7 +44,7 @@ const EmergencyLoginForm = () => {
     >
       <FormField name="email" />
       <FormField name="name" placeholder="Full Name" />
-      <SubmitButton title="Login" />
+      <SubmitButton title={loading ? "Logging you in" : "Login"} />
     </Form>
   );
 };
