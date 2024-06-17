@@ -197,7 +197,6 @@ const ProductDetailsPage = () => {
                 <article className="flex-grow">
                   <article>
                     <p>Name: {author.name}</p>
-                    <p>Email: {author?.email || "Not available"}</p>
                     <p>
                       Phone:{" "}
                       {formatPhoneNumber(author?.otherAccounts?.whatsapp) ||

@@ -69,12 +69,6 @@ const ProfilePage: React.FC = () => {
                 <h2 className="text-2xl font-bold text-center">{name}</h2>
                 {aboutMe && <p className="text-gray-600 mt-4">{aboutMe}</p>}
                 <article className="mt-6 flex flex-col space-y-2">
-                  {profileUser.email && (
-                    <article className="flex items-center">
-                      <FaEnvelope className="mr-2 text-gray-600" />
-                      <span>{profileUser.email}</span>
-                    </article>
-                  )}
                   {otherAccounts?.whatsapp && (
                     <article className="flex items-center">
                       <FaPhone className="mr-2 text-gray-600" />
