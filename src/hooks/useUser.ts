@@ -29,11 +29,12 @@ export interface User {
 const useUser = (): {
   user: User | undefined;
   googleUser: null | GoogleUser | undefined;
+  setUser: (user: User) => void;
 } => {
-  const { user } = useContext(UserContext);
+  const context = useContext(UserContext);
   const [googleUser] = useAuthState(googleAuth);
 
-  return { user, googleUser };
+  return { ...context, googleUser };
 };
 
 export default useUser;

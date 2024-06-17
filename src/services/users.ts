@@ -1,9 +1,16 @@
 import auth from "./auth";
 import client, { processResponse } from "./client";
+import { LoginInfo } from "../components/EmergencyLoginForm";
 
 const endpoint = "/users";
 
-const register = (userInfo: object) => client.post(endpoint, userInfo);
+interface RegistrationInfo extends LoginInfo {
+  avatar: string;
+  isAccountVerified: boolean;
+}
+
+const register = (userInfo: RegistrationInfo) =>
+  client.post(endpoint, userInfo);
 
 const updateUserInfo = (userInfo: object) => client.patch(endpoint, userInfo);
 

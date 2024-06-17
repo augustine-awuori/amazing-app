@@ -13,7 +13,11 @@ const userSignOut = () => signOut(googleAuth);
 const userSignIn = () =>
   signInWithRedirect(googleAuth, new GoogleAuthProvider());
 
-const UserButton = () => {
+interface Props {
+  onEmergencyLogin: (state: boolean) => void;
+}
+
+const UserButton = ({ onEmergencyLogin }: Props) => {
   const { googleUser, user } = useUser();
   const navigate = useNavigate();
 
@@ -74,9 +78,14 @@ const UserButton = () => {
             </li>
           </>
         ) : (
-          <li className="text-lg" onClick={logIn}>
-            <p>Google in</p>
-          </li>
+          <>
+            <li className="text-lg" onClick={logIn}>
+              <p>Quick Login</p>
+            </li>
+            <li className="text-lg" onClick={() => onEmergencyLogin(true)}>
+              <p>Emergency Login</p>
+            </li>
+          </>
         )}
       </ul>
     </div>

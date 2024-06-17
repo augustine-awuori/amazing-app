@@ -33,10 +33,12 @@ function App() {
 
     if (!googleUser) return;
     const { email, displayName, photoURL } = googleUser;
+    if (!email || !displayName || !photoURL) return;
     const res = await usersApi.register({
       email,
       name: displayName,
       avatar: photoURL,
+      isAccountVerified: true,
     });
 
     const { data, ok } = processResponse(res);
