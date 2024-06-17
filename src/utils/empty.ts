@@ -5,10 +5,12 @@ import { Status } from "../hooks/useStatus";
 
 export const emptyStatus: Status = { _id: "", color: "orange", label: "All" };
 
+const randomImage = "https://picsum.photos/1200/300";
+
 export const emptyAuthor: User = {
   _id: "",
   aboutMe: "",
-  avatar: "",
+  avatar: randomImage,
   email: "",
   isAdmin: false,
   isVerified: false,
@@ -20,7 +22,7 @@ export const emptyAuthor: User = {
 export const emptyShop: Shop = {
   _id: "",
   author: emptyAuthor,
-  image: "",
+  image: randomImage,
   isVerified: false,
   name: "",
   location: "",
@@ -38,7 +40,7 @@ export const emptyProduct: Product = {
   _id: "",
   author: emptyAuthor,
   description: "",
-  images: [],
+  images: [randomImage],
   name: "",
   price: 100,
   shop: emptyShopProduct,
