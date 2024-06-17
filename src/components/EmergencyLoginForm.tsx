@@ -4,6 +4,7 @@ import * as Yup from "yup";
 
 import { authTokenKey, processResponse } from "../services/client";
 import { Form, FormField, SubmitButton } from "./form";
+import { randomImage } from "./shop/PageHeader";
 import auth from "../services/auth";
 import service from "../services/users";
 import useUser, { User } from "../hooks/useUser";
@@ -23,7 +24,7 @@ const EmergencyLoginForm = () => {
     setLoading(true);
     const res = await service.register({
       ...info,
-      avatar: "",
+      avatar: randomImage,
       isAccountVerified: false,
     });
     setLoading(false);
