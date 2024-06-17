@@ -10,6 +10,7 @@ import {
   FormTextAreaField,
   SubmitButton,
 } from "../form";
+import { emptyType } from "../../utils/empty";
 import { NewProduct } from "../../services/products";
 import { ProductType } from "./TypesList";
 import { useImages, useUser } from "../../hooks";
@@ -17,7 +18,6 @@ import ImageInputList from "../common/ImageInputList";
 import service from "../../services/products";
 import ShopTypesSelector from "../shop/TypesSelector";
 import storage from "../../db/image";
-import { emptyType } from "../../utils/empty";
 
 export const productSchema = Yup.object().shape({
   name: Yup.string().min(1).max(50).required(),

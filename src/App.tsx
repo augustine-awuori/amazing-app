@@ -21,11 +21,11 @@ function App() {
   });
 
   useEffect(() => {
-    initData();
+    initUser();
     checkChatToken();
   }, [user?._id, googleUser?.uid]);
 
-  const initData = async () => {
+  const initUser = async () => {
     if (user) return;
 
     const storedUser = auth.getCurrentUserFromStorage();
