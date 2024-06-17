@@ -33,7 +33,7 @@ const UserButton = ({ onEmergencyLogin }: Props) => {
   };
 
   const navigateToProfile = () => {
-    if (googleUser && user?._id) navigate(`/mart/profile/${user?._id}`);
+    if (user?._id) navigate(`/mart/profile/${user?._id}`);
     else toast.info("Loading your profile");
   };
 
@@ -60,13 +60,13 @@ const UserButton = ({ onEmergencyLogin }: Props) => {
         role="button"
         className="btn btn-ghost btn-circle avatar"
       >
-        {googleUser ? <Avatar /> : <AiOutlineLogin />}
+        {googleUser || user ? <Avatar /> : <AiOutlineLogin />}
       </div>
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
       >
-        {googleUser ? (
+        {user ? (
           <>
             <li onClick={navigateToProfile}>
               <a className="text-lg">Profile</a>

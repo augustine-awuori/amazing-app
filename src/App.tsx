@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     initUser();
     checkChatToken();
-  }, [user?._id, googleUser?.uid]);
+  }, [user?._id, googleUser?.uid, auth.getJwt()]);
 
   const initUser = async () => {
     if (user) return;
