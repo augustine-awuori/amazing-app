@@ -16,7 +16,6 @@ import {
   ShoppingCartIcon,
   Slider,
 } from "../components";
-import { randomImage } from "../components/shop/PageHeader";
 import { useReload, useUser } from "../hooks";
 import service from "../services/products";
 import useProducts, { Product } from "../hooks/useProducts";
@@ -195,7 +194,7 @@ const ProductDetailsPage = () => {
               >
                 <figure>
                   <img
-                    src={author.avatar || randomImage}
+                    src={author.avatar || "https://picsum.photos/1200/300"}
                     alt={author.name}
                     className="w-20 h-20 mr-2 mask mask-squircle object-cover"
                   />
