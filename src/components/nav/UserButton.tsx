@@ -7,6 +7,7 @@ import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 import { randomImage } from "../shop/PageHeader";
 import { useUser } from "../../hooks";
 import auth, { googleAuth } from "../../services/auth";
+import Tooltip from "../Tooltip";
 
 const userSignOut = () => signOut(googleAuth);
 
@@ -82,9 +83,11 @@ const UserButton = ({ onEmergencyLogin }: Props) => {
             <li className="text-lg" onClick={logIn}>
               <p>Quick Login</p>
             </li>
-            <li className="text-lg" onClick={() => onEmergencyLogin(true)}>
-              <p>Emergency Login</p>
-            </li>
+            <Tooltip message="For registered users only">
+              <li className="text-lg" onClick={() => onEmergencyLogin(true)}>
+                <p>Emergency Login</p>
+              </li>
+            </Tooltip>
           </>
         )}
       </ul>

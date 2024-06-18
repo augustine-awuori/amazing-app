@@ -28,3 +28,4 @@ export { default as ShopProfile } from "./shop/Profile";
 export { default as ShopStats } from "./shop/Stats";
 export { default as Slider } from "./Slider";
 export { default as TextArea } from "./TextArea";
+export { default as Tooltip } from "./Tooltip";
