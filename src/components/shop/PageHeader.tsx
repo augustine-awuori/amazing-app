@@ -30,7 +30,7 @@ const PageHeader = ({ shop }: Props) => {
   };
 
   const { author, image, name, location } = shop;
-
+  console.log(author);
   return (
     <section className="mb-6">
       <Modal
