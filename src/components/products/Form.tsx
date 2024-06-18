@@ -81,7 +81,7 @@ const ProductForm = ({ onDone }: Props) => {
 
     toast.info("Product created successfully");
     removeAllImages();
-    window.location.href = `/shops/${shopId}`;
+    window.location.href = window.location.href;
     onDone();
   };
 
