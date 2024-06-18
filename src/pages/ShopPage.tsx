@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { paginate } from "../utils";
 import {
+  CopyUrlButton,
   Input,
   Pagination,
   ProductsGrid,
@@ -100,6 +101,9 @@ const ShopPage = () => {
   return (
     <section>
       <ShopPageHeader shop={shop} />
+      <div className="flex justify-center my-4">
+        <CopyUrlButton label="Shop" />
+      </div>
       <section className="flex flex-col items-center px-8 pb-6">
         <ShopStats
           productsCount={products.length}

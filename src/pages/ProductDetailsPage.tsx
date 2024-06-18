@@ -9,6 +9,7 @@ import { funcs } from "../utils";
 import { getShopProducts } from "../services/shops";
 import {
   AddRightChevron,
+  CopyUrlButton,
   HorizontalProductList,
   Modal,
   ProductUpdateForm,
@@ -156,6 +157,11 @@ const ProductDetailsPage = () => {
                 )}
               </button>
             )}
+
+            <div className="flex justify-center mt-4">
+              <CopyUrlButton label="Product" />
+            </div>
+
             <p className="text-1xl mt-8 font-bold text-white-800">
               {shop?.name} Shop Information
             </p>
