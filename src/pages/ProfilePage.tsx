@@ -55,7 +55,7 @@ const ProfilePage: React.FC = () => {
 
             <article className="absolute top-20 left-1/2 transform -translate-x-1/2">
               <img
-                src={isLoading ? randomImage : avatar}
+                src={avatar || randomImage}
                 alt="Avatar"
                 className="rounded-full border-4 border-white w-32 h-32 object-cover"
               />

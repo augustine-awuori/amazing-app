@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaClipboard } from "react-icons/fa";
+
 import BottomToast from "./BottomToast";
 
 interface Props {
@@ -17,7 +18,7 @@ const CopyUrlButton = ({ label }: Props) => {
         setShowSuccessToast(true);
         setTimeout(() => setShowSuccessToast(false), 3000);
       },
-      (err) => {
+      () => {
         setShowErrorToast(true);
         setTimeout(() => setShowErrorToast(false), 3000);
       }
