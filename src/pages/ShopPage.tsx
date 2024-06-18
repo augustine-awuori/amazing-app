@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { paginate } from "../utils";
+import { funcs, paginate } from "../utils";
 import {
   CopyUrlButton,
   Input,
@@ -26,7 +26,7 @@ const ShopPage = () => {
   const { types: allTypes } = useProductTypes();
   const [shopTypes, setShopTypes] = useState<ProductType[]>([]);
   const { products: allProducts } = useProducts();
-  const { shopId } = useParams();
+  const { shopName } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
   const [pageSize] = useState(12);
@@ -38,8 +38,9 @@ const ShopPage = () => {
     request,
   } = useReload<Shop>(
     null,
-    { ...emptyShop, paramsId: "shopId" },
-    service.getShop
+    { ...emptyShop, paramsId: "shopName" },
+    service.getShop,
+    true
   );
 
   const { image, author, types, views } = shop;
@@ -63,11 +64,12 @@ const ShopPage = () => {
   };
 
   async function getProducts() {
+    if (!shopName) return;
     let result: Product[] = [];
 
     if (allProducts.length)
       allProducts.forEach((p) => {
-        if (p.shop._id === shopId) result.push(p);
+        if (p.shop.name === funcs.revertUrlToName(shopName)) result.push(p);
       });
     else result = await productsService.getProducts();
 

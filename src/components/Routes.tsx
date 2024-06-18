@@ -59,13 +59,13 @@ const AppRoutes = () => {
                   path="/mart/products/:productId"
                   element={<ProductDetailsPage />}
                 />
-                <Route path="/mart/shops/:shopId" element={<ShopPage />} />
+                <Route path="/mart/shops/:shopName" element={<ShopPage />} />
                 <Route
-                  path="/mart/shops/:shopId/orders"
+                  path="/mart/shops/:shopName/orders"
                   element={<ShopOrdersPage />}
                 />
                 <Route
-                  path="/mart/shops/:shopId/orders/:orderId"
+                  path="/mart/shops/:shopName/orders/:orderId"
                   element={<ShopOrderPage />}
                 />
                 <Route path="/mart/shops/new" element={<ShopEditPage />} />

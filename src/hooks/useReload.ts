@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { AxiosResponse } from "axios";
+import { funcs } from "../utils";
 
 interface InfoStructure {
   paramsId: string;
@@ -9,7 +10,8 @@ interface InfoStructure {
 export default function useReload<T>(
   prevInfo: T | undefined | null,
   infoStructure: InfoStructure & T,
-  apiFunc: (id: string) => Promise<AxiosResponse>
+  apiFunc: (id: string) => Promise<AxiosResponse>,
+  isUrl?: boolean
 ) {
   const [data, setData] = useState<T>();
   const [isLoading, setLoading] = useState(false);
@@ -18,8 +20,9 @@ export default function useReload<T>(
   const request = async () => {
     if (prevInfo) return;
 
-    const id = params[infoStructure.paramsId];
+    let id = params[infoStructure.paramsId];
     if (!id) return (window.location.href = "/");
+    id = isUrl ? funcs.revertUrlToName(id) : id;
 
     try {
       setLoading(true);

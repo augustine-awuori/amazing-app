@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
+import { funcs } from "../../utils";
 import { Shop } from "../../hooks/useShop";
 import { useProducts } from "../../hooks";
 import GroupAvatar from "../GroupAvatar";
@@ -10,10 +11,13 @@ const Profile = ({ _id, image, name, location }: Shop) => {
 
   const shopProducts = products.filter((p) => p.shop._id === _id);
 
+  const navigateToShop = () =>
+    navigate(`/mart/shops/${funcs.convertNameToUrl(name)}`);
+
   return (
     <article
       className="card w-full glass cursor-pointer"
-      onClick={() => navigate(`/mart/shops/${_id}`)}
+      onClick={navigateToShop}
     >
       <figure className="relative h-48 w-full">
         <img

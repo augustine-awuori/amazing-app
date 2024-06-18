@@ -51,12 +51,22 @@ function removeLeadingSlash(sentence: string) {
   return sentence;
 }
 
+function convertNameToUrl(name: string) {
+  return name.trim().replace(/\s+/g, "-");
+}
+
+function revertUrlToName(url: string) {
+  return url.replace(/-/g, " ");
+}
+
 export default {
   addComma,
   capitalizeFirstLetter,
+  convertNameToUrl,
   formatPhoneNumber,
   getBoolean,
   navTo,
   removeLeadingSlash,
+  revertUrlToName,
   scrollToTop,
 };

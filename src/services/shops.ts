@@ -33,7 +33,8 @@ const update = async (shop: UpdatableShopInfo, shopId: string) => {
   }
 };
 
-const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
+const getShop = (shopNameOrUserId: string) =>
+  client.get(`${endpoint}/${shopNameOrUserId}`);
 
 const getShops = async (): Promise<Shop[]> => {
   try {

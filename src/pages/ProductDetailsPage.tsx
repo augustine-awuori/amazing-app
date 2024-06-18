@@ -64,7 +64,8 @@ const ProductDetailsPage = () => {
 
   if (!product) return <Navigate to="/" />;
 
-  const navigateToShop = () => navigate(`/mart/shops/${product.shop._id}`);
+  const navigateToShop = () =>
+    navigate(`/mart/shops/${funcs.convertNameToUrl(product.shop.name)}`);
 
   const { author, description, name, images, shop, type } =
     product || emptyProduct;
@@ -166,9 +167,7 @@ const ProductDetailsPage = () => {
             <p className="text-1xl mt-8 font-bold text-white-800">
               {shop?.name} Shop Information
             </p>
-            <AddRightChevron
-              onClick={() => navigate(`/mart/shops/${product.shop._id}`)}
-            >
+            <AddRightChevron onClick={navigateToShop}>
               <article
                 className="flex mt-4 cursor-pointer items-center"
                 onClick={navigateToShop}
