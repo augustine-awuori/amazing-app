@@ -3,7 +3,7 @@ interface Props {
 }
 
 const BottomToast = ({ type }: Props) => (
-  <div className="toast">
+  <div className="toast z-1000">
     <div className={`alert alert-${type}`}>
       <span>URL copied to clipboard!</span>
     </div>
