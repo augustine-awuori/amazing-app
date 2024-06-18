@@ -3,11 +3,11 @@ interface Props {
 }
 
 const BottomToast = ({ type }: Props) => (
-  <div className="toast z-1000">
-    <div className={`alert alert-${type}`}>
+  <article className="toast toast-start toast-middle">
+    <article className={`alert alert-${type}`}>
       <span>URL copied to clipboard!</span>
-    </div>
-  </div>
+    </article>
+  </article>
 );
 
 export default BottomToast;
