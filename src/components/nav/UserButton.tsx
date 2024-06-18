@@ -4,10 +4,10 @@ import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 
-import { randomImage } from "../shop/PageHeader";
 import { useUser } from "../../hooks";
 import auth, { googleAuth } from "../../services/auth";
 import Tooltip from "../Tooltip";
+import { randomImage } from "../../utils/funcs";
 
 const userSignOut = () => signOut(googleAuth);
 

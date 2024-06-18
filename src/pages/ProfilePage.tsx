@@ -1,16 +1,10 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaWhatsapp,
-  FaInstagram,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaPhone, FaWhatsapp, FaInstagram, FaYoutube } from "react-icons/fa";
 
 import { funcs } from "../utils";
-import { randomImage } from "../components/shop/PageHeader";
 import { Grid, ShopProfile } from "../components";
+import { randomImage } from "../utils/funcs";
 import {
   useProfileUser,
   useShops,

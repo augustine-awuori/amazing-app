@@ -1,3 +1,5 @@
+export const randomImage = "https://picsum.photos/1200/300";
+
 function addComma(number: number | undefined) {
   if (!number) return "";
 

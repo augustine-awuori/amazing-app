@@ -6,6 +6,7 @@ import { BsEye, BsPencil, BsPlus } from "react-icons/bs";
 
 import { funcs } from "../../utils";
 import { Modal, ProductForm } from "..";
+import { randomImage } from "../../utils/funcs";
 import { Shop } from "../../hooks/useShop";
 import { useUser } from "../../hooks";
 import UpdateForm from "./UpdateForm";
@@ -13,8 +14,6 @@ import UpdateForm from "./UpdateForm";
 interface Props {
   shop: Shop;
 }
-
-export const randomImage = "https://picsum.photos/1200/300";
 
 const PageHeader = ({ shop }: Props) => {
   const [showProductModal, setProductModal] = useState(false);
@@ -30,7 +29,7 @@ const PageHeader = ({ shop }: Props) => {
   };
 
   const { author, image, name, location } = shop;
-  console.log(author);
+
   return (
     <section className="mb-6">
       <Modal
