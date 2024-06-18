@@ -10,6 +10,7 @@ import { randomImage } from "../../utils/funcs";
 import { Shop } from "../../hooks/useShop";
 import { useUser } from "../../hooks";
 import UpdateForm from "./UpdateForm";
+import { FaUser } from "react-icons/fa";
 
 interface Props {
   shop: Shop;
@@ -63,7 +64,9 @@ const PageHeader = ({ shop }: Props) => {
             <p className="text-sm flex items-center">
               <IoMdPin className="mr-1" /> {location}
             </p>
-            <p className="mt-2">Seller: {author.name}</p>
+            <p className="text-sm flex items-center mt-2">
+              <FaUser className="mr-1" /> {author.name}
+            </p>
           </div>
         </section>
       </section>
