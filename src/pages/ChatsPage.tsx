@@ -12,7 +12,6 @@ import {
   DefaultStreamChatGenerics,
   LoadingIndicator,
 } from "stream-chat-react";
-import "stream-chat-react/dist/css/index.css";
 
 import { useUser } from "../hooks";
 
