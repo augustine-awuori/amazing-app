@@ -69,9 +69,9 @@ function App() {
       <ProductsContext.Provider value={{ products, setProducts }}>
         <CartContext.Provider value={{ cartProducts, setCartProducts }}>
           <NavBar />
-          <div className="mt-20 md:mt-24 lg:mt-12.5 mb-14 md:mb-0">
+          <article style={{ marginTop: "4.5rem" }}>
             <Routes />
-          </div>
+          </article>
           <BottomNav />
         </CartContext.Provider>
       </ProductsContext.Provider>

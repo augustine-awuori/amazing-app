@@ -19,7 +19,7 @@ const NavBar = () => {
         onClose={() => setEmergencyLogin(false)}
         title="Emergency Login"
       />
-      <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10 glass">
+      <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10 glass py-0">
         <Logo />
         <Tabs />
         <article className="flex-none flex items-center space-x-4">
