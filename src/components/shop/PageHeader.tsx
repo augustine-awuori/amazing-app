@@ -57,7 +57,7 @@ const PageHeader = ({ shop }: Props) => {
             alt={`${name} Shop`}
             className="mask mask-hexagon-2 w-32 h-32 object-cover"
           />
-          <div className="ml-4 text-white">
+          <article className="ml-4 text-white">
             <h1 className="text-xl font-bold">
               {funcs.capitalizeFirstLetter(name)}
             </h1>
@@ -67,7 +67,7 @@ const PageHeader = ({ shop }: Props) => {
             <p className="text-sm flex items-center mt-2">
               <FaUser className="mr-1" /> {author.name}
             </p>
-          </div>
+          </article>
         </section>
       </section>
       {currentUserIsTheSeller && (

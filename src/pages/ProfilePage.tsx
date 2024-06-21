@@ -12,6 +12,7 @@ import {
   useUser,
   useWhatsAppRedirect,
 } from "../hooks";
+import ChatButtons from "../components/ChatButtons";
 
 const ProfilePage: React.FC = () => {
   const { getDate } = useTimestamp();
@@ -60,6 +61,9 @@ const ProfilePage: React.FC = () => {
               />
             </article>
           </article>
+
+          <ChatButtons seller={profileUser} />
+
           <article className="p-6 mt-10 items-center">
             {isLoading ? (
               <span className="loading loading-dots loading-md" />
