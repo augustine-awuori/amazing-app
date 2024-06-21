@@ -9,6 +9,7 @@ import {
   useProfileUser,
   useShops,
   useTimestamp,
+  useUser,
   useWhatsAppRedirect,
 } from "../hooks";
 
@@ -19,11 +20,13 @@ const ProfilePage: React.FC = () => {
   const { url } = useWhatsAppRedirect(otherAccounts?.whatsapp, avatar);
   const { shops } = useShops();
   const { userId } = useParams();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   const startWhatsAppChat = () => funcs.navTo(url);
 
   const userShops = shops.filter((shop) => shop.author._id === userId);
+  const currentUserIsTheOwner = user?._id === profileUser._id;
 
   return (
     <section>
@@ -38,14 +41,16 @@ const ProfilePage: React.FC = () => {
               />
             </figure>
 
-            <article className="absolute bottom-3 right-3">
-              <button
-                className="btn btn-success"
-                onClick={() => navigate("orders")}
-              >
-                My Orders
-              </button>
-            </article>
+            {currentUserIsTheOwner && (
+              <article className="absolute bottom-3 right-3">
+                <button
+                  className="btn btn-success"
+                  onClick={() => navigate("orders")}
+                >
+                  My Orders
+                </button>
+              </article>
+            )}
 
             <article className="absolute top-20 left-1/2 transform -translate-x-1/2">
               <img

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import { cancelledStatus } from "./ShopOrdersPage";
 import { emptyStatus } from "../utils/empty";
@@ -7,7 +7,7 @@ import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils";
 import { Pagination, ProductTypesList } from "../components";
 import { Status } from "../hooks/useStatus";
-import { useStatus } from "../hooks";
+import { useStatus, useUser } from "../hooks";
 import OrderCard from "../components/orders/Card";
 import service from "../services/orders";
 
@@ -19,6 +19,7 @@ const ProfileOrdersPage = () => {
   const [loading, setLoading] = useState(false);
   const { status } = useStatus();
   const [selectedStatus, setSelectedStatus] = useState<Status>(emptyStatus);
+  const { user } = useUser();
 
   useEffect(() => {
     initData();
@@ -39,6 +40,8 @@ const ProfileOrdersPage = () => {
     : orders;
 
   const paginated = paginate<Order>(filtered, currentPage, pageSize);
+
+  if (user?._id !== userId) return <Navigate to="/" />;
 
   return (
     <section className="px-5">
