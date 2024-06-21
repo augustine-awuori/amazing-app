@@ -20,6 +20,7 @@ import { useReload, useUser } from "../hooks";
 import service from "../services/products";
 import useProducts, { Product } from "../hooks/useProducts";
 import useCart from "../hooks/useCart";
+import ChatButtons from "../components/ChatButtons";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
@@ -159,9 +160,11 @@ const ProductDetailsPage = () => {
               </button>
             )}
 
-            <div className="flex justify-center mt-4">
+            <article className="flex justify-center mt-4">
               <CopyUrlButton label="Product" />
-            </div>
+            </article>
+
+            <ChatButtons seller={author} />
 
             <p className="text-1xl mt-8 font-bold text-white-800">
               {shop?.name} Shop Information

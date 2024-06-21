@@ -30,7 +30,7 @@ const ChatButtons = ({ seller }: Props) => {
   };
 
   const handleInAppChat = async () => {
-    setErrorMessage("Comming sooner...");
+    setErrorMessage("Coming soon...");
     setShowError(true);
     setTimeout(() => setShowError(false), 3000);
   };
@@ -38,25 +38,22 @@ const ChatButtons = ({ seller }: Props) => {
   if (user?._id === seller._id) return null;
 
   return (
-    <section>
+    <section className="flex justify-around items-center w-full mt-3">
       {showError && <BottomToast type="error" message={errorMessage} />}
-
-      <section className="flex justify-around items-center w-full mt-3">
-        <article
-          className="flex flex-col items-center cursor-pointer"
-          onClick={handleInAppChat}
-        >
-          <BsChat size={32} />
-          <p>In-app Chat</p>
-        </article>
-        <article
-          className="flex flex-col items-center cursor-pointer"
-          onClick={navigateToWhatsAppPage}
-        >
-          <BsWhatsapp className="mb-1" size={32} />
-          <p>{otherAccounts?.whatsapp ? "WhatsApp" : "Not available"}</p>
-        </article>
-      </section>
+      <article
+        className="flex flex-col items-center cursor-pointer"
+        onClick={handleInAppChat}
+      >
+        <BsChat size={32} />
+        <p>In-app Chat</p>
+      </article>
+      <article
+        className="flex flex-col items-center cursor-pointer"
+        onClick={navigateToWhatsAppPage}
+      >
+        <BsWhatsapp size={32} />
+        <p>{otherAccounts?.whatsapp ? "WhatsApp" : "Not available"}</p>
+      </article>
     </section>
   );
 };

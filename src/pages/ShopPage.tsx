@@ -14,6 +14,7 @@ import {
 import { emptyShop as emptyShop, emptyType } from "../utils/empty";
 import { Shop } from "../hooks/useShop";
 import { useProductTypes, useReload, useShops } from "../hooks";
+import ChatButtons from "../components/ChatButtons";
 import productsService from "../services/products";
 import service from "../services/shops";
 import useProducts, { Product, ProductType } from "../hooks/useProducts";
@@ -103,9 +104,14 @@ const ShopPage = () => {
   return (
     <section>
       <ShopPageHeader shop={shop} />
-      <div className="flex justify-center my-4">
+      <article className="flex justify-center my-4">
         <CopyUrlButton label="Shop" />
-      </div>
+      </article>
+
+      <article className="mb-4">
+        <ChatButtons seller={author} />
+      </article>
+
       <section className="flex flex-col items-center px-8 pb-6">
         <ShopStats
           productsCount={products.length}
@@ -113,6 +119,7 @@ const ShopPage = () => {
           visits={views}
           seller={author}
         />
+
         <article className="mt-5">
           <Input
             placeholder="Search products..."
