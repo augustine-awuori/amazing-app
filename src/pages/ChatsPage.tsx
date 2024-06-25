@@ -56,6 +56,7 @@ const ChatsPage = () => {
         sort={sort}
         filters={{ members: { $in: [user._id] }, type: "messaging" }}
         options={options}
+        showChannelSearch
       />
       <Channel>
         <Window>
