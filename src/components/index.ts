@@ -1,5 +1,6 @@
 export { default as AddRightChevron } from "./AddRightChevron";
 export { default as BottomToast } from "./BottomToast";
+export { default as ChatButtons } from "./ChatButtons";
 export { default as CopyUrlButton } from "./CopyUrlButton";
 export { default as EmergencyLoginForm } from "./EmergencyLoginForm";
 export { default as Badge } from "./products/TypeBadge";

@@ -31,11 +31,7 @@ const ChatsPage = () => {
 
     const chatClient = StreamChat.getInstance(apiKey);
     chatClient.connectUser(
-      {
-        id: user._id,
-        name: user.name,
-        image: user.avatar,
-      },
+      { id: user._id, name: user.name, image: user.avatar },
       user.chatToken
     );
 

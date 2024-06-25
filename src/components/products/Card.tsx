@@ -82,8 +82,8 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
             position: relative;
             width: 100%;
             height: 0;
-            padding-top: 75%; /* Adjust the padding-top value to change the height */
-            overflow: hidden; /* Hide overflow to prevent visible scrolling */
+            padding-top: 75%;  
+            overflow: hidden; 
           }
 
           .image {

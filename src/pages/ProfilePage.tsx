@@ -2,9 +2,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaPhone, FaWhatsapp, FaInstagram, FaYoutube } from "react-icons/fa";
 
-import { funcs } from "../utils";
-import { Grid, ShopProfile } from "../components";
-import { randomImage } from "../utils/funcs";
+import { ChatButtons, Grid, ShopProfile } from "../components";
 import {
   useProfileUser,
   useShops,
@@ -12,7 +10,7 @@ import {
   useUser,
   useWhatsAppRedirect,
 } from "../hooks";
-import ChatButtons from "../components/ChatButtons";
+import funcs, { randomImage } from "../utils/funcs";
 
 const ProfilePage: React.FC = () => {
   const { getDate } = useTimestamp();
@@ -53,13 +51,13 @@ const ProfilePage: React.FC = () => {
               </article>
             )}
 
-            <article className="absolute top-20 left-1/2 transform -translate-x-1/2">
+            <figure className="absolute top-20 left-1/2 transform -translate-x-1/2">
               <img
                 src={avatar || randomImage}
                 alt="Avatar"
                 className="rounded-full border-4 border-white w-32 h-32 object-cover"
               />
-            </article>
+            </figure>
           </article>
 
           <ChatButtons seller={profileUser} />
