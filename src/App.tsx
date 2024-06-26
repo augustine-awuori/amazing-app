@@ -82,7 +82,10 @@ function App() {
     }
   };
 
-  if (!client) return <p>App Error</p>;
+  if (!client) {
+    initChatClient();
+    return <></>;
+  }
 
   return (
     <Chat client={client} theme="messaging light">
