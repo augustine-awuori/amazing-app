@@ -61,12 +61,30 @@ function revertUrlToName(url: string) {
   return url.replace(/-/g, " ");
 }
 
+function getChatUsersId(user1Id: string, user2Id: string) {
+  return user1Id > user2Id ? user1Id + user2Id : user2Id + user1Id;
+}
+
+function getChatUsersName(name1: string, name2: string) {
+  return `${getFirstWord(name1)} & ${getFirstWord(name2)}`;
+}
+
+function getFirstWord(sentence: string) {
+  if (!sentence) return "";
+
+  const words = sentence.trim().split(/\s+/);
+
+  return words[0];
+}
+
 export default {
   addComma,
   capitalizeFirstLetter,
   convertNameToUrl,
   formatPhoneNumber,
   getBoolean,
+  getChatUsersId,
+  getChatUsersName,
   navTo,
   removeLeadingSlash,
   revertUrlToName,

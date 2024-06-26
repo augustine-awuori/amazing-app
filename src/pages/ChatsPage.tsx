@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { ChannelSort, DefaultGenerics, StreamChat } from "stream-chat";
+import { ChannelSort } from "stream-chat";
 import {
-  Chat,
   Channel,
   ChannelList,
   Window,
@@ -11,11 +9,10 @@ import {
   Thread,
   DefaultStreamChatGenerics,
   LoadingIndicator,
+  useChatContext,
 } from "stream-chat-react";
 
 import { useUser } from "../hooks";
-
-const apiKey = "nhum746n7hwy";
 
 const options = { presence: true, state: true };
 const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
@@ -24,19 +21,7 @@ const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
 
 const ChatsPage = () => {
   const { user } = useUser();
-  const [client, setClient] = useState<StreamChat<DefaultGenerics>>();
-
-  useEffect(() => {
-    if (!user) return;
-
-    const chatClient = StreamChat.getInstance(apiKey);
-    chatClient.connectUser(
-      { id: user._id, name: user.name, image: user.avatar },
-      user.chatToken
-    );
-
-    setClient(chatClient);
-  }, []);
+  const { client } = useChatContext();
 
   if (!user) return <p>You're not logged in. You need to log in</p>;
   if (!user.chatToken) return <p>You're not registered for chatting</p>;
@@ -51,7 +36,7 @@ const ChatsPage = () => {
     );
 
   return (
-    <Chat client={client} theme="messaging light">
+    <>
       <ChannelList
         sort={sort}
         filters={{ members: { $in: [user._id] }, type: "messaging" }}
@@ -66,7 +51,7 @@ const ChatsPage = () => {
         </Window>
         <Thread />
       </Channel>
-    </Chat>
+    </>
   );
 };
 
