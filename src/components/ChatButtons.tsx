@@ -5,7 +5,7 @@ import { BsChat, BsWhatsapp } from "react-icons/bs";
 
 import { funcs } from "../utils";
 import { User } from "../hooks/useUser";
-import { useUser, useWhatsAppRedirect } from "../hooks";
+import { useActiveChatId, useUser, useWhatsAppRedirect } from "../hooks";
 import BottomToast from "./BottomToast";
 
 interface Props {
@@ -16,8 +16,9 @@ const ChatButtons = ({ seller }: Props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showError, setShowError] = useState(false);
   const { user } = useUser();
-  const { client, setActiveChannel } = useChatContext();
+  const { client } = useChatContext();
   const navigate = useNavigate();
+  const { setActiveChatId } = useActiveChatId();
   const { url } = useWhatsAppRedirect(
     seller.otherAccounts?.whatsapp,
     seller.avatar
@@ -35,14 +36,13 @@ const ChatButtons = ({ seller }: Props) => {
     if (!client) return showMessage("Messaging not activated");
     if (!user) return showMessage("You need to login");
 
-    const newChat = client.channel(
-      "messaging",
-      funcs.getChatUsersId(user._id, seller._id),
-      { name: funcs.getChatUsersName(user.name, seller.name) }
-    );
+    const chatId = funcs.getChatUsersId(user._id, seller._id);
+    const newChat = client.channel("messaging", chatId, {
+      name: funcs.getChatUsersName(user.name, seller.name),
+    });
     await newChat.watch();
 
-    setActiveChannel(newChat);
+    setActiveChatId(chatId);
     navigate("/chats");
   };
 

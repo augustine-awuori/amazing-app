@@ -71,16 +71,31 @@ function App() {
 
     try {
       const res = await createAndGetChatToken();
-      if (res?.ok) {
+      if (res?.ok)
         setUser((prevUser) => ({
           ...(prevUser as User),
           chatToken: res.data as string,
         }));
-      }
     } catch (error) {
       toast.error("Failed to get chat token");
     }
   };
+
+  const MainApp = () => (
+    <UserContext.Provider value={{ user, setUser }}>
+      <ProductsContext.Provider value={{ products, setProducts }}>
+        <CartContext.Provider value={{ cartProducts, setCartProducts }}>
+          <NavBar />
+          <article style={{ marginTop: "4.5rem" }}>
+            <Routes />
+          </article>
+          <BottomNav />
+        </CartContext.Provider>
+      </ProductsContext.Provider>
+    </UserContext.Provider>
+  );
+
+  if (!user) return <MainApp />;
 
   if (!client) {
     initChatClient();
@@ -89,17 +104,7 @@ function App() {
 
   return (
     <Chat client={client} theme="messaging light">
-      <UserContext.Provider value={{ user, setUser }}>
-        <ProductsContext.Provider value={{ products, setProducts }}>
-          <CartContext.Provider value={{ cartProducts, setCartProducts }}>
-            <NavBar />
-            <article style={{ marginTop: "4.5rem" }}>
-              <Routes />
-            </article>
-            <BottomNav />
-          </CartContext.Provider>
-        </ProductsContext.Provider>
-      </UserContext.Provider>
+      <MainApp />
     </Chat>
   );
 }

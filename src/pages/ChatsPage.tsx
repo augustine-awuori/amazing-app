@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ChannelSort } from "stream-chat";
 import {
   Channel,
@@ -12,7 +13,7 @@ import {
   useChatContext,
 } from "stream-chat-react";
 
-import { useUser } from "../hooks";
+import { useActiveChatId, useUser } from "../hooks";
 
 const options = { presence: true, state: true };
 const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
@@ -21,7 +22,17 @@ const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
 
 const ChatsPage = () => {
   const { user } = useUser();
-  const { client } = useChatContext();
+  const { client, setActiveChannel } = useChatContext();
+  const { activeChatId } = useActiveChatId();
+  console.log(activeChatId);
+  useEffect(() => {
+    if (!activeChatId) return;
+
+    const channel = client.channel("messaging", activeChatId);
+    channel.watch();
+
+    setActiveChannel(channel);
+  }, [activeChatId]);
 
   if (!user) return <p>You're not logged in. You need to log in</p>;
   if (!user.chatToken) return <p>You're not registered for chatting</p>;
