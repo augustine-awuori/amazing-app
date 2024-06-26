@@ -24,7 +24,7 @@ const ChatsPage = () => {
   const { user } = useUser();
   const { client, setActiveChannel } = useChatContext();
   const { activeChatId } = useActiveChatId();
-  console.log(activeChatId);
+
   useEffect(() => {
     if (!activeChatId) return;
 
