@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import EmergencyLoginForm from "../EmergencyLoginForm";
 import Modal from "../Modal";
@@ -10,6 +11,12 @@ import UserButton from "./UserButton";
 
 const NavBar = () => {
   const [emergencyLogin, setEmergencyLogin] = useState(false);
+  const currentPath = window.location.pathname;
+  const showBar = currentPath.startsWith("/chats");
+
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  if (isMobile && showBar) return null;
 
   return (
     <>
