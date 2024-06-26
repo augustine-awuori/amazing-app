@@ -32,7 +32,7 @@ function App() {
   }, [user?._id, googleUser?.uid, auth.getJwt(), client?.userID]);
 
   function initChatClient() {
-    if (!user) return;
+    if (!user || !user.chatToken) return;
 
     const chatClient = StreamChat.getInstance(apiKey);
     chatClient.connectUser(
