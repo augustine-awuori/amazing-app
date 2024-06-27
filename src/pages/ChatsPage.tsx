@@ -12,8 +12,9 @@ import {
   LoadingIndicator,
   useChatContext,
 } from "stream-chat-react";
+import { useMediaQuery } from "react-responsive";
 
-import { useActiveChatId, useUser } from "../hooks";
+import { useActiveChatId, useShowNav, useUser } from "../hooks";
 
 const options = { presence: true, state: true };
 const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
@@ -24,6 +25,16 @@ const ChatsPage = () => {
   const { user } = useUser();
   const { client, setActiveChannel } = useChatContext();
   const { activeChatId } = useActiveChatId();
+  const { setShowNav } = useShowNav();
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  useEffect(() => {
+    setShowNav(!isMobile);
+
+    return () => {
+      setShowNav(true);
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     if (!activeChatId) return;

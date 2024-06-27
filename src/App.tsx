@@ -7,7 +7,7 @@ import { authTokenKey, processResponse } from "./services/client";
 import { BottomNav, NavBar, Routes } from "./components";
 import { createAndGetChatToken } from "./services/chatToken";
 import { Product } from "./hooks/useProducts";
-import { ProductsContext, UserContext } from "./contexts";
+import { ProductsContext, ShowNavContext, UserContext } from "./contexts";
 import auth from "./services/auth";
 import CartContext, { CartProducts } from "./contexts/CartContext";
 import usersApi from "./services/users";
@@ -20,6 +20,7 @@ function App() {
   const [user, setUser] = useState<User>();
   const { googleUser } = useUser();
   const [client, setClient] = useState<StreamChat<DefaultGenerics>>();
+  const [showNav, setShowNav] = useState(true);
   const [cartProducts, setCartProducts] = useState<CartProducts>({
     count: 0,
     ids: {},
@@ -85,10 +86,12 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <ProductsContext.Provider value={{ products, setProducts }}>
         <CartContext.Provider value={{ cartProducts, setCartProducts }}>
-          <NavBar />
-          <article style={{ marginTop: "4.5rem" }}>
-            <Routes />
-          </article>
+          <ShowNavContext.Provider value={{ setShowNav, showNav }}>
+            <NavBar />
+            <article style={{ marginTop: "4.5rem" }}>
+              <Routes />
+            </article>
+          </ShowNavContext.Provider>
           <BottomNav />
         </CartContext.Provider>
       </ProductsContext.Provider>

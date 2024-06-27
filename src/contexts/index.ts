@@ -6,5 +6,6 @@ export { default as PostersContext } from "./PostersContext";
 export { default as ProductsContext } from "./ProductsContext";
 export { default as ProfileUserContext } from "./ProfileUserContext";
 export { default as ShopsContext } from "./ShopsContext";
+export { default as ShowNavContext } from "./ShowNavContext";
 export { default as StatusContext } from "./StatusContext";
 export { default as UserContext } from "./UserContext";

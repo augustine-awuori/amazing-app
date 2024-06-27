@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
-import { useUnreadChats } from "../../hooks";
+import { useShowNav, useUnreadChats } from "../../hooks";
 import Cart from "./Cart";
 import EmergencyLoginForm from "../EmergencyLoginForm";
 import Logo from "./Logo";
@@ -12,11 +11,10 @@ import UserButton from "./UserButton";
 
 const NavBar = () => {
   const [emergencyLogin, setEmergencyLogin] = useState(false);
-  const currentPath = window.location.pathname;
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const { countResponse } = useUnreadChats();
+  const { showNav } = useShowNav();
 
-  if (isMobile && currentPath.startsWith("/chats")) return null;
+  if (!showNav) return null;
 
   return (
     <>
