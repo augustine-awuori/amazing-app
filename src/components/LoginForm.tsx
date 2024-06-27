@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import { DataError, processResponse } from "../services/client";
+import { DataError, processResponse, ResponseError } from "../services/client";
 import { ErrorMessage, Form, FormField, SubmitButton } from "./form";
 import auth from "../services/auth";
 import service from "../services/users";
@@ -23,18 +23,22 @@ const LoginForm = ({ onSignUpRequest }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (info: LoginInfo) => {
-    if (error) setError("");
-    setLoading(true);
-    const res = await service.login(info);
-    setLoading(false);
+    try {
+      if (error) setError("");
+      setLoading(true);
+      const res = await service.login(info);
+      setLoading(false);
 
-    const { data, ok } = processResponse(res);
-    if (ok) {
-      auth.loginWithJwt(res.data);
-      window.location.href = "/";
-    } else {
-      setError((data as DataError).error || "Unknown error");
-      toast.error("Login failed");
+      const { data, ok } = processResponse(res);
+      if (ok) {
+        auth.loginWithJwt(res.data);
+        window.location.href = "/";
+      } else {
+        setError((data as DataError).error || "Unknown error");
+        toast.error("Login failed");
+      }
+    } catch (error) {
+      setError((error as ResponseError).response.data.error || "Unknown error");
     }
   };
 

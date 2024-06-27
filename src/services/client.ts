@@ -6,6 +6,12 @@ export const backendURL = "campus-mart-site.onrender.com/api";
 export const authTokenKey = "x-auth-token";
 export const appBaseUrl = "https://soamazing.shop/";
 
+export type ResponseError = {
+  response: {
+    data: DataError;
+  };
+};
+
 export interface DataError {
   error?: string;
 }

@@ -2,7 +2,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import { authTokenKey, DataError, processResponse } from "../services/client";
+import {
+  authTokenKey,
+  DataError,
+  processResponse,
+  ResponseError,
+} from "../services/client";
 import { ErrorMessage, Form, FormField, SubmitButton } from "./form";
 import auth from "../services/auth";
 import service from "../services/users";
@@ -26,19 +31,23 @@ const RegisterForm = ({ onLoginRequest }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (info: RegistrationInfo) => {
-    if (error) setError("");
-    setLoading(true);
-    const res = await service.register(info);
-    setLoading(false);
+    try {
+      if (error) setError("");
+      setLoading(true);
+      const res = await service.register(info);
+      setLoading(false);
 
-    const { data, ok } = processResponse(res);
-    if (ok) {
-      auth.loginWithJwt(res.headers[authTokenKey]);
-      setUser(data as User);
-      window.location.href = "/";
-    } else {
-      setError((data as DataError).error || "Unknown Error");
-      toast.error("Login failed");
+      const { data, ok } = processResponse(res);
+      if (ok) {
+        auth.loginWithJwt(res.headers[authTokenKey]);
+        setUser(data as User);
+        window.location.href = "/";
+      } else {
+        setError((data as DataError).error || "Unknown Error");
+        toast.error("Login failed");
+      }
+    } catch (error) {
+      setError((error as ResponseError).response.data.error || "Unknown error");
     }
   };
 
