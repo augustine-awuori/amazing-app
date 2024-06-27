@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { GetUnreadCountAPIResponse } from "stream-chat";
-import { useChatContext } from "stream-chat-react";
+import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import { useUnreadChats } from "../../hooks";
 import Cart from "./Cart";
 import EmergencyLoginForm from "../EmergencyLoginForm";
 import Logo from "./Logo";
@@ -15,38 +14,9 @@ const NavBar = () => {
   const [emergencyLogin, setEmergencyLogin] = useState(false);
   const currentPath = window.location.pathname;
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const [countResponse, setCountResponse] =
-    useState<GetUnreadCountAPIResponse>();
-  const { client } = useChatContext();
+  const { countResponse } = useUnreadChats();
 
   if (isMobile && currentPath.startsWith("/chats")) return null;
-
-  useEffect(() => {
-    if (!client) return;
-
-    fetchUnreadCount();
-
-    const handleNewMessage = () => fetchUnreadCount();
-
-    const handleReadMessage = () => fetchUnreadCount();
-
-    client.on("message.new", handleNewMessage);
-    client.on("message.read", handleReadMessage);
-
-    return () => {
-      client.off("message.new", handleNewMessage);
-      client.off("message.read", handleReadMessage);
-    };
-  }, [client]);
-
-  async function fetchUnreadCount() {
-    try {
-      if (client) {
-        const count = await client.getUnreadCount();
-        setCountResponse(count);
-      }
-    } catch (error) {}
-  }
 
   return (
     <>

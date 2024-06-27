@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
+import CountBadge from "../CountBadge";
+
 interface Props {
   count: number;
 }
@@ -23,11 +25,7 @@ const Tabs = ({ count }: Props) => {
           onClick={() => navigate("/chats")}
         >
           Chats
-          {!!count && (
-            <article className="badge badge-sm badge-secondary badge-outline absolute top-0 right-0 translate-x-1/2 -translate-y-1/2">
-              {count}
-            </article>
-          )}
+          <CountBadge count={count} />
         </p>
       </article>
     </>
