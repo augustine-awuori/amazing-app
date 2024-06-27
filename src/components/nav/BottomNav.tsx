@@ -31,13 +31,11 @@ const BottomNav = () => {
         onClick={() => navigate("/chats")}
       >
         <BsChat size={20} />
-        {countResponse?.total_unread_count && (
-          <CountBadge
-            count={countResponse.total_unread_count}
-            right={-10}
-            top={-1}
-          />
-        )}
+        <CountBadge
+          count={countResponse?.total_unread_count || 0}
+          right={-10}
+          top={-1}
+        />
         <span className="btm-nav-label">Chats</span>
       </button>
     </div>
