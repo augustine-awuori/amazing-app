@@ -34,11 +34,12 @@ const LoginForm = ({ onSignUpRequest }: Props) => {
         auth.loginWithJwt(res.data);
         window.location.href = "/";
       } else {
-        setError((data as DataError).error || "Unknown error");
+        setError((data as DataError).error);
         toast.error("Login failed");
       }
     } catch (error) {
-      setError((error as ResponseError).response.data.error || "Unknown error");
+      setLoading(false);
+      setError((error as ResponseError).response.data.error);
     }
   };
 

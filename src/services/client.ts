@@ -13,7 +13,7 @@ export type ResponseError = {
 };
 
 export interface DataError {
-  error?: string;
+  error: string;
 }
 
 const apiClient = axios.create({ baseURL: `https://${backendURL}` });

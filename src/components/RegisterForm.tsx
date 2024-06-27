@@ -43,11 +43,12 @@ const RegisterForm = ({ onLoginRequest }: Props) => {
         setUser(data as User);
         window.location.href = "/";
       } else {
-        setError((data as DataError).error || "Unknown Error");
+        setError((data as DataError).error);
         toast.error("Login failed");
       }
     } catch (error) {
-      setError((error as ResponseError).response.data.error || "Unknown error");
+      setLoading(false);
+      setError((error as ResponseError).response.data.error);
     }
   };
 
