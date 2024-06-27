@@ -50,21 +50,20 @@ function App() {
     const storedUser = auth.getCurrentUserFromStorage();
     if (storedUser) return setUser(storedUser);
 
-    // TODO: Rectify google login first
-    // if (!googleUser) return;
-    // const { email, displayName, photoURL } = googleUser;
-    // if (!email || !displayName || !photoURL) return;
-    // const res = await usersApi.register({
-    //   email,
-    //   name: displayName,
-    //   password: "",
-    // });
+    if (!googleUser) return;
+    const { email, displayName, photoURL } = googleUser;
+    if (!email || !displayName || !photoURL) return;
+    const res = await usersApi.quickAuth({
+      email,
+      name: displayName,
+      avatar: photoURL,
+    });
 
-    // const { data, ok } = processResponse(res);
-    // if (ok) {
-    //   auth.loginWithJwt(res.headers[authTokenKey]);
-    //   setUser(data as User);
-    // } else toast.error("Login failed");
+    const { data, ok } = processResponse(res);
+    if (ok) {
+      auth.loginWithJwt(res.headers[authTokenKey]);
+      setUser(data as User);
+    } else toast.error("Login failed");
   }
 
   const checkChatToken = async () => {

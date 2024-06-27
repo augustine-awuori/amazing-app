@@ -5,6 +5,9 @@ import client, { processResponse } from "./client";
 
 const endpoint = "/users";
 
+const quickAuth = (info: { email: string; avatar: string; name: string }) =>
+  client.post(`${endpoint}/quick`, info);
+
 const register = (userInfo: RegistrationInfo) =>
   client.post(endpoint, userInfo);
 
@@ -20,4 +23,11 @@ const restoreToken = async (email: string) => {
 
 const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
-export default { login, register, getUser, updateUserInfo, restoreToken };
+export default {
+  login,
+  register,
+  getUser,
+  updateUserInfo,
+  restoreToken,
+  quickAuth,
+};
