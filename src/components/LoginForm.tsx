@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 import { DataError, processResponse } from "../services/client";
-import { Form, FormField, SubmitButton } from "./form";
+import { ErrorMessage, Form, FormField, SubmitButton } from "./form";
 import auth from "../services/auth";
 import service from "../services/users";
 
@@ -44,6 +44,7 @@ const LoginForm = ({ onSignUpRequest }: Props) => {
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
+      <ErrorMessage error={error} visible={!!error} />
       <FormField name="email" placeholder="Email address" />
       <p className="text-sm">
         If you've an account without a password, set your new password here
