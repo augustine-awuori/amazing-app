@@ -38,6 +38,7 @@ const LoginForm = ({ onSignUpRequest }: Props) => {
         toast.error("Login failed");
       }
     } catch (error) {
+      setLoading(false);
       setError((error as ResponseError).response.data.error || "Unknown error");
     }
   };
