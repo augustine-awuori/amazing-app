@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { BsCalendar2Check, BsChat } from "react-icons/bs";
 import { HiOutlineHome } from "react-icons/hi";
 
+import { useUnreadChats } from "../../hooks";
+import CountBadge from "../CountBadge";
+
 const BottomNav = () => {
   const navigate = useNavigate();
   const currentPath = window.location.pathname;
+  const { countResponse } = useUnreadChats();
 
   return (
     <div className="btm-nav md:hidden">
@@ -27,6 +31,13 @@ const BottomNav = () => {
         onClick={() => navigate("/chats")}
       >
         <BsChat size={20} />
+        {countResponse?.total_unread_count && (
+          <CountBadge
+            count={countResponse.total_unread_count}
+            right={-10}
+            top={-1}
+          />
+        )}
         <span className="btm-nav-label">Chats</span>
       </button>
     </div>
