@@ -13,6 +13,7 @@ import {
 } from "stream-chat-react";
 import { useMediaQuery } from "react-responsive";
 
+import { EmptyStateIndicator } from "../components/chats";
 import { useActiveChatId, useShowNav, useUser } from "../hooks";
 
 const options = { presence: true, state: true };
@@ -62,6 +63,7 @@ const ChatsPage = () => {
     <>
       <ChannelList
         sort={sort}
+        EmptyStateIndicator={EmptyStateIndicator}
         filters={{ members: { $in: [user._id] }, type: "messaging" }}
         options={options}
         showChannelSearch

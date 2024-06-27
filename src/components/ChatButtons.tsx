@@ -29,11 +29,11 @@ const ChatButtons = ({ seller }: Props) => {
   const navigateToWhatsAppPage = () => {
     if (otherAccounts?.whatsapp) return funcs.navTo(url);
 
-    showMessage("WhatsApp number not added");
+    showMessage("WhatsApp number not added by the seller");
   };
 
   const handleInAppChat = async () => {
-    if (!client) return showMessage("Messaging not activated");
+    if (!client) return showMessage("Login to start chatting");
     if (!user) return showMessage("You need to login");
 
     const chatId = funcs.getChatUsersId(user._id, seller._id);
