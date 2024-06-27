@@ -4,29 +4,29 @@ import * as Yup from "yup";
 
 import { authTokenKey, processResponse } from "../services/client";
 import { Form, FormField, SubmitButton } from "./form";
-import { randomImage } from "../utils/funcs";
 import auth from "../services/auth";
 import service from "../services/users";
 import useUser, { User } from "../hooks/useUser";
 
 const schema = Yup.object().shape({
-  email: Yup.string().email().min(7).max(70).label("Email"),
-  name: Yup.string().min(1).max(150).label("Name"),
+  email: Yup.string().email().min(7).max(70).required().label("Email"),
+  name: Yup.string().min(3).max(70).required().label("Name"),
+  password: Yup.string().min(6).max(25).required().label("Password"),
 });
 
-export type LoginInfo = Yup.InferType<typeof schema>;
+export type RegistrationInfo = Yup.InferType<typeof schema>;
 
-const EmergencyLoginForm = () => {
+interface Props {
+  onLoginRequest: () => void;
+}
+
+const RegisterForm = ({ onLoginRequest }: Props) => {
   const { setUser } = useUser();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (info: LoginInfo) => {
+  const handleSubmit = async (info: RegistrationInfo) => {
     setLoading(true);
-    const res = await service.register({
-      ...info,
-      avatar: randomImage,
-      isAccountVerified: false,
-    });
+    const res = await service.register(info);
     setLoading(false);
 
     const { data, ok } = processResponse(res);
@@ -39,15 +39,22 @@ const EmergencyLoginForm = () => {
 
   return (
     <Form
-      initialValues={{ name: "", email: "" }}
+      initialValues={{ email: "", password: "", name: "" }}
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      <FormField name="email" />
+      <FormField name="email" placeholder="Email address" />
       <FormField name="name" placeholder="Full Name" />
-      <SubmitButton title={loading ? "Logging you in..." : "Login"} />
+      <FormField name="password" type="password" />
+      <SubmitButton title={loading ? "Signing you up..." : "Sign Up"} />
+      <p
+        className="text-center mt-2 cursor-pointer text-primary"
+        onClick={onLoginRequest}
+      >
+        Have an account? Sign In
+      </p>
     </Form>
   );
 };
 
-export default EmergencyLoginForm;
+export default RegisterForm;

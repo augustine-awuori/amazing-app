@@ -43,7 +43,7 @@ const Modal = ({
               ✕
             </button>
             <h3 className="font-bold text-lg">{title}</h3>
-            <article className="py-4">{content}</article>
+            <article className="pt-1">{content}</article>
             <section className="modal-action">
               {secondaryBtnLabel && (
                 <button className="btn" onClick={handleSecondaryBtnClick}>

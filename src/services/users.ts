@@ -1,16 +1,14 @@
+import { LoginInfo } from "../components/LoginForm";
+import { RegistrationInfo } from "../components/RegisterForm";
 import auth from "./auth";
 import client, { processResponse } from "./client";
-import { LoginInfo } from "../components/EmergencyLoginForm";
 
 const endpoint = "/users";
 
-interface RegistrationInfo extends LoginInfo {
-  avatar: string;
-  isAccountVerified: boolean;
-}
-
 const register = (userInfo: RegistrationInfo) =>
   client.post(endpoint, userInfo);
+
+const login = (userInfo: LoginInfo) => client.post("/auth", userInfo);
 
 const updateUserInfo = (userInfo: object) => client.patch(endpoint, userInfo);
 
@@ -22,4 +20,4 @@ const restoreToken = async (email: string) => {
 
 const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
-export default { register, getUser, updateUserInfo, restoreToken };
+export default { login, register, getUser, updateUserInfo, restoreToken };

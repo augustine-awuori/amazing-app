@@ -7,7 +7,6 @@ import { signInWithRedirect, GoogleAuthProvider, signOut } from "firebase/auth";
 import { randomImage } from "../../utils/funcs";
 import { useUser } from "../../hooks";
 import auth, { googleAuth } from "../../services/auth";
-import Tooltip from "../Tooltip";
 
 const userSignOut = () => signOut(googleAuth);
 
@@ -15,10 +14,10 @@ const userSignIn = () =>
   signInWithRedirect(googleAuth, new GoogleAuthProvider());
 
 interface Props {
-  onEmergencyLogin: (state: boolean) => void;
+  onLoginWithForms: (state: boolean) => void;
 }
 
-const UserButton = ({ onEmergencyLogin }: Props) => {
+const UserButton = ({ onLoginWithForms }: Props) => {
   const { googleUser, user } = useUser();
   const navigate = useNavigate();
 
@@ -81,13 +80,13 @@ const UserButton = ({ onEmergencyLogin }: Props) => {
         ) : (
           <>
             <li className="text-lg" onClick={logIn}>
-              <p>Quick Login</p>
+              <p>
+                <del>Quick Login</del>
+              </p>
             </li>
-            <Tooltip message="For registered users only">
-              <li className="text-lg" onClick={() => onEmergencyLogin(true)}>
-                <p>Emergency Login</p>
-              </li>
-            </Tooltip>
+            <li className="text-lg" onClick={() => onLoginWithForms(true)}>
+              <p>Login w/ Forms</p>
+            </li>
           </>
         )}
       </ul>
