@@ -51,10 +51,12 @@ const ChatsPage = () => {
 
   if (!client)
     return (
-      <>
-        <LoadingIndicator />
-        <p>Loading chats...</p>
-      </>
+      <article className="flex flex-col items-center justify-center h-screen bg-base-100">
+        <article className="flex items-center space-x-2">
+          <article className="spinner border-t-4 border-blue-500 border-solid rounded-full w-8 h-8 animate-spin"></article>
+          <span className="text-lg font-semibold">Loading chats...</span>
+        </article>
+      </article>
     );
 
   return (
