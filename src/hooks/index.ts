@@ -11,5 +11,6 @@ export { default as useReload } from "./useReload";
 export { default as useShops } from "./useShops";
 export { default as useStatus } from "./useStatus";
 export { default as useTimestamp } from "./useTimestamp";
+export { default as useUnreadChats } from "./useUnreadChats";
 export { default as useWhatsAppRedirect } from "./useWhatsAppRedirect";
 export { default as useUser } from "./useUser";
