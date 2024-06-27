@@ -2,11 +2,10 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
 
-import { authTokenKey, DataError, processResponse } from "../services/client";
+import { DataError, processResponse } from "../services/client";
 import { Form, FormField, SubmitButton } from "./form";
 import auth from "../services/auth";
 import service from "../services/users";
-import useUser, { User } from "../hooks/useUser";
 
 const schema = Yup.object().shape({
   email: Yup.string().email().min(7).max(70).required().label("Email"),
@@ -21,7 +20,6 @@ interface Props {
 
 const LoginForm = ({ onSignUpRequest }: Props) => {
   const [error, setError] = useState("");
-  const { setUser } = useUser();
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (info: LoginInfo) => {
@@ -32,8 +30,7 @@ const LoginForm = ({ onSignUpRequest }: Props) => {
 
     const { data, ok } = processResponse(res);
     if (ok) {
-      auth.loginWithJwt(res.headers[authTokenKey]);
-      setUser(data as User);
+      auth.loginWithJwt(res.data);
       window.location.href = "/";
     } else {
       setError((data as DataError).error || "Unknown error");
