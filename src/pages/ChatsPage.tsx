@@ -9,7 +9,6 @@ import {
   MessageInput,
   Thread,
   DefaultStreamChatGenerics,
-  LoadingIndicator,
   useChatContext,
 } from "stream-chat-react";
 import { useMediaQuery } from "react-responsive";
@@ -17,7 +16,7 @@ import { useMediaQuery } from "react-responsive";
 import { useActiveChatId, useShowNav, useUser } from "../hooks";
 
 const options = { presence: true, state: true };
-const sort: ChannelSort<DefaultStreamChatGenerics> | undefined = {
+const sort: ChannelSort<DefaultStreamChatGenerics> = {
   last_message_at: -1,
 };
 
