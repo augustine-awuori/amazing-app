@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import { jwtDecode } from "jwt-decode";
 
-// import usersService from "./users";
 import { User as AppUser } from "../hooks/useUser";
 
 const tokenKey = "token";
@@ -27,17 +26,6 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const googleAuth = getAuth(app);
-
-export async function saveUserWhenIsNot(user: GoogleUser | null | undefined) {
-  if (!user || !user.email || !user.displayName) return;
-
-  const { displayName, email, photoURL } = user;
-  //   await usersService.create({
-  //     avatar: photoURL || "",
-  //     email,
-  //     name: displayName,
-  //   });
-}
 
 const getJwt = () => localStorage.getItem(tokenKey);
 
