@@ -87,7 +87,7 @@ const Header = ({ onQuery, query }: Props) => {
         onClick={handleProductCreation}
         className="btn btn-primary hidden md:inline"
       >
-        New Product
+        &#43; Add Product
       </button>
       <button
         onClick={handleProductCreation}
