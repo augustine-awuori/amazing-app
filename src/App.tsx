@@ -30,13 +30,13 @@ function App() {
     initUser();
     checkChatToken();
     initChatClient();
-  }, [user?._id, googleUser?.uid, auth.getJwt(), client?.userID]);
+  }, [user?._id, googleUser?.uid, auth.getJwt(), client]);
 
-  function initChatClient() {
+  async function initChatClient() {
     if (!user || !user.chatToken) return;
 
     const chatClient = StreamChat.getInstance(apiKey);
-    chatClient.connectUser(
+    await chatClient.connectUser(
       { id: user._id, name: user.name, image: user.avatar },
       user.chatToken
     );
@@ -66,20 +66,22 @@ function App() {
     } else toast.error("Login failed");
   }
 
-  const checkChatToken = async () => {
+  async function checkChatToken() {
     if (!user || user.chatToken) return;
 
-    try {
-      const res = await createAndGetChatToken();
-      if (res?.ok)
-        setUser((prevUser) => ({
-          ...(prevUser as User),
-          chatToken: res.data as string,
-        }));
-    } catch (error) {
-      toast.error("Failed to get chat token");
+    const res = await createAndGetChatToken();
+
+    if (res?.ok)
+      setUser((prevUser) => ({
+        ...(prevUser as User),
+        chatToken: res.data as string,
+      }));
+    else {
+      toast.error(res.problem);
+      auth.logout();
+      window.location.href = "/";
     }
-  };
+  }
 
   const MainApp = () => (
     <UserContext.Provider value={{ user, setUser }}>
@@ -101,7 +103,7 @@ function App() {
 
   if (!client) {
     initChatClient();
-    return <></>;
+    return <>Client Error</>;
   }
 
   return (
