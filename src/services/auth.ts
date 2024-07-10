@@ -10,7 +10,7 @@ import { jwtDecode } from "jwt-decode";
 
 import { User as AppUser } from "../hooks/useUser";
 
-const tokenKey = "token";
+const tokenKey = "amazing-shop/token";
 
 export interface GoogleUser extends User {}
 
