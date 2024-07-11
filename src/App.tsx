@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { authTokenKey, processResponse } from "./services/client";
 import { BottomNav, NavBar, Routes } from "./components";
 import { createAndGetChatToken } from "./services/chatToken";
+import { LoadingPage } from "./pages";
 import { Product } from "./hooks/useProducts";
 import { ProductsContext, ShowNavContext, UserContext } from "./contexts";
 import auth from "./services/auth";
@@ -103,7 +104,7 @@ function App() {
 
   if (!client) {
     initChatClient();
-    return <>Client Error</>;
+    return <LoadingPage />;
   }
 
   return (
