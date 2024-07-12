@@ -44,7 +44,7 @@ const AppRoutes = () => {
   const [profileUser, setProfileUser] = useState<User>();
   const [activeChatId, setActiveChatId] = useState("");
   const { user } = useUser();
-  const { data } = useData<Notification>(`${endpoint}/${user?._id}`);
+  const { data } = useData<Notification>(`${endpoint}/seller`);
 
   useEffect(() => {
     setNotifications(data);

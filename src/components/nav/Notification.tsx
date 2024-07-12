@@ -33,7 +33,7 @@ const Notification = () => {
           />
         </svg>
         {unreadNotifications && (
-          <span className="badge badge-xs badge-primary indicator-item"></span>
+          <span className="badge badge-xs badge-primary indicator-item" />
         )}
       </div>
     </button>
