@@ -32,8 +32,8 @@ import { Order } from "../hooks/useOrder";
 import { Poster } from "../hooks/usePosters";
 import { Shop } from "../hooks/useShop";
 import { useData } from "../hooks";
+import { User } from "../hooks/useUser";
 import RedirectRoot from "../navigation/RedirectRoot";
-import useUser, { User } from "../hooks/useUser";
 
 const AppRoutes = () => {
   const [shops, setShops] = useState<Shop[]>([]);
@@ -43,7 +43,6 @@ const AppRoutes = () => {
   const [order, setOrder] = useState<Order>();
   const [profileUser, setProfileUser] = useState<User>();
   const [activeChatId, setActiveChatId] = useState("");
-  const { user } = useUser();
   const { data } = useData<Notification>(`${endpoint}/seller`);
 
   useEffect(() => {

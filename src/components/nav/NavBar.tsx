@@ -44,7 +44,7 @@ const NavBar = () => {
       <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10 glass py-0">
         <Logo />
         <Tabs count={countResponse?.total_unread_count || 0} />
-        <article className="flex-none flex items-center space-x-4">
+        <article className="flex-none flex items-center">
           <Notification />
           <Cart />
           <UserButton onLoginWithForms={setShowLoginForm} />

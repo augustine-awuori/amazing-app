@@ -44,7 +44,7 @@ const UserButton = ({ onLoginWithForms }: Props) => {
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img
           alt={googleUser?.displayName || "avatar"}
-          src={googleUser?.photoURL || randomImage}
+          src={user.avatar || googleUser?.photoURL || randomImage}
           className="rounded-full w-full h-full"
         />
       </div>
