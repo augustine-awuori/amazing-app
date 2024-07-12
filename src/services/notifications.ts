@@ -1,10 +1,15 @@
-import { NewNotification } from "../components/Notification";
-import client from "./client";
+import { NotificationActivity } from "../hooks/useNotifications";
+import client, { getFailedResponse, processResponse } from "./client";
 
-const endpoint = "/notifications";
+export const endpoint = "/notifications";
 
-const create = (notification: NewNotification) =>
-  client.post(endpoint, notification);
+const create = async (activity: NotificationActivity) => {
+  try {
+    return processResponse(await client.post(endpoint, activity));
+  } catch (error) {
+    return getFailedResponse(error);
+  }
+};
 
 const get = (userId: string) => client.get(`${endpoint}/${userId}`);
 

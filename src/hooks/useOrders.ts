@@ -73,9 +73,10 @@ const useOrders = () => {
     if (ok) {
       toast.success("Order placed successfully!");
       notificationsService.create({
-        title: "Amazing Mart",
-        description: `${currentUser?.name} has placed an order`,
-        to: (data as Order).shop.author._id,
+        sellerId: (data as Order).shop.author._id,
+        buyerId: currentUser?._id || "",
+        dataId: (data as Order)._id,
+        verb: "order",
       });
     } else {
       toast.error(problem);

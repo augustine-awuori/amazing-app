@@ -1,47 +1,41 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { User } from "../hooks/useUser";
-import img from "../assets/logo.png";
 
-interface Base {
-  title: string;
-  description: string;
-}
-
-export interface Notification extends Base {
+export interface Notification {
   _id: string;
-  from: User;
-  read: boolean;
-  to: User;
+  buyer: User;
+  dataId: string;
+  isRead: boolean;
+  seller: User;
+  verb: "order";
 }
 
-export interface NewNotification extends Base {
-  to: string;
-}
-
-const NotificationComp = ({ description, from, read, title }: Notification) => {
+const NotificationComp = ({ buyer, dataId, isRead: read }: Notification) => {
   const [noOfLines, setNoOfLines] = useState(1);
+  const navigate = useNavigate();
 
   const color = read ? "text-gray-500" : "text-black";
 
   return (
-    <div className="flex mb-3 px-3">
-      <div className="flex-shrink-0 mt-1 mr-3">
-        <img
-          src={from.avatar || img}
-          className="w-9 h-9 rounded-full"
-          alt="avatar"
-        />
-      </div>
+    <article
+      className="flex mb-3 px-3"
+      onClick={() => navigate(`/mart/shops/unknown/orders/${dataId}`)}
+    >
+      <figure className="flex-shrink-0 mt-1 mr-3">
+        <img src={buyer.avatar} className="w-9 h-9 rounded-full" alt="avatar" />
+      </figure>
       <div>
-        <div className={`font-bold ${color}`}>{title}</div>
+        <div className={`font-bold ${color}`}>New Order</div>
         <div
           className={`${color} ${noOfLines === 1 ? "line-clamp-1" : ""}`}
           onClick={() => setNoOfLines(noOfLines === 1 ? 10 : 1)}
         >
-          {description}
+          {buyer.name} has placed an order to your shop.
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

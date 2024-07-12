@@ -39,6 +39,11 @@ export const emptyResponse: Response = {
   problem: "",
 };
 
+export const getFailedResponse = (error: unknown): Response => ({
+  ...emptyResponse,
+  problem: (error as ResponseError).response.data.error || "Unknown error",
+});
+
 export const processResponse = ({ data, status }: AxiosResponse) => {
   const response: Response = {
     ok: false,

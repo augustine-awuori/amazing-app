@@ -2,6 +2,7 @@ export { default as useActiveChatId } from "./useActiveChatId";
 export { default as useCart } from "./useCart";
 export { default as useData } from "./useData";
 export { default as useImages } from "./useImages";
+export { default as useNotifications } from "./useNotifications";
 export { default as useOrders } from "./useOrders";
 export { default as usePosters } from "./usePosters";
 export { default as useProducts } from "./useProducts";
