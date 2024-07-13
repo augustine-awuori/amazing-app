@@ -75,7 +75,7 @@ const DrawerContent = () => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-center mb-6">
-        <img src={logo} alt="logo" width={30} height={30} className="ml-2" />
+        <img src={logo} alt="logo" width={30} height={30} className="mr-2" />
         <p className="text-2xl font-semibold text-white-800">amazing</p>
       </div>
 
