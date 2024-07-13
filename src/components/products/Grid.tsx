@@ -8,7 +8,7 @@ interface Props {
 
 const ProductsGrid = ({ products }: Props) => {
   return (
-    <section className="p-4">
+    <section className="p-4 pt-0">
       <Grid>
         {products.map((p) => (
           <ProductCard key={p._id} {...p} />

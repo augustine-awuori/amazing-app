@@ -6,6 +6,7 @@ export { default as CountBadge } from "./CountBadge";
 export { default as LoginForm } from "./LoginForm";
 export { default as Badge } from "./products/TypeBadge";
 export { default as BottomNav } from "./nav/BottomNav";
+export { default as CardSkeletons } from "./CardSkeletons";
 export { default as Grid } from "./Grid";
 export { default as HorizontalProductList } from "./products/HorizontalProductList";
 export { default as Image } from "./Image";

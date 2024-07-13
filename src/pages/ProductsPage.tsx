@@ -1,28 +1,34 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 
 import { paginate } from "../utils";
 import {
-  Grid,
+  CardSkeletons,
+  Modal,
   Pagination,
   ProductHeader,
   ProductsGrid,
   ProductTypesList,
+  ShopSelectors,
 } from "../components";
 import { useProductTypes } from "../hooks";
 import useProduts, { Product, ProductType } from "../hooks/useProducts";
-import CardSkeleton from "../components/products/CardSkeleton";
 
 const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(12);
+  const [query, setQuery] = useState("");
+  const { isLoading, products } = useProduts();
+  const { types } = useProductTypes();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedShopId, setSelectedShopId] = useState("");
+  const navigate = useNavigate();
   const [selectedType, setSelectedType] = useState<ProductType>({
     _id: "",
     label: "",
   });
-  const [query, setQuery] = useState("");
-  const { isLoading, products } = useProduts();
-  const { types } = useProductTypes();
 
   const filtered = selectedType?._id
     ? products.filter(({ shop, type }) =>
@@ -48,12 +54,52 @@ const ProductsPage = () => {
     setSelectedType(type);
   };
 
+  const handleProductCreation = () => setShowModal(true);
+
+  const handleShopSelection = () => {
+    if (selectedShopId) {
+      navigate(`shops/${selectedShopId}`);
+      return setShowModal(false);
+    }
+
+    toast.info("Please select a shop or create a new one");
+  };
+
+  const ModalContent = (
+    <>
+      <p
+        className="text-center cursor-pointer mb-2 font-bold"
+        onClick={() => {
+          setShowModal(false);
+          navigate("shops/new");
+        }}
+      >
+        Create a new shop instead?
+      </p>
+      <ShopSelectors
+        onDoneShopSelect={handleShopSelection}
+        onShopSelect={setSelectedShopId}
+        selectedShop={selectedShopId}
+      />
+    </>
+  );
+
   return (
     <article>
+      <Modal
+        content={ModalContent}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="Select Shop"
+        primaryBtnLabel="Proceed"
+        onPrimaryBtnClick={() => navigate(`shops/${selectedShopId}`)}
+        secondaryBtnLabel="Cancel"
+      />
       <ProductHeader
+        placeholder="Products"
         query={query}
         onQuery={handleQueryChange}
-        onProductCreation={console.log}
+        onButtonClick={handleProductCreation}
       />
       <ProductTypesList
         badges={types}
@@ -68,12 +114,7 @@ const ProductsPage = () => {
           Found none of {selectedType.label} Products
         </h1>
       )}
-      <Grid>
-        {isLoading &&
-          _.range(0, pageSize).map((skeleton) => (
-            <CardSkeleton key={skeleton} />
-          ))}
-      </Grid>
+      <CardSkeletons isLoading={isLoading} pageSize={pageSize} />
       <ProductsGrid products={paginated} />
       <Pagination
         currentPage={currentPage}

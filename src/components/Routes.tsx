@@ -16,6 +16,7 @@ import {
   ShopOrdersPage,
   ShopPage,
   ShoppingCartPage,
+  ShopsPage,
 } from "../pages";
 import {
   ActiveChatIdContext,
@@ -44,14 +45,18 @@ const AppRoutes = () => {
   const [profileUser, setProfileUser] = useState<User>();
   const [activeChatId, setActiveChatId] = useState("");
   const { data } = useData<Notification>(`${endpoint}/seller`);
+  const { data: shopsData, isLoading: shopsLoading } = useData<Shop>("/shops");
 
   useEffect(() => {
     setNotifications(data);
-  }, []);
+    setShops(shopsData);
+  }, [shopsData.length]);
 
   return (
     <ActiveChatIdContext.Provider value={{ activeChatId, setActiveChatId }}>
-      <ShopsContext.Provider value={{ shops, setShops }}>
+      <ShopsContext.Provider
+        value={{ shops, setShops, isLoading: shopsLoading }}
+      >
         <ImagesContext.Provider value={{ images, setImages }}>
           <ProfileUserContext.Provider value={{ profileUser, setProfileUser }}>
             <OrderContext.Provider value={{ order, setOrder }}>
@@ -96,6 +101,7 @@ const AppRoutes = () => {
                       element={<ShopOrderPage />}
                     />
                     <Route path="/mart/shops/new" element={<ShopEditPage />} />
+                    <Route path="/mart/shops" element={<ShopsPage />} />
                     <Route path="/mart" element={<ProductsPage />} />
                     <Route index element={<RedirectRoot />} />
                     <Route path="*" element={<NotFoundPage />} />

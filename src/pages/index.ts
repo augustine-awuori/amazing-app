@@ -13,3 +13,4 @@ export { default as ShopOrderPage } from "./ShopOrderPage";
 export { default as ShopOrdersPage } from "./ShopOrdersPage";
 export { default as ShopPage } from "./ShopPage";
 export { default as ShoppingCartPage } from "./ShoppingCartPage";
+export { default as ShopsPage } from "./ShopsPage";

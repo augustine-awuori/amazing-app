@@ -22,19 +22,8 @@ export const prepShopTypes = (
 };
 
 const useShops = () => {
-  const { setShops, shops } = useContext(ShopsContext);
-  const [isLoading, setLoading] = useState(true);
+  const { setShops, shops, isLoading } = useContext(ShopsContext);
   const { products } = useProducts();
-
-  useEffect(() => {
-    if (!shops.length) initShops();
-  }, []);
-
-  const initShops = async () => {
-    setLoading(true);
-    setShops(await service.getShops());
-    setLoading(false);
-  };
 
   const create = async (info: NewShop) => {
     const res = await service.create(info);

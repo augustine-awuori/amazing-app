@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { funcs } from "../../utils";
+import { randomImage } from "../../utils/funcs";
 import { Shop } from "../../hooks/useShop";
 import { useProducts } from "../../hooks";
 import GroupAvatar from "../GroupAvatar";
@@ -21,7 +22,7 @@ const Profile = ({ _id, image, name, location }: Shop) => {
     >
       <figure className="relative h-48 w-full">
         <img
-          src={image}
+          src={image || randomImage}
           alt={name}
           className="absolute inset-0 w-full h-full object-cover"
         />
