@@ -3,6 +3,7 @@ export { default as BottomToast } from "./BottomToast";
 export { default as ChatButtons } from "./ChatButtons";
 export { default as CopyUrlButton } from "./CopyUrlButton";
 export { default as CountBadge } from "./CountBadge";
+export { default as DrawerContent } from "./drawer/DrawerContent";
 export { default as LoginForm } from "./LoginForm";
 export { default as Badge } from "./products/TypeBadge";
 export { default as BottomNav } from "./nav/BottomNav";

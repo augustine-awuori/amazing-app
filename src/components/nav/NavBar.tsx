@@ -1,18 +1,20 @@
 import { useState } from "react";
+import { HiMenuAlt1 } from "react-icons/hi";
 
 import { Modal, RegisterForm, LoginForm } from "..";
-import { useShowNav, useUnreadChats } from "../../hooks";
+import { useShowDrawer, useShowNav, useUnreadChats } from "../../hooks";
 import Cart from "./Cart";
-import Logo from "./Logo";
 import Notification from "./Notification";
 import Tabs from "./Tabs";
 import UserButton from "./UserButton";
+import logo from "../../assets/logo.png";
 
 const NavBar = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const { countResponse } = useUnreadChats();
   const { showNav } = useShowNav();
+  const { setShowDrawer } = useShowDrawer();
 
   if (!showNav) return null;
 
@@ -41,9 +43,20 @@ const NavBar = () => {
         title=""
       />
 
-      <nav className="flex-1 navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10 glass py-0">
-        <Logo />
-        <Tabs count={countResponse?.total_unread_count || 0} />
+      <nav className="flex justify-between items-center navbar bg-base-100 w-full fixed top-0 left-0 right-0 border-b border-gray-100 z-10 glass py-0">
+        <HiMenuAlt1
+          size={25}
+          cursor="pointer"
+          onClick={() => setShowDrawer(true)}
+        />
+        <img
+          src={logo}
+          alt="App logo"
+          className="w-8 absolute left-1/2 transform -translate-x-1/2 md:hidden"
+        />
+        <div className="flex-1 flex justify-center md:justify-end">
+          <Tabs count={countResponse?.total_unread_count || 0} />
+        </div>
         <article className="flex-none flex items-center">
           <Notification />
           <Cart />

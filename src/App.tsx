@@ -4,13 +4,19 @@ import { DefaultGenerics, StreamChat } from "stream-chat";
 import { toast } from "react-toastify";
 
 import { authTokenKey, processResponse } from "./services/client";
-import { BottomNav, NavBar, Routes } from "./components";
+import { BottomNav, DrawerContent, NavBar, Routes } from "./components";
 import { createAndGetChatToken } from "./services/chatToken";
 import { LoadingPage } from "./pages";
 import { Product } from "./hooks/useProducts";
-import { ProductsContext, ShowNavContext, UserContext } from "./contexts";
+import {
+  ProductsContext,
+  ShowDrawerContext,
+  ShowNavContext,
+  UserContext,
+} from "./contexts";
 import auth from "./services/auth";
 import CartContext, { CartProducts } from "./contexts/CartContext";
+import Drawer from "./components/common/Drawer";
 import usersApi from "./services/users";
 import useUser, { User } from "./hooks/useUser";
 
@@ -22,6 +28,7 @@ function App() {
   const { googleUser } = useUser();
   const [client, setClient] = useState<StreamChat<DefaultGenerics>>();
   const [showNav, setShowNav] = useState(true);
+  const [showDrawer, setShowDrawer] = useState(false);
   const [cartProducts, setCartProducts] = useState<CartProducts>({
     count: 0,
     ids: {},
@@ -88,12 +95,19 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <ProductsContext.Provider value={{ products, setProducts }}>
         <CartContext.Provider value={{ cartProducts, setCartProducts }}>
-          <ShowNavContext.Provider value={{ setShowNav, showNav }}>
-            <NavBar />
-            <article style={{ marginTop: "4.5rem" }}>
-              <Routes />
-            </article>
-          </ShowNavContext.Provider>
+          <ShowDrawerContext.Provider value={{ setShowDrawer, showDrawer }}>
+            <ShowNavContext.Provider value={{ setShowNav, showNav }}>
+              <NavBar />
+              <article style={{ marginTop: "4.5rem" }}>
+                <Drawer
+                  children={<DrawerContent />}
+                  isOpen={showDrawer}
+                  toggleDrawer={() => setShowDrawer(false)}
+                />
+                <Routes />
+              </article>
+            </ShowNavContext.Provider>
+          </ShowDrawerContext.Provider>
           <BottomNav />
         </CartContext.Provider>
       </ProductsContext.Provider>
