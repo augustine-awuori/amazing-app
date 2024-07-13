@@ -55,7 +55,7 @@ const NavBar = () => {
           onClick={() => navigate("/")}
           src={logo}
           alt="App logo"
-          className="w-8 absolute left-1/2 transform -translate-x-1/2 md:hidden"
+          className="w-8 absolute left-1/2 transform -translate-x-1/2 md:hidden cursor-pointer"
         />
         <div className="flex-1 flex justify-center md:justify-end">
           <Tabs count={countResponse?.total_unread_count || 0} />
