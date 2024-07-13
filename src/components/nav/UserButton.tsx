@@ -39,8 +39,8 @@ const UserButton = ({ onLoginWithForms }: Props) => {
 
   const Avatar = () => {
     if (!user) return <span className="loading loading-ring loading-lg" />;
-
-    return googleUser?.photoURL ? (
+    console.log(user.avatar);
+    return user.avatar ? (
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img
           alt={googleUser?.displayName || "avatar"}
@@ -60,7 +60,7 @@ const UserButton = ({ onLoginWithForms }: Props) => {
         role="button"
         className="btn btn-ghost btn-circle avatar"
       >
-        {googleUser || user ? <Avatar /> : <AiOutlineLogin />}
+        {user ? <Avatar /> : <AiOutlineLogin />}
       </div>
       <ul
         tabIndex={0}
