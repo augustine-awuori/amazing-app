@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { HiMenuAlt1 } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 import { Modal, RegisterForm, LoginForm } from "..";
 import { useShowDrawer, useShowNav, useUnreadChats } from "../../hooks";
@@ -15,6 +16,7 @@ const NavBar = () => {
   const { countResponse } = useUnreadChats();
   const { showNav } = useShowNav();
   const { setShowDrawer } = useShowDrawer();
+  const navigate = useNavigate();
 
   if (!showNav) return null;
 
@@ -50,6 +52,7 @@ const NavBar = () => {
           onClick={() => setShowDrawer(true)}
         />
         <img
+          onClick={() => navigate("/")}
           src={logo}
           alt="App logo"
           className="w-8 absolute left-1/2 transform -translate-x-1/2 md:hidden"
