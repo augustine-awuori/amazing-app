@@ -15,6 +15,7 @@ import { useMediaQuery } from "react-responsive";
 
 import { EmptyStateIndicator } from "../components/chats";
 import { useActiveChatId, useShowNav, useUser } from "../hooks";
+import NotLoggedInPage from "./NotLoggedInPage";
 
 const options = { presence: true, state: true };
 const sort: ChannelSort<DefaultStreamChatGenerics> = {
@@ -45,7 +46,7 @@ const ChatsPage = () => {
     setActiveChannel(channel);
   }, [activeChatId]);
 
-  if (!user) return <p>You're not logged in. You need to log in</p>;
+  if (!user) return <NotLoggedInPage />;
   if (!user.chatToken) return <p>You're not registered for chatting</p>;
   if (!user._id) return <p>Your user ID is missing. Please contact support.</p>;
 

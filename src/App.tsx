@@ -4,7 +4,7 @@ import { DefaultGenerics, StreamChat } from "stream-chat";
 import { toast } from "react-toastify";
 
 import { authTokenKey, processResponse } from "./services/client";
-import { BottomNav, DrawerContent, NavBar, Routes } from "./components";
+import { BottomNav, NavBar, Routes } from "./components";
 import { createAndGetChatToken } from "./services/chatToken";
 import { LoadingPage } from "./pages";
 import { Product } from "./hooks/useProducts";
@@ -17,6 +17,7 @@ import {
 import auth from "./services/auth";
 import CartContext, { CartProducts } from "./contexts/CartContext";
 import Drawer from "./components/common/Drawer";
+import DrawerContent from "./components/drawer/DrawerContent";
 import usersApi from "./services/users";
 import useUser, { User } from "./hooks/useUser";
 
