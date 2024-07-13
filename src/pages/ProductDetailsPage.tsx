@@ -8,6 +8,7 @@ import { formatPhoneNumber } from "../utils/funcs";
 import { funcs } from "../utils";
 import { getShopProducts } from "../services/shops";
 import {
+  Activity,
   AddRightChevron,
   CopyUrlButton,
   HorizontalProductList,
@@ -128,6 +129,7 @@ const ProductDetailsPage = () => {
               </button>
             </section>
             <p>{description}</p>
+            <Activity item="product" onClick={() => navigate("activity")} />
             {currentUserIsTheSeller ? (
               <article className="flex justify-between items-center w-full mt-3">
                 <button
@@ -197,7 +199,7 @@ const ProductDetailsPage = () => {
               >
                 <figure>
                   <img
-                    src={author.avatar || "https://picsum.photos/1200/300"}
+                    src={author.avatar}
                     alt={author.name}
                     className="w-20 h-20 mr-2 mask mask-squircle object-cover"
                   />

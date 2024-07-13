@@ -6,6 +6,7 @@ import {
   EventsPage,
   NotFoundPage,
   NotificationsPage,
+  ProductActivityPage,
   ProductDetailsPage,
   ProductsPage,
   ProfileOrderPage,
@@ -83,6 +84,10 @@ const AppRoutes = () => {
                     <Route
                       path="/mart/profile/:userId/orders/:orderId"
                       element={<ProfileOrderPage />}
+                    />
+                    <Route
+                      path="/mart/products/:productId/activity"
+                      element={<ProductActivityPage />}
                     />
                     <Route
                       path="/mart/products/:productId"

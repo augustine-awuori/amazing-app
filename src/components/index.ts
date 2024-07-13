@@ -1,3 +1,4 @@
+export { default as Activity } from "./Activity";
 export { default as AddRightChevron } from "./AddRightChevron";
 export { default as BottomToast } from "./BottomToast";
 export { default as ChatButtons } from "./ChatButtons";
