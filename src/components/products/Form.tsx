@@ -31,9 +31,10 @@ const MAX_IMAGE_INPUT = 3;
 
 interface Props {
   onDone: () => void;
+  shopId?: string;
 }
 
-const ProductForm = ({ onDone }: Props) => {
+const ProductForm = ({ onDone, shopId: shopIdentification }: Props) => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { images, imagesCount, removeAllImages } = useImages(MAX_IMAGE_INPUT);
@@ -52,12 +53,13 @@ const ProductForm = ({ onDone }: Props) => {
       return;
     }
 
-    if (user && shopId)
+    const id = shopId || shopIdentification;
+    if (user && id)
       return {
         ...info,
         author: user._id,
         images: imagesUrl,
-        shop: shopId,
+        shop: id,
         type: selectedType._id,
       };
   };

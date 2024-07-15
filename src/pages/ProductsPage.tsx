@@ -8,6 +8,7 @@ import {
   CardSkeletons,
   Modal,
   Pagination,
+  ProductForm,
   ProductHeader,
   ProductsGrid,
   ProductTypesList,
@@ -25,6 +26,7 @@ const ProductsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedShopId, setSelectedShopId] = useState("");
   const navigate = useNavigate();
+  const [showProductModal, setProductModal] = useState(false);
   const [selectedType, setSelectedType] = useState<ProductType>({
     _id: "",
     label: "",
@@ -54,7 +56,7 @@ const ProductsPage = () => {
     setSelectedType(type);
   };
 
-  const handleProductCreation = () => setShowModal(true);
+  const showShops = () => setShowModal(true);
 
   const handleShopSelection = () => {
     if (selectedShopId) {
@@ -63,6 +65,13 @@ const ProductsPage = () => {
     }
 
     toast.info("Please select a shop or create a new one");
+  };
+
+  const handleProductCreation = () => {
+    if (selectedShopId) {
+      setProductModal(true);
+      setShowModal(false);
+    }
   };
 
   const ModalContent = (
@@ -92,14 +101,25 @@ const ProductsPage = () => {
         onClose={() => setShowModal(false)}
         title="Select Shop"
         primaryBtnLabel="Proceed"
-        onPrimaryBtnClick={() => navigate(`shops/${selectedShopId}`)}
+        onPrimaryBtnClick={handleProductCreation}
         secondaryBtnLabel="Cancel"
+      />
+      <Modal
+        content={
+          <ProductForm
+            onDone={() => setProductModal(false)}
+            shopId={selectedShopId}
+          />
+        }
+        isOpen={showProductModal}
+        onClose={() => setProductModal(false)}
+        title="New Product"
       />
       <ProductHeader
         placeholder="Products"
         query={query}
         onQuery={handleQueryChange}
-        onButtonClick={handleProductCreation}
+        onButtonClick={showShops}
       />
       <ProductTypesList
         badges={types}
