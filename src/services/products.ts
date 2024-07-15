@@ -1,5 +1,9 @@
 import { Product } from "../hooks/useProducts";
-import apiClient, { emptyResponse, processResponse } from "./client";
+import apiClient, {
+  emptyResponse,
+  getFailedResponse,
+  processResponse,
+} from "./client";
 
 export const endpoint = "/products";
 
@@ -28,8 +32,15 @@ export const getProducts = async (): Promise<Product[]> => {
   }
 };
 
-export const getProduct = async (productId: string) =>
-  await apiClient.get(`${endpoint}/single/${productId}`);
+export const getProduct = async (productId: string) => {
+  try {
+    return processResponse(
+      await apiClient.get(`${endpoint}/single/${productId}`)
+    );
+  } catch (error) {
+    return getFailedResponse(error);
+  }
+};
 
 const getProductURL = (productId: string) => `${endpoint}/${productId}`;
 
@@ -37,7 +48,7 @@ const deleteProductBy = async (productId: string) => {
   try {
     return processResponse(await apiClient.delete(getProductURL(productId)));
   } catch (error) {
-    return emptyResponse;
+    return getFailedResponse(error);
   }
 };
 
@@ -47,8 +58,25 @@ const update = async (info: object, productId: string) => {
       await apiClient.patch(getProductURL(productId), info)
     );
   } catch (error) {
-    return emptyResponse;
+    return getFailedResponse(error);
   }
 };
 
-export default { create, deleteProductBy, getProducts, getProduct, update };
+const addView = async (productId: string) => {
+  try {
+    return processResponse(
+      await apiClient.patch(`${endpoint}/views/${productId}`)
+    );
+  } catch (error) {
+    return getFailedResponse(error);
+  }
+};
+
+export default {
+  addView,
+  create,
+  deleteProductBy,
+  getProducts,
+  getProduct,
+  update,
+};

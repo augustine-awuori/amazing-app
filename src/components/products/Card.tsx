@@ -2,24 +2,21 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsCartCheckFill } from "react-icons/bs";
 
-import { Product } from "../../hooks/useProducts";
 import { funcs } from "../../utils";
-import { useCart } from "../../hooks";
+import { useCart, useUser } from "../../hooks";
+import service from "../../services/products";
 import ShoppingCartIcon from "../ShoppingCartIcon";
+import useProducts, { Product } from "../../hooks/useProducts";
 
 const ProductCard = ({ _id, name, description, price, images }: Product) => {
   const [hovered, setHovered] = useState(false);
+  const [updatingViews, setUpdatingViews] = useState(false);
+  const [viewsUpdated, setViewsUpdated] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const helper = useProducts();
+  const { user } = useUser();
   const navigate = useNavigate();
   const cart = useCart();
-
-  const productInCart = cart.hasProduct(_id);
-
-  const handleMouseEnter = () => setHovered(true);
-  const handleMouseLeave = () => setHovered(false);
-  const navigateToDetails = () => navigate(`/mart/products/${_id}`);
-
-  const updateCart = () => (productInCart ? cart.remove(_id) : cart.add(_id));
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -28,6 +25,36 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
 
     return () => clearInterval(intervalId);
   }, [images.length]);
+
+  const productInCart = cart.hasProduct(_id);
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
+  const navigateToDetails = () => navigate(`/mart/products/${_id}`);
+
+  const handleClick = () => {
+    navigateToDetails();
+    updateViews();
+  };
+
+  const updateCart = () => (productInCart ? cart.remove(_id) : cart.add(_id));
+
+  async function updateViews() {
+    if (updatingViews || viewsUpdated || !user) return;
+
+    const product = helper.findById(_id);
+    const viewed = product?.views?.some((v) => v.viewer === user?._id);
+    if (viewed) return;
+
+    setUpdatingViews(true);
+    const res = await service.addView(product?._id || "");
+    setUpdatingViews(false);
+    setViewsUpdated(true);
+
+    if (res.ok) {
+      const update = res.data as Product;
+      helper.findByIdAndUpdate(update._id, update);
+    }
+  }
 
   return (
     <article
@@ -42,7 +69,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
               key={image}
               src={image}
               alt={name}
-              onClick={navigateToDetails}
+              onClick={handleClick}
               className={`w-full h-96 object-cover rounded-lg image ${
                 currentImageIndex === index ? "active" : ""
               }`}

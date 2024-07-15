@@ -19,6 +19,12 @@ interface Item {
 
 export interface ProductType extends Item {}
 
+export interface View {
+  _id: string;
+  viewer: string;
+  timestamp: number;
+}
+
 export interface Product {
   _id: string;
   author: User;
@@ -29,6 +35,7 @@ export interface Product {
   shop: ShopProduct;
   timestamp: number;
   type: ProductType;
+  views?: View[];
 }
 
 export default () => {
@@ -80,5 +87,20 @@ export default () => {
     return { ok, error };
   };
 
-  return { deleteProductById, products, isLoading };
+  const findById = (id: string | undefined) =>
+    products.find((p) => p._id === id);
+
+  const findByIdAndUpdate = (id: string, update: Product) => {
+    const updated = products.map((p) => (p._id === id ? update : p));
+
+    setProducts(updated);
+  };
+
+  return {
+    deleteProductById,
+    findById,
+    findByIdAndUpdate,
+    products,
+    isLoading,
+  };
 };

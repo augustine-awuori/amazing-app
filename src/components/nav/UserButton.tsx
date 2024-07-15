@@ -39,7 +39,7 @@ const UserButton = ({ onLoginWithForms }: Props) => {
 
   const Avatar = () => {
     if (!user) return <span className="loading loading-ring loading-lg" />;
-    console.log(user.avatar);
+
     return user.avatar ? (
       <div className="w-9 h-9 rounded-full flex items-center justify-center bg-gray-200">
         <img

@@ -33,11 +33,7 @@ const ProductDetailsPage = () => {
   const helper = useProducts();
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [isEditingProduct, setIsEditingProduct] = useState(false);
-  const { info: product, request } = useReload<Product>(
-    null,
-    { ...emptyProduct, paramsId: "productId" },
-    service.getProduct
-  );
+  const [product, setProduct] = useState<Product>(emptyProduct);
 
   const productInCart = cart.hasProduct(productId || "");
 
@@ -46,15 +42,22 @@ const ProductDetailsPage = () => {
     funcs.scrollToTop();
   }, [productId, product?._id, currentImageIndex, product?.shop._id]);
 
-  const updateCart = () =>
-    productInCart ? cart.remove(productId || "") : cart.add(productId || "");
+  async function prepareProducts() {
+    if (!product._id) {
+      let product = helper.findById(productId);
 
-  const prepareProducts = async () => {
-    if (!product?._id || productId !== product._id) request();
+      if (!product) {
+        const res = await service.getProduct(productId || "");
+        if (res.ok) setProduct(res.data as Product);
+      } else setProduct(product);
+    }
 
     if (product?.shop._id)
       setShopProducts(await getShopProducts(product.shop._id));
-  };
+  }
+
+  const updateCart = () =>
+    productInCart ? cart.remove(productId || "") : cart.add(productId || "");
 
   const deleteProduct = async () => {
     if (!productId) return;
@@ -129,7 +132,11 @@ const ProductDetailsPage = () => {
               </button>
             </section>
             <p>{description}</p>
-            <Activity item="product" onClick={() => navigate("activity")} />
+            <Activity
+              count={product.views?.length || 0}
+              item="product"
+              onClick={() => navigate("activity")}
+            />
             {currentUserIsTheSeller ? (
               <article className="flex justify-between items-center w-full mt-3">
                 <button

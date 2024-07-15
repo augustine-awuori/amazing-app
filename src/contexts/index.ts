@@ -11,3 +11,4 @@ export { default as ShowDrawerContext } from "./ShowDrawerContext";
 export { default as ShowNavContext } from "./ShowNavContext";
 export { default as StatusContext } from "./StatusContext";
 export { default as UserContext } from "./UserContext";
+export { default as UsersContext } from "./UsersContext";
