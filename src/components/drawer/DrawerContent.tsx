@@ -35,6 +35,8 @@ const DrawerContent = () => {
     toast.info("Coming sooner...");
   };
 
+  const getTabName = () => (currentTab.startsWith("/mart") ? "mart" : "events");
+
   const Content = () => {
     if (currentTab.startsWith("/mart"))
       return (
@@ -76,7 +78,7 @@ const DrawerContent = () => {
     <div className="p-4">
       <div className="flex items-center justify-center mb-6">
         <img src={logo} alt="logo" width={30} height={30} className="mr-2" />
-        <p className="text-2xl font-semibold text-white-800">amazing</p>
+        <p className="text-2xl font-semibold text-white-800">{getTabName()}</p>
       </div>
 
       <section className="h-80">
