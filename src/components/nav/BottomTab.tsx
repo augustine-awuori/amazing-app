@@ -14,7 +14,7 @@ const BottomTab = ({ children, Icon, label, pathname }: TabProps) => {
   return (
     <button
       className={`${
-        location.pathname.startsWith(pathname) ? "bg-blue-500 text-white" : ""
+        location.pathname.startsWith(pathname) ? " text-white" : ""
       }`}
       onClick={() => navigate(pathname)}
     >
