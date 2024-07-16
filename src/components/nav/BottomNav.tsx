@@ -1,43 +1,39 @@
-import { useNavigate } from "react-router-dom";
 import { BsCalendar2Check, BsChat } from "react-icons/bs";
 import { HiOutlineHome } from "react-icons/hi";
 
 import { useUnreadChats } from "../../hooks";
+import BottomTab from "./BottomTab";
 import CountBadge from "../CountBadge";
 
 const BottomNav = () => {
-  const navigate = useNavigate();
-  const currentPath = window.location.pathname;
   const { countResponse } = useUnreadChats();
 
   return (
     <div className="btm-nav md:hidden">
-      <button
-        className={currentPath.startsWith("/mart") ? "active" : ""}
-        onClick={() => navigate("/mart")}
-      >
-        <HiOutlineHome size={24} />
-        <span className="btm-nav-label">Mart</span>
-      </button>
-      <button
-        className={currentPath.startsWith("/events") ? "active" : ""}
-        onClick={() => navigate("/events")}
-      >
-        <BsCalendar2Check size={20} />
-        <span className="btm-nav-label">Events</span>
-      </button>
-      <button
-        className={currentPath.startsWith("/chats") ? "active" : ""}
-        onClick={() => navigate("/chats")}
-      >
-        <BsChat size={20} />
-        <CountBadge
-          count={countResponse?.total_unread_count || 0}
-          right={-10}
-          top={-1}
-        />
-        <span className="btm-nav-label">Chats</span>
-      </button>
+      <BottomTab
+        Icon={<HiOutlineHome size={24} />}
+        label="Mart"
+        pathname="/mart"
+      />
+
+      <BottomTab
+        Icon={<BsCalendar2Check size={20} />}
+        label="Events"
+        pathname="/events"
+      />
+
+      <BottomTab
+        children={
+          <CountBadge
+            count={countResponse?.total_unread_count || 0}
+            right={-10}
+            top={-1}
+          />
+        }
+        Icon={<BsChat size={20} />}
+        label="Chats"
+        pathname="/chats"
+      />
     </div>
   );
 };
