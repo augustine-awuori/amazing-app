@@ -99,7 +99,7 @@ function App() {
           <ShowDrawerContext.Provider value={{ setShowDrawer, showDrawer }}>
             <ShowNavContext.Provider value={{ setShowNav, showNav }}>
               <NavBar />
-              <article style={{ marginTop: "4.5rem" }}>
+              <article style={{ marginTop: "4.5rem", marginBottom: "3rem" }}>
                 <Drawer
                   children={<DrawerContent />}
                   isOpen={showDrawer}
