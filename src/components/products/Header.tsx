@@ -48,7 +48,7 @@ const Header = ({ onQuery, query, placeholder, onButtonClick }: Props) => {
 
   const viewDocs = () => {
     setShowDrawer(false);
-    navigate("/mart/guide");
+    navigate("/mart/guides");
   };
 
   return (

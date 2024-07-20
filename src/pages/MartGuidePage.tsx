@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import {
@@ -7,12 +8,13 @@ import {
   CreateShopGuide,
   GetStartedGuide,
 } from "../components/guides";
+import { funcs } from "../utils";
 
 interface SidebarProps {
   isCollapsed: boolean;
 }
 
-const items: { title: string; Element: JSX.Element }[] = [
+export const guides: { title: string; Element: JSX.Element }[] = [
   { Element: <GetStartedGuide />, title: "Get Started" },
   {
     Element: <CreateShopGuide />,
@@ -27,12 +29,23 @@ const items: { title: string; Element: JSX.Element }[] = [
 const MartGuidePage = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { guide } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const newIndex = guides.findIndex(
+      (item) => item.title === funcs.getTitleFromGuideEndpoint(guide)
+    );
+
+    setActiveIndex(newIndex);
+  }, [guide]);
 
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
 
   const handleSideBarItemClick = (index: number) => {
     toggleSidebar();
-    setActiveIndex(index);
+    const endpoint = funcs.getEndpointFromGuideTitle(guides[index].title);
+    navigate(`/mart/guides/${endpoint}`);
   };
 
   return (
@@ -43,7 +56,7 @@ const MartGuidePage = () => {
         </ToggleSidebarButton>
         {!isCollapsed && (
           <section className="mt-6">
-            {items.map((item, index) => (
+            {guides.map((item, index) => (
               <SidebarItem
                 key={index}
                 onClick={() => handleSideBarItemClick(index)}
@@ -54,7 +67,7 @@ const MartGuidePage = () => {
           </section>
         )}
       </Sidebar>
-      <Content>{items[activeIndex].Element}</Content>
+      <Content>{guides[activeIndex].Element}</Content>
     </Container>
   );
 };

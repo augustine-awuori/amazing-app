@@ -80,7 +80,11 @@ const AppRoutes = () => {
                         path="/notifications"
                         element={<NotificationsPage />}
                       />
-                      <Route path="/mart/guide" element={<MartGuidePage />} />
+                      <Route path="/mart/guides" element={<MartGuidePage />} />
+                      <Route
+                        path="/mart/guides/:guide"
+                        element={<MartGuidePage />}
+                      />
                       <Route path="/mart/cart" element={<ShoppingCartPage />} />
                       <Route
                         path="/mart/profile/:userId"

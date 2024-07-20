@@ -1,8 +1,18 @@
+import { guides } from "../../pages/MartGuidePage";
+import { funcs } from "../../utils";
 import { LastEdit, Subtitle, Text, Title } from "./GetStartedGuide";
 import Link from "./Link";
 import YouTubeVideo from "./YouTubeVideo";
 
 const CreateShopGuide = () => {
+  const getShopGuideLink = (): string => {
+    const guide = guides.find((g) => g.title.toLowerCase().includes("shop"));
+
+    return guide
+      ? `/mart/guides/${funcs.getEndpointFromGuideTitle(guide.title)}`
+      : "";
+  };
+
   return (
     <section>
       <LastEdit>Last Edit: Jul 20, 2024</LastEdit>
@@ -14,7 +24,8 @@ const CreateShopGuide = () => {
       <Subtitle>1. Sign In or Sign Up</Subtitle>
       <Text>
         Before you can add a product to your shop, you need to be logged into
-        your Amazing account. See how to create a shop guide.
+        your Amazing account.{" "}
+        <Link route={getShopGuideLink()}>See how to create a shop guide.</Link>
       </Text>
       <Subtitle> 2. Create Your Product</Subtitle>
       <ol className="list-disc ml-10">

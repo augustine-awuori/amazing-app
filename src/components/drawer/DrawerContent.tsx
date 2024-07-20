@@ -42,7 +42,7 @@ const DrawerContent = () => {
     const Common = () => (
       <button
         className="btn btn-wide btn-outline btn-success"
-        onClick={() => navigate("/mart/guide")}
+        onClick={() => navigate("/mart/guides")}
       >
         Guide (Docs)
         <HiOutlineDocumentDuplicate />

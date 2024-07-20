@@ -1,8 +1,18 @@
+import { guides } from "../../pages/MartGuidePage";
+import { funcs } from "../../utils";
 import { LastEdit, Subtitle, Text, Title } from "./GetStartedGuide";
 import Link from "./Link";
 import YouTubeVideo from "./YouTubeVideo";
 
 const CreateShopGuide = () => {
+  const getProductGuideLink = (): string => {
+    const guide = guides.find((g) => g.title.toLowerCase().includes("product"));
+
+    return guide
+      ? `/mart/guides/${funcs.getEndpointFromGuideTitle(guide.title)}`
+      : "";
+  };
+
   return (
     <section>
       <LastEdit>Last Edit: Jul 20, 2024</LastEdit>
@@ -76,7 +86,9 @@ const CreateShopGuide = () => {
         <li>
           <Text>
             Your shop is now successfully created. You can see it at the{" "}
-            <Link route="/mart/shops">shops' page</Link>{" "}
+            <Link route="/mart/shops">shops' page.</Link> The next thing to do
+            is to{" "}
+            <Link route={getProductGuideLink()}>add product to your shop</Link>
           </Text>
         </li>
       </ol>

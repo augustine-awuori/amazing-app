@@ -77,6 +77,14 @@ function getFirstWord(sentence: string) {
   return words[0];
 }
 
+function getEndpointFromGuideTitle(guideTitle: string) {
+  return guideTitle.replace(" ", "-");
+}
+
+function getTitleFromGuideEndpoint(endpoint: string | undefined) {
+  return endpoint?.replace("-", " ");
+}
+
 export default {
   addComma,
   capitalizeFirstLetter,
@@ -85,6 +93,8 @@ export default {
   getBoolean,
   getChatUsersId,
   getChatUsersName,
+  getEndpointFromGuideTitle,
+  getTitleFromGuideEndpoint,
   navTo,
   removeLeadingSlash,
   revertUrlToName,
