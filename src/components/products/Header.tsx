@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-import { useUser } from "../../hooks";
+import { useShowDrawer, useUser } from "../../hooks";
 import Input from "../Input";
 
 interface Props {
@@ -30,6 +30,7 @@ const guideQuestions = [
 const Header = ({ onQuery, query, placeholder, onButtonClick }: Props) => {
   const { user } = useUser();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const { setShowDrawer } = useShowDrawer();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,12 +46,17 @@ const Header = ({ onQuery, query, placeholder, onButtonClick }: Props) => {
   const handleButtonClick = () =>
     user ? onButtonClick() : toast.info("You're not logged in");
 
+  const viewDocs = () => {
+    setShowDrawer(false);
+    navigate("/mart/guide");
+  };
+
   return (
     <section>
       <div style={{ width: "98.5%" }} className="mx-auto">
         <GuideButton
           className="btn btn-outline btn-primary mb-2 w-full"
-          onClick={() => navigate("/mart/guide")}
+          onClick={viewDocs}
         >
           {guideQuestions[currentQuestionIndex]}
         </GuideButton>

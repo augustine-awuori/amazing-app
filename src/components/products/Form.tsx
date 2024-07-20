@@ -45,7 +45,7 @@ const ProductForm = ({ onDone, shopId: shopIdentification }: Props) => {
   const makeProductFrom = async (
     info: ProductInfo
   ): Promise<NewProduct | undefined> => {
-    toast.loading("Saving product images");
+    toast.loading("WAIT: Saving product images");
     const imagesUrl = await storage.saveImages(images);
     toast.dismiss();
     if (!imagesUrl.length) {
