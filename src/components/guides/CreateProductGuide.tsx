@@ -1,20 +1,8 @@
-import { useNavigate } from "react-router-dom";
-
 import { LastEdit, Subtitle, Text, Title } from "./GetStartedGuide";
+import Link from "./Link";
 import YouTubeVideo from "./YouTubeVideo";
 
 const CreateShopGuide = () => {
-  const navigate = useNavigate();
-
-  const Link = ({ children, route }: { children: string; route: string }) => (
-    <p
-      className="inline text-blue-600 cursor-pointer"
-      onClick={() => navigate(route)}
-    >
-      {children}
-    </p>
-  );
-
   return (
     <section>
       <LastEdit>Last Edit: Jul 20, 2024</LastEdit>
