@@ -13,7 +13,7 @@ const items: { title: string; Element: JSX.Element }[] = [
 ];
 
 const MartGuidePage = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
