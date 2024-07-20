@@ -40,7 +40,7 @@ const GetStartedGuide = () => {
         ))}
       </ol>
       <Subtitle>Watch Video:</Subtitle>
-      <YouTubeVideo src="https://www.youtube.com/embed/T4CgR160T-Y" />
+      <YouTubeVideo src="https://www.youtube.com/watch?v=T4CgR160T-Y&list=UU5eJnniY3dFzkFwQ2OjkWvw&index=3" />
     </section>
   );
 };
