@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   ChatsPage,
   EventsPage,
+  MartGuidePage,
   NotFoundPage,
   NotificationsPage,
   ProductActivityPage,
@@ -79,6 +80,7 @@ const AppRoutes = () => {
                         path="/notifications"
                         element={<NotificationsPage />}
                       />
+                      <Route path="/mart/guide" element={<MartGuidePage />} />
                       <Route path="/mart/cart" element={<ShoppingCartPage />} />
                       <Route
                         path="/mart/profile/:userId"

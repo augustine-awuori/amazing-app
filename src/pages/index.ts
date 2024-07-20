@@ -1,6 +1,7 @@
 export { default as ChatsPage } from "./ChatsPage";
 export { default as EventsPage } from "./EventsPage";
 export { default as LoadingPage } from "./LoadingPage";
+export { default as MartGuidePage } from "./MartGuidePage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as NotificationsPage } from "./NotificationsPage";
 export { default as ProductActivityPage } from "./ProductActivityPage";

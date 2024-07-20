@@ -9,6 +9,7 @@ import {
 } from "react-icons/ri";
 import { FaImages } from "react-icons/fa";
 import { BsChat } from "react-icons/bs";
+import { HiOutlineDocumentDuplicate } from "react-icons/hi";
 
 import { useShowDrawer } from "../../hooks";
 import logo from "../../assets/logo.png";
@@ -38,6 +39,16 @@ const DrawerContent = () => {
   const getTabName = () => (currentTab.startsWith("/mart") ? "mart" : "events");
 
   const Content = () => {
+    const Common = () => (
+      <button
+        className="btn btn-wide btn-outline btn-success"
+        onClick={() => navigate("/mart/guide")}
+      >
+        Guide (Docs)
+        <HiOutlineDocumentDuplicate />
+      </button>
+    );
+
     if (currentTab.startsWith("/mart"))
       return (
         <div className="flex flex-col space-y-2">
@@ -57,6 +68,7 @@ const DrawerContent = () => {
             Requests
             <BsChat className="inline-block ml-2 " />
           </button>
+          <Common />
         </div>
       );
 
@@ -70,6 +82,7 @@ const DrawerContent = () => {
           Posters
           <FaImages className="inline-block ml-2" />
         </button>
+        <Common />
       </div>
     );
   };
