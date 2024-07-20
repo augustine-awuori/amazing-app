@@ -1,3 +1,4 @@
+import React, { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { Chat } from "stream-chat-react";
 import { DefaultGenerics, StreamChat } from "stream-chat";
@@ -40,7 +41,7 @@ function App() {
     checkChatToken();
     initChatClient();
     showRegisteredActiveUsers();
-  }, [user?._id, googleUser?.uid, auth.getJwt(), client]);
+  }, []);
 
   async function showRegisteredActiveUsers() {
     const response = await client?.queryUsers({});
@@ -57,7 +58,7 @@ function App() {
   }
 
   async function initChatClient() {
-    if (!user || !user.chatToken) return;
+    if (!user || !user.chatToken || client?.userID) return;
 
     const chatClient = StreamChat.getInstance(apiKey);
     await chatClient.connectUser(
@@ -107,40 +108,43 @@ function App() {
     }
   }
 
-  const MainApp = () => (
-    <UserContext.Provider value={{ user, setUser }}>
-      <ProductsContext.Provider value={{ products, setProducts }}>
-        <CartContext.Provider value={{ cartProducts, setCartProducts }}>
-          <ShowDrawerContext.Provider value={{ setShowDrawer, showDrawer }}>
-            <ShowNavContext.Provider value={{ setShowNav, showNav }}>
-              <NavBar />
-              <article style={{ marginTop: "4.5rem", marginBottom: "5rem" }}>
-                <Drawer
-                  children={<DrawerContent />}
-                  isOpen={showDrawer}
-                  toggleDrawer={() => setShowDrawer(false)}
-                />
-                <Routes />
-              </article>
-            </ShowNavContext.Provider>
-          </ShowDrawerContext.Provider>
-          <BottomNav />
-        </CartContext.Provider>
-      </ProductsContext.Provider>
-    </UserContext.Provider>
-  );
-
-  if (!user) return <MainApp />;
-
   if (!client) {
     initChatClient();
     return <LoadingPage />;
   }
 
+  const Container = ({ children }: { children: ReactNode }) =>
+    client.userID ? (
+      <Chat client={client} theme="messaging light">
+        {children}
+      </Chat>
+    ) : (
+      <React.Fragment>{children}</React.Fragment>
+    );
+
   return (
-    <Chat client={client} theme="messaging light">
-      <MainApp />
-    </Chat>
+    <Container>
+      <UserContext.Provider value={{ user, setUser }}>
+        <ProductsContext.Provider value={{ products, setProducts }}>
+          <CartContext.Provider value={{ cartProducts, setCartProducts }}>
+            <ShowDrawerContext.Provider value={{ setShowDrawer, showDrawer }}>
+              <ShowNavContext.Provider value={{ setShowNav, showNav }}>
+                <NavBar />
+                <article style={{ marginTop: "4.5rem", marginBottom: "5rem" }}>
+                  <Drawer
+                    children={<DrawerContent />}
+                    isOpen={showDrawer}
+                    toggleDrawer={() => setShowDrawer(false)}
+                  />
+                  <Routes />
+                </article>
+              </ShowNavContext.Provider>
+            </ShowDrawerContext.Provider>
+            <BottomNav />
+          </CartContext.Provider>
+        </ProductsContext.Provider>
+      </UserContext.Provider>
+    </Container>
   );
 }
 
