@@ -58,7 +58,7 @@ const ProductCard = ({ _id, name, description, price, images }: Product) => {
 
   return (
     <article
-      className="w-full p-1 cursor-pointer relative overflow-hidden"
+      className="w-full p-1 cursor-pointer relative overflow-hidden max-w-md" // Add max-w-md for max width
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
