@@ -2,7 +2,11 @@ import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import styled from "styled-components";
 
-import { CreateShopGuide, GetStartedGuide } from "../components/guides";
+import {
+  CreateProductGuide,
+  CreateShopGuide,
+  GetStartedGuide,
+} from "../components/guides";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -13,6 +17,10 @@ const items: { title: string; Element: JSX.Element }[] = [
   {
     Element: <CreateShopGuide />,
     title: "Create Shop",
+  },
+  {
+    Element: <CreateProductGuide />,
+    title: "Add Product",
   },
 ];
 
