@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import YouTubeVideo from "./YouTubeVideo";
+
 const features: string[] = [
   "Showcase Your Products: Easily list and display your items to attract fellow students.",
   "Shop Anytime, Anywhere: Potential buyers can browse and purchase products around the clock, even when you’re not online.",
@@ -38,14 +40,7 @@ const GetStartedGuide = () => {
         ))}
       </ol>
       <Subtitle>Watch Video:</Subtitle>
-      <iframe
-        className="w-full rounded-md"
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/T4CgR160T-Y"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      />
+      <YouTubeVideo src="https://www.youtube.com/embed/T4CgR160T-Y" />
     </section>
   );
 };

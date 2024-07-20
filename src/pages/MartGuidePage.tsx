@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import styled from "styled-components";
 
-import { GetStartedGuide } from "../components/guides";
+import { CreateShopGuide, GetStartedGuide } from "../components/guides";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -10,6 +10,10 @@ interface SidebarProps {
 
 const items: { title: string; Element: JSX.Element }[] = [
   { Element: <GetStartedGuide />, title: "Get Started" },
+  {
+    Element: <CreateShopGuide />,
+    title: "Create Shop",
+  },
 ];
 
 const MartGuidePage = () => {
@@ -17,6 +21,11 @@ const MartGuidePage = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const toggleSidebar = () => setIsCollapsed(!isCollapsed);
+
+  const handleSideBarItemClick = (index: number) => {
+    toggleSidebar();
+    setActiveIndex(index);
+  };
 
   return (
     <Container>
@@ -27,7 +36,10 @@ const MartGuidePage = () => {
         {!isCollapsed && (
           <section className="mt-6">
             {items.map((item, index) => (
-              <SidebarItem key={index} onClick={() => setActiveIndex(index)}>
+              <SidebarItem
+                key={index}
+                onClick={() => handleSideBarItemClick(index)}
+              >
                 {item.title}
               </SidebarItem>
             ))}
