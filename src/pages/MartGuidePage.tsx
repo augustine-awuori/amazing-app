@@ -35,7 +35,7 @@ const MartGuidePage = () => {
   useEffect(() => {
     const newIndex = guide
       ? guides.findIndex(
-          (item) => item.title === funcs.getTitleFromGuideEndpoint(guide)
+          ({ title }) => title === funcs.getTitleFromGuideEndpoint(guide)
         )
       : 0;
 

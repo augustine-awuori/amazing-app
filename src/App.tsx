@@ -39,7 +39,22 @@ function App() {
     initUser();
     checkChatToken();
     initChatClient();
+    showRegisteredActiveUsers();
   }, [user?._id, googleUser?.uid, auth.getJwt(), client]);
+
+  async function showRegisteredActiveUsers() {
+    const response = await client?.queryUsers({});
+
+    const onlineCount =
+      response?.users.filter((user) => user.online).length || 0;
+    const countIsOne = onlineCount === 1;
+
+    toast(
+      `${onlineCount} registered user${countIsOne ? "" : "s"} ${
+        countIsOne ? "is" : "are"
+      } online`
+    );
+  }
 
   async function initChatClient() {
     if (!user || !user.chatToken) return;
