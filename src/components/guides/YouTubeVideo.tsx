@@ -16,7 +16,12 @@ const YouTubeVideo = ({ src }: Props) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       />
 
-      <Link to={src} target="_blank" rel="noopener noreferrer" className="mt-5">
+      <Link
+        to={src}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 text-blue-600"
+      >
         Refused to connect? Watch on YouTube instead
       </Link>
     </div>

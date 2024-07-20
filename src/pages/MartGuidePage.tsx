@@ -59,7 +59,7 @@ const Container = styled.div`
 `;
 
 const Sidebar = styled.div<SidebarProps>`
-  width: ${(props) => (props.isCollapsed ? "60px" : "100rem")};
+  width: ${(props) => (props.isCollapsed ? "60px" : "29rem")};
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
