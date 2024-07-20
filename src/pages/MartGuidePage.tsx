@@ -33,9 +33,11 @@ const MartGuidePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const newIndex = guides.findIndex(
-      (item) => item.title === funcs.getTitleFromGuideEndpoint(guide)
-    );
+    const newIndex = guide
+      ? guides.findIndex(
+          (item) => item.title === funcs.getTitleFromGuideEndpoint(guide)
+        )
+      : 0;
 
     setActiveIndex(newIndex);
   }, [guide]);
