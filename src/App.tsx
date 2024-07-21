@@ -41,7 +41,7 @@ function App() {
     checkChatToken();
     initChatClient();
     showRegisteredActiveUsers();
-  }, [client, user]);
+  }, [client?.userID, user?._id, user?.chatToken]);
 
   async function showRegisteredActiveUsers() {
     const response = await client?.queryUsers({});
