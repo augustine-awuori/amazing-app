@@ -44,6 +44,8 @@ function App() {
   }, [client?.userID, user?._id, user?.chatToken]);
 
   async function showRegisteredActiveUsers() {
+    if (!user?.isAdmin) return;
+
     const response = await client?.queryUsers({});
 
     const onlineCount =
