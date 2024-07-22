@@ -41,7 +41,7 @@ function App() {
     checkChatToken();
     initChatClient();
     showRegisteredActiveUsers();
-  }, [client?.userID, user?._id, user?.chatToken]);
+  }, [client, user?._id, user?.chatToken]);
 
   async function showRegisteredActiveUsers() {
     if (!user?.isAdmin) return;
