@@ -1,5 +1,4 @@
-import React, { ReactNode } from "react";
-import { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Chat } from "stream-chat-react";
 import { DefaultGenerics, StreamChat } from "stream-chat";
 import { toast } from "react-toastify";
@@ -38,16 +37,25 @@ function App() {
 
   useEffect(() => {
     initUser();
-    checkChatToken();
-    initChatClient();
-    showRegisteredActiveUsers();
-  }, [client, user?._id, user?.chatToken]);
+  }, [googleUser]);
+
+  useEffect(() => {
+    if (user) {
+      checkChatToken();
+      initChatClient();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (client) {
+      showRegisteredActiveUsers();
+    }
+  }, [client]);
 
   async function showRegisteredActiveUsers() {
-    if (!user?.isAdmin) return;
+    if (!user?.isAdmin || !client) return;
 
-    const response = await client?.queryUsers({});
-
+    const response = await client.queryUsers({});
     const onlineCount =
       response?.users.filter((user) => user.online).length || 0;
     const countIsOne = onlineCount === 1;
@@ -80,6 +88,7 @@ function App() {
     if (!googleUser) return;
     const { email, displayName, photoURL } = googleUser;
     if (!email || !displayName || !photoURL) return;
+
     const res = await usersApi.quickAuth({
       email,
       name: displayName,
@@ -97,13 +106,12 @@ function App() {
     if (!user || user.chatToken) return;
 
     const res = await createAndGetChatToken();
-
-    if (res?.ok)
+    if (res?.ok) {
       setUser((prevUser) => ({
         ...(prevUser as User),
         chatToken: res.data as string,
       }));
-    else {
+    } else {
       toast.error(res.problem);
       auth.logout();
       window.location.href = "/";
@@ -111,7 +119,6 @@ function App() {
   }
 
   if (!client) {
-    initChatClient();
     return <LoadingPage />;
   }
 
