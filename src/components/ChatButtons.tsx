@@ -2,11 +2,10 @@ import { useState } from "react";
 import { useChatContext } from "stream-chat-react";
 import { useNavigate } from "react-router-dom";
 import { BsChat, BsWhatsapp } from "react-icons/bs";
-import { toast } from "react-toastify";
 
 import { funcs } from "../utils";
 import { User } from "../hooks/useUser";
-import { useActiveChatId, useUser, useWhatsAppRedirect } from "../hooks";
+import { useUser, useWhatsAppRedirect } from "../hooks";
 import BottomToast from "./BottomToast";
 
 interface Props {
@@ -19,7 +18,6 @@ const ChatButtons = ({ seller }: Props) => {
   const { user } = useUser();
   const { client } = useChatContext();
   const navigate = useNavigate();
-  const { setActiveChatId } = useActiveChatId();
   const { url } = useWhatsAppRedirect(
     seller.otherAccounts?.whatsapp,
     seller.avatar
@@ -37,10 +35,7 @@ const ChatButtons = ({ seller }: Props) => {
     if (!client) return showMessage("Login to start chatting");
     if (!user) return showMessage("You need to login");
 
-    navigator.clipboard.writeText(seller.name);
-    toast.info("Seller's name is copied to clipboard, paste on chats search");
-
-    navigate("/chats");
+    navigate(`/chats?${seller._id}`);
   };
 
   function showMessage(message: string) {

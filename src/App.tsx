@@ -118,9 +118,7 @@ function App() {
     }
   }
 
-  if (!client) {
-    return <LoadingPage />;
-  }
+  if (!client) return <LoadingPage />;
 
   const Container = ({ children }: { children: ReactNode }) =>
     client.userID ? (

@@ -30,6 +30,25 @@ const ChatsPage = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
+    const createDMChannel = async () => {
+      let seller = "";
+      const params = new URLSearchParams(window.location.search);
+      for (const [key] of params) seller = key;
+
+      if (!user?._id || !seller) return;
+
+      const channel = client.channel("messaging", {
+        members: [user?._id, seller],
+      });
+
+      await channel.watch();
+      setActiveChannel(channel);
+    };
+
+    createDMChannel();
+  }, []);
+
+  useEffect(() => {
     setShowNav(!isMobile);
 
     return () => {
