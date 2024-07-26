@@ -14,7 +14,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 
 import { EmptyStateIndicator } from "../components/chats";
-import { useActiveChatId, useShowNav, useUser } from "../hooks";
+import { useShowNav, useUser } from "../hooks";
 import NotLoggedInPage from "./NotLoggedInPage";
 
 const options = { presence: true, state: true };
@@ -25,20 +25,19 @@ const sort: ChannelSort<DefaultStreamChatGenerics> = {
 const ChatsPage = () => {
   const { user } = useUser();
   const { client, setActiveChannel } = useChatContext();
-  const { activeChatId } = useActiveChatId();
   const { setShowNav } = useShowNav();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
     const createDMChannel = async () => {
-      let seller = "";
+      let sellerId = "";
       const params = new URLSearchParams(window.location.search);
-      for (const [key] of params) seller = key;
+      for (const [id] of params) sellerId = id;
 
-      if (!user?._id || !seller) return;
+      if (!user?._id || !sellerId) return;
 
       const channel = client.channel("messaging", {
-        members: [user?._id, seller],
+        members: [user?._id, sellerId],
       });
 
       await channel.watch();
@@ -55,15 +54,6 @@ const ChatsPage = () => {
       setShowNav(true);
     };
   }, [isMobile]);
-
-  useEffect(() => {
-    if (!activeChatId) return;
-
-    const channel = client.channel("messaging", activeChatId);
-    channel.watch();
-
-    setActiveChannel(channel);
-  }, [activeChatId]);
 
   if (!user) return <NotLoggedInPage />;
   if (!user.chatToken) return <p>You're not registered for chatting</p>;

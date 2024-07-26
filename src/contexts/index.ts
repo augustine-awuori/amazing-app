@@ -1,4 +1,3 @@
-export { default as ActiveChatIdContext } from "./ActiveChatIdContext";
 export { default as CartContext } from "./CartContext";
 export { default as ImagesContext } from "./ImagesContext";
 export { default as NotificationsContext } from "./NotificationsContext";

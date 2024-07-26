@@ -1,4 +1,3 @@
-export { default as useActiveChatId } from "./useActiveChatId";
 export { default as useCart } from "./useCart";
 export { default as useData } from "./useData";
 export { default as useImages } from "./useImages";

@@ -21,7 +21,6 @@ import {
   ShopsPage,
 } from "../pages";
 import {
-  ActiveChatIdContext,
   ImagesContext,
   NotificationsContext,
   OrderContext,
@@ -59,82 +58,73 @@ const AppRoutes = () => {
   }, [shopsData.length]);
 
   return (
-    <ActiveChatIdContext.Provider value={{ activeChatId, setActiveChatId }}>
-      <ShopsContext.Provider
-        value={{ shops, setShops, isLoading: shopsLoading }}
-      >
-        <ImagesContext.Provider value={{ images, setImages }}>
-          <UsersContext.Provider value={{ users, setUsers }}>
-            <ProfileUserContext.Provider
-              value={{ profileUser, setProfileUser }}
-            >
-              <OrderContext.Provider value={{ order, setOrder }}>
-                <PostersContext.Provider value={{ posters, setPosters }}>
-                  <NotificationsContext.Provider
-                    value={{ notifications, setNotifications }}
-                  >
-                    <Routes>
-                      <Route path="/chats" element={<ChatsPage />} />
-                      <Route path="/events" element={<EventsPage />} />
-                      <Route
-                        path="/notifications"
-                        element={<NotificationsPage />}
-                      />
-                      <Route path="/mart/guides" element={<MartGuidePage />} />
-                      <Route
-                        path="/mart/guides/:guide"
-                        element={<MartGuidePage />}
-                      />
-                      <Route path="/mart/cart" element={<ShoppingCartPage />} />
-                      <Route
-                        path="/mart/profile/:userId"
-                        element={<ProfilePage />}
-                      />
-                      <Route
-                        path="/mart/profile/:userId/orders"
-                        element={<ProfileOrdersPage />}
-                      />
-                      <Route
-                        path="/mart/profile/:userId/orders/:orderId"
-                        element={<ProfileOrderPage />}
-                      />
-                      <Route
-                        path="/mart/products/:productId/activity"
-                        element={<ProductActivityPage />}
-                      />
-                      <Route
-                        path="/mart/products/:productId"
-                        element={<ProductDetailsPage />}
-                      />
-                      <Route
-                        path="/mart/shops/:shopName"
-                        element={<ShopPage />}
-                      />
-                      <Route
-                        path="/mart/shops/:shopName/orders"
-                        element={<ShopOrdersPage />}
-                      />
-                      <Route
-                        path="/mart/shops/:shopName/orders/:orderId"
-                        element={<ShopOrderPage />}
-                      />
-                      <Route
-                        path="/mart/shops/new"
-                        element={<ShopEditPage />}
-                      />
-                      <Route path="/mart/shops" element={<ShopsPage />} />
-                      <Route path="/mart" element={<ProductsPage />} />
-                      <Route index element={<RedirectRoot />} />
-                      <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                  </NotificationsContext.Provider>
-                </PostersContext.Provider>
-              </OrderContext.Provider>
-            </ProfileUserContext.Provider>
-          </UsersContext.Provider>
-        </ImagesContext.Provider>
-      </ShopsContext.Provider>
-    </ActiveChatIdContext.Provider>
+    <ShopsContext.Provider value={{ shops, setShops, isLoading: shopsLoading }}>
+      <ImagesContext.Provider value={{ images, setImages }}>
+        <UsersContext.Provider value={{ users, setUsers }}>
+          <ProfileUserContext.Provider value={{ profileUser, setProfileUser }}>
+            <OrderContext.Provider value={{ order, setOrder }}>
+              <PostersContext.Provider value={{ posters, setPosters }}>
+                <NotificationsContext.Provider
+                  value={{ notifications, setNotifications }}
+                >
+                  <Routes>
+                    <Route path="/chats" element={<ChatsPage />} />
+                    <Route path="/events" element={<EventsPage />} />
+                    <Route
+                      path="/notifications"
+                      element={<NotificationsPage />}
+                    />
+                    <Route path="/mart/guides" element={<MartGuidePage />} />
+                    <Route
+                      path="/mart/guides/:guide"
+                      element={<MartGuidePage />}
+                    />
+                    <Route path="/mart/cart" element={<ShoppingCartPage />} />
+                    <Route
+                      path="/mart/profile/:userId"
+                      element={<ProfilePage />}
+                    />
+                    <Route
+                      path="/mart/profile/:userId/orders"
+                      element={<ProfileOrdersPage />}
+                    />
+                    <Route
+                      path="/mart/profile/:userId/orders/:orderId"
+                      element={<ProfileOrderPage />}
+                    />
+                    <Route
+                      path="/mart/products/:productId/activity"
+                      element={<ProductActivityPage />}
+                    />
+                    <Route
+                      path="/mart/products/:productId"
+                      element={<ProductDetailsPage />}
+                    />
+                    <Route
+                      path="/mart/shops/:shopName"
+                      element={<ShopPage />}
+                    />
+                    <Route
+                      path="/mart/shops/:shopName/orders"
+                      element={<ShopOrdersPage />}
+                    />
+                    <Route
+                      path="/mart/shops/:shopName/orders/:orderId"
+                      element={<ShopOrderPage />}
+                    />
+                    <Route path="/mart/shops/new" element={<ShopEditPage />} />
+                    <Route path="/mart/shops" element={<ShopsPage />} />
+                    <Route path="/mart" element={<ProductsPage />} />
+                    <Route index element={<RedirectRoot />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                  </Routes>
+                </NotificationsContext.Provider>
+              </PostersContext.Provider>
+            </OrderContext.Provider>
+          </ProfileUserContext.Provider>
+        </UsersContext.Provider>
+      </ImagesContext.Provider>
+    </ShopsContext.Provider>
   );
 };
 
