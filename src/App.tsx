@@ -21,7 +21,7 @@ import DrawerContent from "./components/drawer/DrawerContent";
 import usersApi from "./services/users";
 import useUser, { User } from "./hooks/useUser";
 
-const apiKey = "nhum746n7hwy";
+const apiKey = "6n32znrayspb";
 
 function App() {
   const [products, setProducts] = useState<Product[]>([]);
